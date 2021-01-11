@@ -29,3 +29,28 @@
     -fx-border-style: solid;
     -fx-border-radius: 10px;
 }
+
+.btnRepetir {
+    -fx-background-color: #EBEBEB;
+    -fx-background-radius: 50px;
+    -fx-border-color: #c7c7c7;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-border-radius: 50px;
+}
+
+.btnSalvarReceita {
+    -fx-background-color: #52B796;
+    -fx-text-fill: #fff;
+    -fx-background-radius: 10px;
+}
+
+.btnSalvarReceita:hover {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #52B796;
+    -fx-border-color: #52B796;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-border-radius: 10px;
+}
