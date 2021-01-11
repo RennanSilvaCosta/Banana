@@ -56,8 +56,28 @@
          <Font name="Ebrima" size="14.0" />
       </font>
    </Label>
-   <JFXButton buttonType="RAISED" layoutX="120.0" layoutY="474.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" styleClass="btnSalvarReceita" stylesheets="@../stylesheets/styleButtons.css" text="Salvar Receita">
+   <JFXButton fx:id="btnSaveReceita" buttonType="RAISED" layoutX="120.0" layoutY="474.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" styleClass="btnSalvarReceita" stylesheets="@../stylesheets/styleButtons.css" text="Salvar Receita">
       <font>
          <Font name="System Bold" size="12.0" />
       </font></JFXButton>
+   <Label fx:id="txtErrorTitleReceita" layoutX="84.0" layoutY="67.0" textFill="RED">
+      <font>
+         <Font name="Ebrima" size="14.0" />
+      </font>
+   </Label>
+   <Label fx:id="txtErrorDataReceita" layoutX="307.0" layoutY="189.0" textFill="RED">
+      <font>
+         <Font name="Ebrima" size="14.0" />
+      </font>
+   </Label>
+   <Label fx:id="txtErrorValorReceita" layoutX="84.0" layoutY="260.0" textFill="RED">
+      <font>
+         <Font name="Ebrima" size="14.0" />
+      </font>
+   </Label>
+   <Label fx:id="txtErrorCategoriaReceita" layoutX="337.0" layoutY="259.0" textFill="RED">
+      <font>
+         <Font name="Ebrima" size="14.0" />
+      </font>
+   </Label>
 </AnchorPane>

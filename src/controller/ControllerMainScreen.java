@@ -1,6 +1,7 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import dao.SQL;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -9,15 +10,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Lancamento;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControllerMainScreen implements Initializable {
@@ -31,8 +32,13 @@ public class ControllerMainScreen implements Initializable {
     @FXML
     Label txtTotalReceita, txtTotalDespesa, txtTotalSaldo;
 
+    @FXML
+    ListView<Lancamento> listViewLancamentos = new ListView<>();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        initializeListLancamentos();
 
         btnAddReceita.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -84,5 +90,17 @@ public class ControllerMainScreen implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void initializeListLancamentos() {
+        try {
+            List<Lancamento> lancamentos = SQL.getAllLancamentos();
+            for (Lancamento lanc : lancamentos) {
+                listViewLancamentos.getItems().add(lanc);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 }

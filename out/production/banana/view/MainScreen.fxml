@@ -19,7 +19,7 @@
             <Font name="Ebrima Bold" size="48.0" />
          </font>
       </Label>
-      <Label layoutX="87.0" layoutY="120.0" text="Total receita" textFill="#cfcfcf">
+      <Label layoutX="87.0" layoutY="120.0" text="Total lancamento" textFill="#cfcfcf">
          <font>
             <Font size="20.0" />
          </font>
@@ -57,5 +57,6 @@
          <font>
             <Font name="Ebrima" size="14.0" />
          </font></JFXButton>
+      <ListView fx:id="listViewLancamentos" layoutX="8.0" layoutY="201.0" prefHeight="500.0" prefWidth="1065.0" />
    </Pane>
 </Pane>

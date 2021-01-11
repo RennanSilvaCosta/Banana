@@ -2,16 +2,25 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import dao.SQL;
+import enums.LancamentoType;
 import helper.CurrencyField;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import model.Lancamento;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -25,15 +34,57 @@ public class ControllerReceitaScreen implements Initializable {
     JFXComboBox<Label> comboBoxCategoriasReceita = new JFXComboBox<Label>();
 
     @FXML
-    Label labelCategorias;
+    Label labelCategorias, txtErrorTitleReceita, txtErrorDataReceita, txtErrorValorReceita, txtErrorCategoriaReceita;
 
     @FXML
-    JFXButton btnRepetirReceita, btnAnexarReceita;
+    JFXButton btnRepetirReceita, btnAnexarReceita, btnSaveReceita;
+
+    @FXML
+    TextField txtTituloReceita, txtDescricaoReceita, txtObservacaoReceita;
+
+    @FXML
+    DatePicker txtDataReceita;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeComboboxCategorias();
         initializeButtons();
+
+        btnSaveReceita.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                saveReceita();
+            }
+        });
+
+    }
+
+    private void initializeButtons() {
+        try {
+            btnAnexarReceita.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\icon_receita_anexar.png"))));
+            btnRepetirReceita.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\icon_receita_repetir.png"))));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveReceita() {
+        try {
+            Lancamento lancamento = new Lancamento();
+            lancamento.setTitle(txtTituloReceita.getText());
+            lancamento.setDescription(txtDescricaoReceita.getText());
+            lancamento.setNote(txtObservacaoReceita.getText());
+            lancamento.setValue(txtValorReceita.getAmount());
+            lancamento.setDate(txtDataReceita.getValue());
+            lancamento.setType(LancamentoType.RECEITA);
+
+            SQL.saveReceita(lancamento);
+
+            close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     private void initializeComboboxCategorias() {
@@ -73,13 +124,9 @@ public class ControllerReceitaScreen implements Initializable {
         }
     }
 
-    private void initializeButtons() {
-        try {
-            btnAnexarReceita.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\icon_receita_anexar.png"))));
-            btnRepetirReceita.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\icon_receita_repetir.png"))));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    public void close() {
+        Stage stage = (Stage) btnSaveReceita.getScene().getWindow();
+        stage.close();
     }
 
 }
