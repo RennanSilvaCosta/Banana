@@ -19,7 +19,7 @@
             <Font name="Ebrima Bold" size="48.0" />
          </font>
       </Label>
-      <Label layoutX="87.0" layoutY="120.0" text="Total lancamento" textFill="#cfcfcf">
+      <Label layoutX="87.0" layoutY="120.0" text="Total Receita" textFill="#cfcfcf">
          <font>
             <Font size="20.0" />
          </font>

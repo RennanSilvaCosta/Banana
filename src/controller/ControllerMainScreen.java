@@ -1,5 +1,6 @@
 package controller;
 
+import adapter.AdapterListLancamentos;
 import com.jfoenix.controls.JFXButton;
 import dao.SQL;
 import javafx.event.ActionEvent;
@@ -43,9 +44,7 @@ public class ControllerMainScreen implements Initializable {
         btnAddReceita.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-
                 loadNewViewAndCloseOld("/view/ReceitaScreen.fxml", null);
-
             }
         });
 
@@ -97,6 +96,7 @@ public class ControllerMainScreen implements Initializable {
             List<Lancamento> lancamentos = SQL.getAllLancamentos();
             for (Lancamento lanc : lancamentos) {
                 listViewLancamentos.getItems().add(lanc);
+                listViewLancamentos.setCellFactory(lancamento -> new AdapterListLancamentos());
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
