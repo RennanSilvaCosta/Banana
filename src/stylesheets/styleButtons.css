@@ -1,0 +1,31 @@
+.btnAddReceita {
+    -fx-background-color: #52B796;
+    -fx-text-fill: #fff;
+    -fx-background-radius: 10px;
+}
+
+.btnAddReceita:hover {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #52B796;
+    -fx-border-color: #52B796;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-border-radius: 10px;
+}
+
+.btnAddDespesa {
+    -fx-background-color: #EB6F68;
+    -fx-text-fill: #fff;
+    -fx-background-radius: 10px;
+}
+
+.btnAddDespesa:hover {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #EB6F68;
+    -fx-border-color: #EB6F68;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-border-radius: 10px;
+}
