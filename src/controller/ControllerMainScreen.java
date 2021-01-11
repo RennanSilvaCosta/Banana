@@ -46,7 +46,7 @@ public class ControllerMainScreen implements Initializable {
         btnAddDespesa.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("Despesa");
+                loadNewViewAndCloseOld("/view/DespesaScreen.fxml", null);
             }
         });
 

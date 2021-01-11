@@ -2,7 +2,6 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import helper.CurrencyField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -16,19 +15,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class ControllerReceitaScreen implements Initializable {
+public class ControllerDespesaScreen implements Initializable {
 
     @FXML
-    CurrencyField txtValorReceita = new CurrencyField();
+    JFXComboBox<Label> comboBoxCategoriasDespesa = new JFXComboBox<Label>();
 
     @FXML
-    JFXComboBox<Label> comboBoxCategoriasReceita = new JFXComboBox<Label>();
+    Label labelDespesa;
 
     @FXML
-    Label labelCategorias;
-
-    @FXML
-    JFXButton btnRepetirReceita, btnAnexarReceita;
+    JFXButton btnRepetirDespesa, btnAnexarDespesa;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,10 +59,10 @@ public class ControllerReceitaScreen implements Initializable {
 
         try {
             for (String labelsItemList : categorias.keySet()) {
-                labelCategorias = new Label(labelsItemList);
-                labelCategorias.setGraphic(new ImageView(new Image(new FileInputStream(categorias.get(labelsItemList)))));
-                labelCategorias.setGraphicTextGap(20);
-                comboBoxCategoriasReceita.getItems().add(labelCategorias);
+                labelDespesa = new Label(labelsItemList);
+                labelDespesa.setGraphic(new ImageView(new Image(new FileInputStream(categorias.get(labelsItemList)))));
+                labelDespesa.setGraphicTextGap(20);
+                comboBoxCategoriasDespesa.getItems().add(labelDespesa);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -75,11 +71,10 @@ public class ControllerReceitaScreen implements Initializable {
 
     private void initializeButtons() {
         try {
-            btnAnexarReceita.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\icon_receita_anexar.png"))));
-            btnRepetirReceita.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\icon_receita_repetir.png"))));
+            btnAnexarDespesa.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\icon_receita_anexar.png"))));
+            btnRepetirDespesa.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\icon_receita_repetir.png"))));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
-
 }
