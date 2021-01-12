@@ -2,6 +2,7 @@ package controller;
 
 import adapter.AdapterListLancamentos;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import dao.SQL;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +20,7 @@ import model.Lancamento;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -34,7 +36,9 @@ public class ControllerMainScreen implements Initializable {
     Label txtTotalReceita, txtTotalDespesa, txtTotalSaldo;
 
     @FXML
-    ListView<Lancamento> listViewLancamentos = new ListView<>();
+    JFXListView<Lancamento> listViewLancamentos = new JFXListView<>();
+
+    List<Lancamento> lancamentos = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -93,7 +97,9 @@ public class ControllerMainScreen implements Initializable {
 
     private void initializeListLancamentos() {
         try {
-            List<Lancamento> lancamentos = SQL.getAllLancamentos();
+            lancamentos.clear();
+            listViewLancamentos.getItems().clear();
+            lancamentos = SQL.getAllLancamentos();
             for (Lancamento lanc : lancamentos) {
                 listViewLancamentos.getItems().add(lanc);
                 listViewLancamentos.setCellFactory(lancamento -> new AdapterListLancamentos());
@@ -101,6 +107,10 @@ public class ControllerMainScreen implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
 
+    @FXML
+    public void refreshList() {
+        initializeListLancamentos();
     }
 }

@@ -1,13 +1,10 @@
 package model;
 
-import enums.LancamentoType;
-import enums.Recorrencia;
+import model.enums.LauchRecurrence;
+import model.enums.LaunchType;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Lancamento implements Serializable {
 
@@ -17,20 +14,23 @@ public class Lancamento implements Serializable {
     private String note;
     private LocalDate date;
     private Double value;
-    private Set<Integer> type = new HashSet<>();
-    private Set<Integer> recorrencia = new HashSet<>();
     private Integer parcelas;
+    private LaunchType type;
+    private LauchRecurrence recurrence;
 
     public Lancamento() {
     }
 
-    public Lancamento(Integer id, String title, String description, String note, LocalDate date, Double value) {
+    public Lancamento(Integer id, String title, String description, String note, LocalDate date, Double value, Integer parcelas, LaunchType type, LauchRecurrence recurrence) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.note = note;
         this.date = date;
         this.value = value;
+        this.parcelas = parcelas;
+        this.type = type;
+        this.recurrence = recurrence;
     }
 
     public Integer getId() {
@@ -89,20 +89,19 @@ public class Lancamento implements Serializable {
         this.parcelas = parcelas;
     }
 
-    public Set<LancamentoType> getType() {
-        return type.stream().map(x -> LancamentoType.toEnum(x)).collect(Collectors.toSet());
+    public LaunchType getType() {
+        return type;
     }
 
-    public void setType(LancamentoType lancamentoType) {
-        type.add(lancamentoType.getCod());
+    public void setType(LaunchType type) {
+        this.type = type;
     }
 
-    public Set<Recorrencia> getRecorrencia() {
-        return recorrencia.stream().map(x -> Recorrencia.toEnum(x)).collect(Collectors.toSet());
+    public LauchRecurrence getRecurrence() {
+        return recurrence;
     }
 
-    public void setRecorrencia(Recorrencia lancamentoRecorrencia) {
-        recorrencia.add(lancamentoRecorrencia.getCod());
+    public void setRecurrence(LauchRecurrence recurrence) {
+        this.recurrence = recurrence;
     }
-
 }

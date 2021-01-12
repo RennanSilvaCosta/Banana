@@ -57,6 +57,7 @@
          <font>
             <Font name="Ebrima" size="14.0" />
          </font></JFXButton>
-      <ListView fx:id="listViewLancamentos" layoutX="8.0" layoutY="201.0" prefHeight="500.0" prefWidth="1065.0" />
+      <JFXListView fx:id="listViewLancamentos" layoutX="8.0" layoutY="201.0" prefHeight="500.0" prefWidth="1065.0" />
+      <Button fx:id="btnRefresh" onAction="#refreshList" layoutX="14.0" layoutY="66.0" mnemonicParsing="false" text="Button" />
    </Pane>
 </Pane>
