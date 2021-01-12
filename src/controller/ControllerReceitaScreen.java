@@ -7,10 +7,7 @@ import helper.CurrencyField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -23,7 +20,6 @@ import model.enums.LaunchType;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -66,8 +62,8 @@ public class ControllerReceitaScreen implements Initializable {
 
     private void initializeButtons() {
         try {
-            btnAnexarReceita.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\icon_receita_anexar.png"))));
-            btnRepetirReceita.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\icon_receita_repetir.png"))));
+            btnAnexarReceita.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\icon_receita_anexar.png"))));
+            btnRepetirReceita.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\icon_receita_repetir.png"))));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -84,6 +80,7 @@ public class ControllerReceitaScreen implements Initializable {
             lancamento.setType(LaunchType.RECEITA);
             lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
             lancamento.setParcelas(0);
+            lancamento.setCategory(comboBoxCategoriasReceita.getSelectionModel().getSelectedItem().getText());
             SQL.saveReceita(lancamento);
 
             close();
@@ -96,10 +93,10 @@ public class ControllerReceitaScreen implements Initializable {
     private void initializeComboboxCategorias() {
         Map<String, String> categorias = new HashMap<>();
 
-        categorias.put("Emprestimos", "C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\combobox\\icon_emprestimos_24px.png");
-        categorias.put("Salario", "C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\combobox\\icon_salario_24px.png");
-        categorias.put("Investimentos", "C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\combobox\\icon_investimentos_24px.png");
-        categorias.put("Outras receitas", "C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\addreceita\\combobox\\icon_outras_receitas_24px.png");
+        categorias.put("Emprestimos", "C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\combobox\\icon_emprestimos_24px.png");
+        categorias.put("Salario", "C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\combobox\\icon_salario_24px.png");
+        categorias.put("Investimentos", "C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\combobox\\icon_investimentos_24px.png");
+        categorias.put("Outras receitas", "C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\combobox\\icon_outras_receitas_24px.png");
 
         try {
             for (String labelsItemList : categorias.keySet()) {

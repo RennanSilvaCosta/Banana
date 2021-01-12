@@ -10,6 +10,7 @@ public class Lancamento implements Serializable {
 
     private Integer id;
     private String title;
+    private String category;
     private String description;
     private String note;
     private LocalDate date;
@@ -21,9 +22,10 @@ public class Lancamento implements Serializable {
     public Lancamento() {
     }
 
-    public Lancamento(Integer id, String title, String description, String note, LocalDate date, Double value, Integer parcelas, LaunchType type, LauchRecurrence recurrence) {
+    public Lancamento(Integer id, String title, String category, String description, String note, LocalDate date, Double value, Integer parcelas, LaunchType type, LauchRecurrence recurrence) {
         this.id = id;
         this.title = title;
+        this.category = category;
         this.description = description;
         this.note = note;
         this.date = date;
@@ -47,6 +49,14 @@ public class Lancamento implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getDescription() {

@@ -17,7 +17,7 @@
    <rowConstraints>
       <RowConstraints maxHeight="140.0" minHeight="140.0" prefHeight="140.0" />
    </rowConstraints>
-   <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+   <ImageView fx:id="imgCategory" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
    <Label fx:id="txtTitle" prefHeight="62.0" prefWidth="395.0" text="Salario" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
       <font>
          <Font name="Ebrima Bold" size="48.0" />
