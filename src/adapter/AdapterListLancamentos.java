@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Paint;
 import model.Lancamento;
 
 import java.io.FileInputStream;
@@ -51,11 +52,12 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
             }
 
             initializeButtons();
+            setIconCategory(lancamento);
+            setBackgroundColor(lancamento);
 
             txtTitle.setText(lancamento.getTitle());
             txtDescription.setText(lancamento.getDescription());
             txtValue.setText("R$" + formatDecimal(lancamento.getValue()));
-            setIconCategory(lancamento);
 
             setText(null);
             setGraphic(gridPane);
@@ -77,9 +79,81 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
                 case "Outras receitas":
                     imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\category\\icon_outras_receitas_64px.png")));
                     break;
+                case "Alimentação":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_alimentacao_24px.png")));
+                    break;
+                case "Bares e restaurantes":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_bares_restaurantes_64px.png")));
+                    break;
+                case "Casa":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_casa_64px.png")));
+                    break;
+                case "Compras":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_compras_64px.png")));
+                    break;
+                case "Cuidados pessoais":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_cuidados_pessoais_64px.png")));
+                    break;
+                case "Dívidas e empréstimos":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_dividas_emprestimos_64px.png")));
+                    break;
+                case "Educação":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_educacao_64px.png")));
+                    break;
+                case "Família e filhos":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_familia_64px.png")));
+                    break;
+                case "Impostos e Taxas":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_impostos_64px.png")));
+                    break;
+                /*case "Investimentos":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_investimentos_64px.png")));
+                    break;*/
+                case "Lazer e hobbies":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_lazer_64px.png")));
+                    break;
+                case "Mercado":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_mercado_64px.png")));
+                    break;
+                case "Outros":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_outros_64px.png")));
+                    break;
+                case "Pets":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_pets_64px.png")));
+                    break;
+                case "Presentes ou doações":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_presente_64px.png")));
+                    break;
+                case "Roupas":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_roupas_64px.png")));
+                    break;
+                case "Saúde":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_saude_64px.png")));
+                    break;
+                case "Trabalho":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_trabalho_64px.png")));
+                    break;
+                case "Transporte":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_transporte_64px.png")));
+                    break;
+                case "Viagem":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_viagem_64px.png")));
+                    break;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void setBackgroundColor(Lancamento lancamento) {
+        switch (lancamento.getType()) {
+            case RECEITA:
+                gridPane.setStyle("-fx-background-color: #EDFDF4;");
+                txtValue.setTextFill(Paint.valueOf("#56CAA4"));
+                break;
+            case DESPESA:
+                gridPane.setStyle("-fx-background-color: #FDEDED;");
+                txtValue.setTextFill(Paint.valueOf("#E06A63"));
         }
     }
 

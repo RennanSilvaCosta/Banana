@@ -81,7 +81,7 @@ public class ControllerReceitaScreen implements Initializable {
             lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
             lancamento.setParcelas(0);
             lancamento.setCategory(comboBoxCategoriasReceita.getSelectionModel().getSelectedItem().getText());
-            SQL.saveReceita(lancamento);
+            SQL.saveLauch(lancamento);
 
             close();
 

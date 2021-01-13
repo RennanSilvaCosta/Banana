@@ -12,13 +12,13 @@
           <Font name="Ebrima Bold" size="18.0" />
         </font>
     </Label>
-   <TextField fx:id="txtTituloDespesa" layoutX="28.0" layoutY="87.0" prefHeight="35.0" prefWidth="435.0" promptText="Conta de luz" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
+   <TextField fx:id="txtTitleDespesa" layoutX="28.0" layoutY="87.0" prefHeight="35.0" prefWidth="435.0" promptText="Conta de luz" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
    <Label layoutX="28.0" layoutY="67.0" text="Titulo *" textFill="#979797">
       <font>
          <Font name="Ebrima" size="14.0" />
       </font>
    </Label>
-   <TextField fx:id="txtDescricaoDespesa" layoutX="28.0" layoutY="147.0" prefHeight="35.0" prefWidth="435.0" promptText="Conta de luz de todo mês" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
+   <TextField fx:id="txtDescriptionDespesa" layoutX="28.0" layoutY="147.0" prefHeight="35.0" prefWidth="435.0" promptText="Conta de luz de todo mês" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
    <Label layoutX="28.0" layoutY="127.0" text="Descrição (opcional)" textFill="#979797">
       <font>
          <Font name="Ebrima" size="14.0" />
@@ -29,13 +29,13 @@
          <Font name="Ebrima" size="14.0" />
       </font>
    </Label>
-    <CurrencyField fx:id="txtValorDespesa" layoutX="30.0" layoutY="279.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="170.0" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css"> </CurrencyField>
+    <CurrencyField fx:id="txtValueDespesa" layoutX="30.0" layoutY="279.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="170.0" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css"> </CurrencyField>
    <Label layoutX="260.0" layoutY="259.0" text="Categoria *" textFill="#979797">
       <font>
          <Font name="Ebrima" size="14.0" />
       </font>
    </Label>
-    <JFXComboBox fx:id="comboBoxCategoriasDespesa" focusColor="RED" layoutX="260.0" layoutY="279.0" prefHeight="35.0" prefWidth="200.0" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
+    <JFXComboBox fx:id="comboBoxCategoryDespesa" focusColor="RED" layoutX="260.0" layoutY="279.0" prefHeight="35.0" prefWidth="200.0" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
     <JFXButton fx:id="btnAnexarDespesa" buttonType="RAISED" layoutX="140.0" layoutY="356.0" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="btnRepetir" stylesheets="@../stylesheets/styleButtons.css" />
    <JFXButton fx:id="btnRepetirDespesa" buttonType="RAISED" layoutX="310.0" layoutY="356.0" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="btnRepetir" stylesheets="@../stylesheets/styleButtons.css" />
    <Accordion />
@@ -49,7 +49,7 @@
          <Font name="Ebrima" size="14.0" />
       </font>
    </Label>
-   <TextField fx:id="txtObservacaoDespesa" layoutX="28.0" layoutY="209.0" prefHeight="35.0" prefWidth="170.0" promptText="Mais caro que o mês passado" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
+   <TextField fx:id="txtObsDespesa" layoutX="28.0" layoutY="209.0" prefHeight="35.0" prefWidth="170.0" promptText="Mais caro que o mês passado" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
    <DatePicker fx:id="txtDataDespesa" layoutX="260.0" layoutY="209.0" prefHeight="35.0" prefWidth="200.0" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
    <Label layoutX="260.0" layoutY="189.0" text="Data *" textFill="#979797">
       <font>

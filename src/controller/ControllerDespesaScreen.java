@@ -2,15 +2,26 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import dao.SQL;
+import helper.CurrencyField;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import model.Lancamento;
+import model.enums.LauchRecurrence;
+import model.enums.LaunchType;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -18,18 +29,36 @@ import java.util.ResourceBundle;
 public class ControllerDespesaScreen implements Initializable {
 
     @FXML
-    JFXComboBox<Label> comboBoxCategoriasDespesa = new JFXComboBox<Label>();
+    JFXComboBox<Label> comboBoxCategoryDespesa = new JFXComboBox<Label>();
 
     @FXML
     Label labelDespesa;
 
     @FXML
-    JFXButton btnRepetirDespesa, btnAnexarDespesa;
+    CurrencyField txtValueDespesa = new CurrencyField();
+
+    @FXML
+    JFXButton btnRepetirDespesa, btnAnexarDespesa, btnSalvarDespesa;
+
+    @FXML
+    TextField txtTitleDespesa, txtDescriptionDespesa, txtObsDespesa;
+
+    @FXML
+    DatePicker txtDataDespesa;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeComboboxCategorias();
         initializeButtons();
+
+        btnSalvarDespesa.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                saveDespesa();
+            }
+        });
+
     }
 
     private void initializeComboboxCategorias() {
@@ -62,7 +91,7 @@ public class ControllerDespesaScreen implements Initializable {
                 labelDespesa = new Label(labelsItemList);
                 labelDespesa.setGraphic(new ImageView(new Image(new FileInputStream(categorias.get(labelsItemList)))));
                 labelDespesa.setGraphicTextGap(20);
-                comboBoxCategoriasDespesa.getItems().add(labelDespesa);
+                comboBoxCategoryDespesa.getItems().add(labelDespesa);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -77,4 +106,29 @@ public class ControllerDespesaScreen implements Initializable {
             e.printStackTrace();
         }
     }
+
+    private void saveDespesa() {
+        try {
+            Lancamento lancamento = new Lancamento();
+            lancamento.setTitle(txtTitleDespesa.getText());
+            lancamento.setDescription(txtDescriptionDespesa.getText());
+            lancamento.setNote(txtObsDespesa.getText());
+            lancamento.setValue(txtValueDespesa.getAmount());
+            lancamento.setDate(txtDataDespesa.getValue());
+            lancamento.setType(LaunchType.DESPESA);
+            lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
+            lancamento.setParcelas(0);
+            lancamento.setCategory(comboBoxCategoryDespesa.getSelectionModel().getSelectedItem().getText());
+            SQL.saveLauch(lancamento);
+            close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void close() {
+        Stage stage = (Stage) btnSalvarDespesa.getScene().getWindow();
+        stage.close();
+    }
+
 }

@@ -1,6 +1,7 @@
 package dao;
 
 import model.Lancamento;
+import model.enums.LaunchType;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ public class SQL {
         statement.close();
     }
 
-    public static void saveReceita(Lancamento lancamento) throws SQLException {
+    public static void saveLauch(Lancamento lancamento) throws SQLException {
         Connection connection = getConnect();
         Statement statement = connection.createStatement();
         statement.execute("INSERT INTO tb_lancamento (type, title, category, description, note, date, value, recurrence, parcelas) " +
@@ -44,6 +45,7 @@ public class SQL {
 
             lancamento.setId(resultSet.getInt("id_lancamento"));
             lancamento.setTitle(resultSet.getString("title"));
+            lancamento.setType(LaunchType.valueOf(resultSet.getString("type")));
             lancamento.setCategory(resultSet.getString("category"));
             lancamento.setDescription(resultSet.getString("description"));
             lancamento.setNote(resultSet.getString("note"));
