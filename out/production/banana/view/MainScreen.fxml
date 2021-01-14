@@ -8,13 +8,13 @@
 
 <Pane prefHeight="800.0" prefWidth="1080.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerMainScreen">
    <Pane prefHeight="800.0" prefWidth="1080.0" style="-fx-background-color: white;">
-      <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="775.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" x="64.0">
+      <ImageView fx:id="imgAvancaMes" fitHeight="64.0" fitWidth="64.0" layoutX="783.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" x="64.0">
          <Image url="@../icons/icon_seta_direita.png" />
       </ImageView>
-      <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="139.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" x="64.0">
+      <ImageView fx:id="imgRetrocedeMes" fitHeight="64.0" fitWidth="64.0" layoutX="126.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" x="64.0">
          <Image url="@../icons/icon_seta_esquerda.png" />
       </ImageView>
-      <Label layoutX="395.0" layoutY="15.0" text="Janeiro 2021">
+      <Label fx:id="txtDate" layoutX="369.0" layoutY="15.0" text="Setembro 2021">
          <font>
             <Font name="Ebrima Bold" size="48.0" />
          </font>
@@ -58,6 +58,6 @@
             <Font name="Ebrima" size="14.0" />
          </font></JFXButton>
       <JFXListView fx:id="listViewLancamentos" layoutX="8.0" layoutY="201.0" prefHeight="500.0" prefWidth="1065.0" />
-      <Button fx:id="btnRefresh" onAction="#refreshList" layoutX="14.0" layoutY="66.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="btnRefresh" layoutX="14.0" layoutY="66.0" mnemonicParsing="false" onAction="#refreshList" text="Button" />
    </Pane>
 </Pane>
