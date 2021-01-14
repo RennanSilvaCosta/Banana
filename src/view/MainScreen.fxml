@@ -24,7 +24,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="txtTotalReceita" layoutX="87.0" layoutY="150.0" text="1.000,00" textFill="#56a2ca">
+      <Label fx:id="txtTotalReceita" layoutX="92.0" layoutY="150.0" text="1.000,00" textFill="#56a2ca">
          <font>
             <Font size="28.0" />
          </font>
@@ -44,7 +44,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="txtTotalSaldo" layoutX="879.0" layoutY="150.0" text="620,00" textFill="#56caa4">
+      <Label fx:id="txtTotalSaldo" layoutX="878.0" layoutY="150.0" text="620,00" textFill="#56caa4">
          <font>
             <Font size="28.0" />
          </font>
@@ -58,6 +58,5 @@
             <Font name="Ebrima" size="14.0" />
          </font></JFXButton>
       <JFXListView fx:id="listViewLancamentos" layoutX="8.0" layoutY="201.0" prefHeight="500.0" prefWidth="1065.0" />
-      <Button fx:id="btnRefresh" layoutX="14.0" layoutY="66.0" mnemonicParsing="false" onAction="#refreshList" text="Button" />
    </Pane>
 </Pane>

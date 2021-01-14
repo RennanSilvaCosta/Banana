@@ -12,22 +12,28 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Lancamento;
+import model.enums.LaunchType;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
 
+import static util.Helper.formatDecimal;
+
 public class ControllerMainScreen implements Initializable {
 
     private double xOffset = 0;
     private double yOffset = 0;
+
+    @FXML
+    Button btnTeste;
 
     @FXML
     JFXButton btnAddDespesa, btnAddReceita = new JFXButton();
@@ -44,27 +50,27 @@ public class ControllerMainScreen implements Initializable {
     ImageView imgAvancaMes, imgRetrocedeMes;
 
     int monthSelected = Calendar.getInstance().get(Calendar.MONTH);
-    int yearSelected = Calendar.getInstance().get(Calendar.YEAR);;
+    int yearSelected = Calendar.getInstance().get(Calendar.YEAR);
+    ;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initializeListLancamentos();
         setDate();
-
-        System.out.println(yearSelected);
+        setInfoValues();
 
         btnAddReceita.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadNewViewAndCloseOld("/view/ReceitaScreen.fxml", null);
+                openDialogAddReceita();
             }
         });
 
         btnAddDespesa.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadNewViewAndCloseOld("/view/DespesaScreen.fxml", null);
+                openDialogAddDespesa();
             }
         });
 
@@ -82,9 +88,32 @@ public class ControllerMainScreen implements Initializable {
             }
         });
 
+        setInfoValues();
+
     }
 
-    private void initializeListLancamentos() {
+    private void setInfoValues() {
+        new FadeIn(txtTotalReceita).play();
+        new FadeIn(txtTotalDespesa).play();
+        new FadeIn(txtTotalSaldo).play();
+        double totalReceita = 0;
+        double totalDespesa = 0;
+        for (Lancamento lanc : lancamentos) {
+            if (lanc.getType().equals(LaunchType.RECEITA)) {
+                totalReceita += lanc.getValue();
+            }
+            if (lanc.getType().equals(LaunchType.DESPESA)) {
+                totalDespesa += lanc.getValue();
+            }
+        }
+        double totalSaldo = totalReceita - totalDespesa;
+        txtTotalReceita.setText(formatDecimal(totalReceita));
+        txtTotalDespesa.setText(formatDecimal(totalDespesa));
+        txtTotalSaldo.setText(formatDecimal(totalSaldo));
+
+    }
+
+    public void initializeListLancamentos() {
         try {
             lancamentos.clear();
             listViewLancamentos.getItems().clear();
@@ -98,8 +127,8 @@ public class ControllerMainScreen implements Initializable {
         }
     }
 
-    private void goBackDate(){
-        monthSelected --;
+    private void goBackDate() {
+        monthSelected--;
         if (monthSelected < 0) {
             monthSelected = 11;
             yearSelected--;
@@ -109,7 +138,7 @@ public class ControllerMainScreen implements Initializable {
     }
 
     private void advanceDate() {
-        monthSelected ++;
+        monthSelected++;
         if (monthSelected > 11) {
             monthSelected = 0;
             yearSelected++;
@@ -118,7 +147,7 @@ public class ControllerMainScreen implements Initializable {
         setDate(monthSelected);
     }
 
-    private void setDate(int month){
+    private void setDate(int month) {
         new FadeIn(txtDate).play();
         switch (month) {
 
@@ -261,7 +290,38 @@ public class ControllerMainScreen implements Initializable {
     }
 
     @FXML
-    public void refreshList() {
-        initializeListLancamentos();
+    public void openDialogAddReceita() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/view/DialogReceita.fxml"));
+            DialogPane dialogPane = fxmlLoader.load();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Adicionar nova receita");
+            dialog.showAndWait();
+
+
+            initializeListLancamentos();
+            setInfoValues();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void openDialogAddDespesa() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/view/DialogDespesa.fxml"));
+            DialogPane dialogPane = fxmlLoader.load();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Adicionar nova despesa");
+            dialog.showAndWait();
+            initializeListLancamentos();
+            setInfoValues();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

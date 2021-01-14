@@ -15,6 +15,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import static util.Helper.formatDecimal;
+
 public class AdapterListLancamentos extends ListCell<Lancamento> {
 
     private FXMLLoader mLLoader;
@@ -80,7 +82,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
                     imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\category\\icon_outras_receitas_64px.png")));
                     break;
                 case "Alimentação":
-                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_alimentacao_24px.png")));
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_alimentacao_64px.png")));
                     break;
                 case "Bares e restaurantes":
                     imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_bares_restaurantes_64px.png")));
@@ -167,13 +169,6 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
         }
     }
 
-    public String formatDecimal(double number) {
-        double epsilon = 0.004f; // 4 tenths of a cent
-        if (Math.abs(Math.round(number) - number) < epsilon) {
-            return String.format("%10.0f", number); // sdb
-        } else {
-            return String.format("%10.2f", number); // dj_segfault
-        }
-    }
+
 
 }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import helper.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<DialogPane expanded="true" prefHeight="540.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerReceitaScreen">
+   <content>
+      <Pane prefHeight="540.0" prefWidth="490.0" style="-fx-background-color: white;">
+         <Label layoutX="28.0" layoutY="25.0" text="Nova Receita" textFill="#52b796">
+            <font>
+               <Font name="Ebrima Bold" size="18.0" />
+            </font>
+         </Label>
+         <TextField fx:id="txtTituloReceita" layoutX="28.0" layoutY="87.0" prefHeight="35.0" prefWidth="435.0" promptText="Salario" styleClass="text_field" stylesheets="@../stylesheets/styleAddReceita.css" />
+         <Label layoutX="28.0" layoutY="67.0" text="Titulo *" textFill="#979797">
+            <font>
+               <Font name="Ebrima" size="14.0" />
+            </font>
+         </Label>
+         <TextField fx:id="txtDescricaoReceita" layoutX="28.0" layoutY="147.0" prefHeight="35.0" prefWidth="435.0" promptText="Salario de todo mês" styleClass="text_field" stylesheets="@../stylesheets/styleAddReceita.css" />
+         <Label layoutX="28.0" layoutY="127.0" text="Descrição (opcional)" textFill="#979797">
+            <font>
+               <Font name="Ebrima" size="14.0" />
+            </font>
+         </Label>
+         <Label layoutX="30.0" layoutY="259.0" text="Valor *" textFill="#979797">
+            <font>
+               <Font name="Ebrima" size="14.0" />
+            </font>
+         </Label>
+         <CurrencyField fx:id="txtValorReceita" layoutX="30.0" layoutY="279.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="170.0" styleClass="text_field" stylesheets="@../stylesheets/styleAddReceita.css"> </CurrencyField>
+         <Label layoutX="260.0" layoutY="259.0" text="Categoria *" textFill="#979797">
+            <font>
+               <Font name="Ebrima" size="14.0" />
+            </font>
+         </Label>
+         <JFXComboBox fx:id="comboBoxCategoriasReceita" focusColor="LIMEGREEN" layoutX="260.0" layoutY="279.0" prefHeight="35.0" prefWidth="200.0" />
+         <JFXButton fx:id="btnAnexarReceita" buttonType="RAISED" layoutX="140.0" layoutY="356.0" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="btnRepetir" stylesheets="@../stylesheets/styleButtons.css" />
+         <JFXButton fx:id="btnRepetirReceita" buttonType="RAISED" layoutX="310.0" layoutY="356.0" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="btnRepetir" stylesheets="@../stylesheets/styleButtons.css" />
+         <Accordion />
+         <Label layoutX="147.0" layoutY="414.0" text="Anexar">
+            <font>
+               <Font name="Ebrima" size="12.0" />
+            </font></Label>
+         <Label layoutX="316.0" layoutY="414.0" text="Repetir" />
+         <Label layoutX="28.0" layoutY="189.0" text="Observações (opcional)" textFill="#979797">
+            <font>
+               <Font name="Ebrima" size="14.0" />
+            </font>
+         </Label>
+         <TextField fx:id="txtObservacaoReceita" layoutX="28.0" layoutY="209.0" prefHeight="35.0" prefWidth="170.0" promptText="Pagamento adiantado" styleClass="text_field" stylesheets="@../stylesheets/styleAddReceita.css" />
+         <DatePicker fx:id="txtDataReceita" layoutX="260.0" layoutY="209.0" prefHeight="35.0" prefWidth="200.0" styleClass="text_field" stylesheets="@../stylesheets/styleAddReceita.css" />
+         <Label layoutX="260.0" layoutY="189.0" text="Data *" textFill="#979797">
+            <font>
+               <Font name="Ebrima" size="14.0" />
+            </font>
+         </Label>
+         <JFXButton fx:id="btnSaveReceita" buttonType="RAISED" layoutX="120.0" layoutY="474.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" styleClass="btnSalvarReceita" stylesheets="@../stylesheets/styleButtons.css" text="Salvar Receita">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font></JFXButton>
+         <Label fx:id="txtErrorTitleReceita" layoutX="84.0" layoutY="67.0" textFill="RED">
+            <font>
+               <Font name="Ebrima" size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="txtErrorDataReceita" layoutX="307.0" layoutY="189.0" textFill="RED">
+            <font>
+               <Font name="Ebrima" size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="txtErrorValorReceita" layoutX="84.0" layoutY="260.0" textFill="RED">
+            <font>
+               <Font name="Ebrima" size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="txtErrorCategoriaReceita" layoutX="337.0" layoutY="259.0" textFill="RED">
+            <font>
+               <Font name="Ebrima" size="14.0" />
+            </font>
+         </Label>
+      </Pane>
+   </content>
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+   </buttonTypes>
+</DialogPane>
