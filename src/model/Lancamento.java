@@ -18,6 +18,7 @@ public class Lancamento implements Serializable {
     private Integer parcelas;
     private LaunchType type;
     private LauchRecurrence recurrence;
+    private boolean fixed;
 
     public Lancamento() {
     }
@@ -113,5 +114,13 @@ public class Lancamento implements Serializable {
 
     public void setRecurrence(LauchRecurrence recurrence) {
         this.recurrence = recurrence;
+    }
+
+    public boolean isFixed() {
+        return fixed;
+    }
+
+    public void setFixed(boolean fixed) {
+        this.fixed = fixed;
     }
 }

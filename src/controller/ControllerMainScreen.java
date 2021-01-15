@@ -299,10 +299,9 @@ public class ControllerMainScreen implements Initializable {
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Adicionar nova receita");
             dialog.showAndWait();
-
-
             initializeListLancamentos();
             setInfoValues();
+            new FadeIn(listViewLancamentos).play();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -320,6 +319,7 @@ public class ControllerMainScreen implements Initializable {
             dialog.showAndWait();
             initializeListLancamentos();
             setInfoValues();
+            new FadeIn(listViewLancamentos).play();
         } catch (IOException e) {
             e.printStackTrace();
         }

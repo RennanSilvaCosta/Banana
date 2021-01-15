@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<DialogPane expanded="true" prefHeight="540.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerDespesaScreen">
+<DialogPane fx:id="dialogPane" expanded="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerDespesaScreen">
    <content>
-      <Pane prefHeight="540.0" prefWidth="490.0" style="-fx-background-color: white;">
+      <Pane fx:id="pane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="490.0" style="-fx-background-color: white;">
           <Label layoutX="28.0" layoutY="25.0" text="Nova Despesa" textFill="#e06a63">
               <font>
                   <Font name="Ebrima Bold" size="18.0" />

@@ -7,12 +7,12 @@ import helper.CurrencyField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Lancamento;
 import model.enums.LauchRecurrence;
@@ -20,6 +20,7 @@ import model.enums.LaunchType;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -46,6 +47,12 @@ public class ControllerDespesaScreen implements Initializable {
     @FXML
     DatePicker txtDataDespesa;
 
+    @FXML
+    Pane pane;
+
+    @FXML
+    DialogPane dialogPane;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,6 +66,60 @@ public class ControllerDespesaScreen implements Initializable {
             }
         });
 
+        btnRepetirDespesa.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                repeatLaunch();
+            }
+        });
+
+    }
+
+    private void initializeButtons() {
+        try {
+            btnAnexarDespesa.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\icon_receita_anexar.png"))));
+            btnRepetirDespesa.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\icon_receita_repetir.png"))));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveDespesa() {
+        try {
+            Lancamento lancamento = new Lancamento();
+            lancamento.setTitle(txtTitleDespesa.getText());
+            lancamento.setDescription(txtDescriptionDespesa.getText());
+            lancamento.setNote(txtObsDespesa.getText());
+            lancamento.setValue(txtValueDespesa.getAmount());
+            lancamento.setDate(txtDataDespesa.getValue());
+            lancamento.setType(LaunchType.DESPESA);
+            lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
+            lancamento.setParcelas(0);
+            lancamento.setCategory(comboBoxCategoryDespesa.getSelectionModel().getSelectedItem().getText());
+            lancamento.setFixed(true);
+            SQL.saveLauch(lancamento);
+            close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private void repeatLaunch() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/view/DialogRepeatLaunch.fxml"));
+            DialogPane dialogPane = fxmlLoader.load();
+
+            ControllerDialogRepeatLaunch controller =  fxmlLoader.getController();
+            controller.getInfoValue(txtValueDespesa.getAmount());
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Repetir lançamento");
+            dialog.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initializeComboboxCategorias() {
@@ -95,34 +156,6 @@ public class ControllerDespesaScreen implements Initializable {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-    }
-
-    private void initializeButtons() {
-        try {
-            btnAnexarDespesa.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\icon_receita_anexar.png"))));
-            btnRepetirDespesa.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\icon_receita_repetir.png"))));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void saveDespesa() {
-        try {
-            Lancamento lancamento = new Lancamento();
-            lancamento.setTitle(txtTitleDespesa.getText());
-            lancamento.setDescription(txtDescriptionDespesa.getText());
-            lancamento.setNote(txtObsDespesa.getText());
-            lancamento.setValue(txtValueDespesa.getAmount());
-            lancamento.setDate(txtDataDespesa.getValue());
-            lancamento.setType(LaunchType.DESPESA);
-            lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
-            lancamento.setParcelas(0);
-            lancamento.setCategory(comboBoxCategoryDespesa.getSelectionModel().getSelectedItem().getText());
-            SQL.saveLauch(lancamento);
-            close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
     }
 

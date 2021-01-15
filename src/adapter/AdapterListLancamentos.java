@@ -25,13 +25,13 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
     private GridPane gridPane;
 
     @FXML
-    Label txtTitle, txtDescription, txtValue;
+    Label txtTitle, txtDescription, txtValue, txtFixed;
 
     @FXML
     JFXButton btnEditar, btnExcluir, btnAnexar;
 
     @FXML
-    ImageView imgCategory;
+    ImageView imgCategory, imgRecurrence;
 
     @Override
     protected void updateItem(Lancamento lancamento, boolean empty) {
@@ -56,6 +56,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
             initializeButtons();
             setIconCategory(lancamento);
             setBackgroundColor(lancamento);
+            isFixed(lancamento);
 
             txtTitle.setText(lancamento.getTitle());
             txtDescription.setText(lancamento.getDescription());
@@ -169,6 +170,15 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
         }
     }
 
-
+    private void isFixed(Lancamento lancamento) {
+        try {
+            if (lancamento.isFixed()) {
+                imgRecurrence.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_repeat_32px.png")));
+                txtFixed.setText("Fixa");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -17,15 +17,15 @@ public class SQL {
     public static void createTables() throws SQLException {
         Statement statement = getConnect().createStatement();
         statement.execute("CREATE TABLE IF NOT EXISTS tb_lancamento( id_lancamento INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR, title VARCHAR," +
-                " category VARCHAR, description VARCHAR, note VARCHAR, date LOCALDATE, value DOUBLE, recurrence VARCHAR, parcelas INTEGER)");
+                " category VARCHAR, description VARCHAR, note VARCHAR, date LOCALDATE, value DOUBLE, recurrence VARCHAR, parcelas INTEGER, fixed BOOLEAN)");
         statement.close();
     }
 
     public static void saveLauch(Lancamento lancamento) throws SQLException {
         Connection connection = getConnect();
         Statement statement = connection.createStatement();
-        statement.execute("INSERT INTO tb_lancamento (type, title, category, description, note, date, value, recurrence, parcelas) " +
-                "VALUES ('"+lancamento.getType()+"','"+ lancamento.getTitle()+"'," + "'" + lancamento.getCategory() + "', " + "'" + lancamento.getDescription() + "', '"+ lancamento.getNote()+"', '"+ lancamento.getDate()+"', '"+ lancamento.getValue()+"', '"+ lancamento.getRecurrence()+"', '"+ lancamento.getParcelas()+"');");
+        statement.execute("INSERT INTO tb_lancamento (type, title, category, description, note, date, value, recurrence, parcelas, fixed) " +
+                "VALUES ('"+lancamento.getType()+"','"+ lancamento.getTitle()+"'," + "'" + lancamento.getCategory() + "', " + "'" + lancamento.getDescription() + "', '"+ lancamento.getNote()+"', '"+ lancamento.getDate()+"', '"+ lancamento.getValue()+"', '"+ lancamento.getRecurrence()+"', '"+ lancamento.getParcelas()+"', "+ lancamento.isFixed() +");");
         statement.close();
     }
 
@@ -52,6 +52,7 @@ public class SQL {
             lancamento.setDate(LocalDate.parse(resultSet.getString("date")));
             lancamento.setValue(resultSet.getDouble("value"));
             lancamento.setParcelas(resultSet.getInt("parcelas"));
+            lancamento.setFixed(resultSet.getBoolean("fixed"));
             lancamentos.add(lancamento);
         }
         statement.close();

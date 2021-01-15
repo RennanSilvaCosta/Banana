@@ -8,43 +8,43 @@
 
 <Pane prefHeight="800.0" prefWidth="1080.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerMainScreen">
    <Pane prefHeight="800.0" prefWidth="1080.0" style="-fx-background-color: white;">
-      <ImageView fx:id="imgAvancaMes" fitHeight="64.0" fitWidth="64.0" layoutX="783.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" x="64.0">
+      <ImageView fx:id="imgAvancaMes" fitHeight="64.0" fitWidth="64.0" layoutX="804.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" x="64.0">
          <Image url="@../icons/icon_seta_direita.png" />
       </ImageView>
-      <ImageView fx:id="imgRetrocedeMes" fitHeight="64.0" fitWidth="64.0" layoutX="126.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" x="64.0">
+      <ImageView fx:id="imgRetrocedeMes" fitHeight="64.0" fitWidth="64.0" layoutX="94.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" x="64.0">
          <Image url="@../icons/icon_seta_esquerda.png" />
       </ImageView>
-      <Label fx:id="txtDate" layoutX="369.0" layoutY="15.0" text="Setembro 2021">
+      <Label fx:id="txtDate" alignment="CENTER" layoutX="290.0" layoutY="15.0" prefHeight="62.0" prefWidth="500.0" text="Setembro 2021">
          <font>
             <Font name="Ebrima Bold" size="48.0" />
          </font>
       </Label>
-      <Label layoutX="87.0" layoutY="120.0" text="Total Receita" textFill="#cfcfcf">
+      <Label layoutX="133.0" layoutY="120.0" text="Total Receita" textFill="#cfcfcf">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="txtTotalReceita" layoutX="92.0" layoutY="150.0" text="1.000,00" textFill="#56a2ca">
+      <Label fx:id="txtTotalReceita" alignment="CENTER" layoutX="20.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="333.0" text="1.000,00" textFill="#56a2ca">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label layoutX="478.0" layoutY="120.0" text="Total despesa" textFill="#cfcfcf">
+      <Label layoutX="480.0" layoutY="120.0" text="Total despesa" textFill="#cfcfcf">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="txtTotalDespesa" layoutX="498.0" layoutY="150.0" text="380,00" textFill="#ca5656">
+      <Label fx:id="txtTotalDespesa" alignment="CENTER" layoutX="373.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="333.0" text="380,00" textFill="#ca5656">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label layoutX="870.0" layoutY="120.0" text="Saldo geral" textFill="#cfcfcf">
+      <Label layoutX="850.0" layoutY="120.0" text="Saldo geral" textFill="#cfcfcf">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="txtTotalSaldo" layoutX="878.0" layoutY="150.0" text="620,00" textFill="#56caa4">
+      <Label fx:id="txtTotalSaldo" alignment="CENTER" layoutX="733.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="333.0" text="620,00" textFill="#56caa4">
          <font>
             <Font size="28.0" />
          </font>
