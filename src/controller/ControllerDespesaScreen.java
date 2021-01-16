@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Lancamento;
-import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
 
 import java.io.FileInputStream;
@@ -27,13 +26,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import static util.Helper.formatDecimal;
+
 public class ControllerDespesaScreen implements Initializable {
 
     @FXML
     JFXComboBox<Label> comboBoxCategoryDespesa = new JFXComboBox<Label>();
 
     @FXML
-    Label labelDespesa;
+    Label labelDespesa, txtInfoRepeat;
 
     @FXML
     CurrencyField txtValueDespesa = new CurrencyField();
@@ -53,6 +54,7 @@ public class ControllerDespesaScreen implements Initializable {
     @FXML
     DialogPane dialogPane;
 
+    Lancamento lancamento;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -86,12 +88,50 @@ public class ControllerDespesaScreen implements Initializable {
 
     private void saveDespesa() {
         try {
-            Lancamento lancamento = new Lancamento();
+
+            if (lancamento.isFixed()) {
+                System.out.println("is fixed");
+            }
+
+            if (lancamento.getTotalParcelas() > 0) {
+                lancamento.setValue(txtValueDespesa.getAmount() / lancamento.getTotalParcelas());
+                lancamento.setTitle(txtTitleDespesa.getText());
+                lancamento.setDescription(txtDescriptionDespesa.getText());
+                lancamento.setNote(txtObsDespesa.getText());
+                lancamento.setType(LaunchType.DESPESA);
+                lancamento.setCategory(comboBoxCategoryDespesa.getSelectionModel().getSelectedItem().getText());
+                lancamento.setMonth(txtDataDespesa.getValue().getMonthValue());
+                lancamento.setYear(txtDataDespesa.getValue().getYear());
+                int month = txtDataDespesa.getValue().getMonthValue();
+                int year = 1;
+                int parcelas = 1;
+                for (int cont = 0; cont < lancamento.getTotalParcelas(); cont++) {
+                    if (month > 12){
+                        month = 1;
+                        lancamento.setYear(txtDataDespesa.getValue().getYear() + year);
+                        lancamento.setMonth(month);
+                        lancamento.setParcelas(parcelas);
+                        SQL.saveLauch(lancamento);
+                        month++;
+                        year++;
+                        parcelas++;
+                    }else {
+                        lancamento.setMonth(month);
+                        lancamento.setYear(txtDataDespesa.getValue().getYear() + (year-1));
+                        lancamento.setParcelas(parcelas);
+                        SQL.saveLauch(lancamento);
+                        month++;
+                        parcelas++;
+                    }
+                }
+                close();
+            }
+
+            /*
             lancamento.setTitle(txtTitleDespesa.getText());
             lancamento.setDescription(txtDescriptionDespesa.getText());
             lancamento.setNote(txtObsDespesa.getText());
             lancamento.setValue(txtValueDespesa.getAmount());
-            lancamento.setDate(txtDataDespesa.getValue());
             lancamento.setType(LaunchType.DESPESA);
             lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
             lancamento.setParcelas(0);
@@ -99,6 +139,10 @@ public class ControllerDespesaScreen implements Initializable {
             lancamento.setFixed(true);
             SQL.saveLauch(lancamento);
             close();
+
+            SQL.saveLauch(lancamento);*/
+
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -110,15 +154,27 @@ public class ControllerDespesaScreen implements Initializable {
             fxmlLoader.setLocation(getClass().getResource("/view/DialogRepeatLaunch.fxml"));
             DialogPane dialogPane = fxmlLoader.load();
 
-            ControllerDialogRepeatLaunch controller =  fxmlLoader.getController();
+            ControllerDialogRepeatLaunch controller = fxmlLoader.getController();
             controller.getInfoValue(txtValueDespesa.getAmount());
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Repetir lançamento");
             dialog.showAndWait();
+
+            lancamento = controller.setLaunch();
+            setInforRecurrence();
+
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void setInforRecurrence() {
+        if (lancamento.isFixed()) {
+            txtInfoRepeat.setText("Lançamento configurado como fixo. Com recorrencia " + lancamento.getRecurrence());
+        } else {
+            txtInfoRepeat.setText(lancamento.getTotalParcelas() + " parcelas de R$: " + formatDecimal(lancamento.getValue()));
         }
     }
 

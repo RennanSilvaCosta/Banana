@@ -4,7 +4,6 @@ import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 public class Lancamento implements Serializable {
 
@@ -13,27 +12,31 @@ public class Lancamento implements Serializable {
     private String category;
     private String description;
     private String note;
-    private LocalDate date;
     private Double value;
+    private Integer totalParcelas;
     private Integer parcelas;
     private LaunchType type;
     private LauchRecurrence recurrence;
     private boolean fixed;
+    private int month;
+    private int year;
 
     public Lancamento() {
     }
 
-    public Lancamento(Integer id, String title, String category, String description, String note, LocalDate date, Double value, Integer parcelas, LaunchType type, LauchRecurrence recurrence) {
+    public Lancamento(Integer id, String title, String category, String description, String note, Double value, Integer totalParcelas, LaunchType type, LauchRecurrence recurrence, boolean fixed, int month, int year) {
         this.id = id;
         this.title = title;
         this.category = category;
         this.description = description;
         this.note = note;
-        this.date = date;
         this.value = value;
-        this.parcelas = parcelas;
+        this.totalParcelas = totalParcelas;
         this.type = type;
         this.recurrence = recurrence;
+        this.fixed = fixed;
+        this.month = month;
+        this.year = year;
     }
 
     public Integer getId() {
@@ -76,14 +79,6 @@ public class Lancamento implements Serializable {
         this.note = note;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public Double getValue() {
         return value;
     }
@@ -92,12 +87,12 @@ public class Lancamento implements Serializable {
         this.value = value;
     }
 
-    public Integer getParcelas() {
-        return parcelas;
+    public Integer getTotalParcelas() {
+        return totalParcelas;
     }
 
-    public void setParcelas(Integer parcelas) {
-        this.parcelas = parcelas;
+    public void setTotalParcelas(Integer totalParcelas) {
+        this.totalParcelas = totalParcelas;
     }
 
     public LaunchType getType() {
@@ -122,5 +117,29 @@ public class Lancamento implements Serializable {
 
     public void setFixed(boolean fixed) {
         this.fixed = fixed;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public Integer getParcelas() {
+        return parcelas;
+    }
+
+    public void setParcelas(Integer parcelas) {
+        this.parcelas = parcelas;
     }
 }

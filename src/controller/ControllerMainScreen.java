@@ -49,15 +49,14 @@ public class ControllerMainScreen implements Initializable {
     @FXML
     ImageView imgAvancaMes, imgRetrocedeMes;
 
-    int monthSelected = Calendar.getInstance().get(Calendar.MONTH);
+    int monthSelected = Calendar.getInstance().get((Calendar.MONTH)) + 1;
     int yearSelected = Calendar.getInstance().get(Calendar.YEAR);
-    ;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        initializeListLancamentos();
         setDate();
+        initializeListLancamentos();
         setInfoValues();
 
         btnAddReceita.setOnAction(new EventHandler<ActionEvent>() {
@@ -87,9 +86,6 @@ public class ControllerMainScreen implements Initializable {
                 goBackDate();
             }
         });
-
-        setInfoValues();
-
     }
 
     private void setInfoValues() {
@@ -117,7 +113,7 @@ public class ControllerMainScreen implements Initializable {
         try {
             lancamentos.clear();
             listViewLancamentos.getItems().clear();
-            lancamentos = SQL.getAllLancamentos();
+            lancamentos = SQL.getLaunchByMonth(monthSelected, yearSelected);
             for (Lancamento lanc : lancamentos) {
                 listViewLancamentos.getItems().add(lanc);
                 listViewLancamentos.setCellFactory(lancamento -> new AdapterListLancamentos());
@@ -129,73 +125,77 @@ public class ControllerMainScreen implements Initializable {
 
     private void goBackDate() {
         monthSelected--;
-        if (monthSelected < 0) {
-            monthSelected = 11;
+        if (monthSelected < 1) {
+            monthSelected = 12;
             yearSelected--;
             setDate(monthSelected);
         }
         setDate(monthSelected);
+        initializeListLancamentos();
+        setInfoValues();
     }
 
     private void advanceDate() {
         monthSelected++;
-        if (monthSelected > 11) {
-            monthSelected = 0;
+        if (monthSelected > 12) {
+            monthSelected = 1;
             yearSelected++;
             setDate(monthSelected);
         }
         setDate(monthSelected);
+        initializeListLancamentos();
+        setInfoValues();
     }
 
     private void setDate(int month) {
         new FadeIn(txtDate).play();
-        switch (month) {
 
-            case 0:
+        switch (month) {
+            case 1:
                 txtDate.setText("Janeiro " + yearSelected);
                 break;
 
-            case 1:
+            case 2:
                 txtDate.setText("Fevereiro " + yearSelected);
                 break;
 
-            case 2:
+            case 3:
                 txtDate.setText("Março " + yearSelected);
                 break;
 
-            case 3:
+            case 4:
                 txtDate.setText("Abril " + yearSelected);
                 break;
 
-            case 4:
+            case 5:
                 txtDate.setText("Maio " + yearSelected);
                 break;
 
-            case 5:
+            case 6:
                 txtDate.setText("Junho " + yearSelected);
                 break;
 
-            case 6:
+            case 7:
                 txtDate.setText("Julho " + yearSelected);
                 break;
 
-            case 7:
+            case 8:
                 txtDate.setText("Agosto " + yearSelected);
                 break;
 
-            case 8:
+            case 9:
                 txtDate.setText("Setembro " + yearSelected);
                 break;
 
-            case 9:
+            case 10:
                 txtDate.setText("Outubro " + yearSelected);
                 break;
 
-            case 10:
+            case 11:
                 txtDate.setText("Novembro " + yearSelected);
                 break;
 
-            case 11:
+            case 12:
                 txtDate.setText("Dezembro " + yearSelected);
                 break;
         }
@@ -205,51 +205,51 @@ public class ControllerMainScreen implements Initializable {
         new FadeIn(txtDate).play();
         switch (monthSelected) {
 
-            case 0:
+            case 1:
                 txtDate.setText("Janeiro " + yearSelected);
                 break;
 
-            case 1:
+            case 2:
                 txtDate.setText("Fevereiro " + yearSelected);
                 break;
 
-            case 2:
+            case 3:
                 txtDate.setText("Março " + yearSelected);
                 break;
 
-            case 3:
+            case 4:
                 txtDate.setText("Abril " + yearSelected);
                 break;
 
-            case 4:
+            case 5:
                 txtDate.setText("Maio " + yearSelected);
                 break;
 
-            case 5:
+            case 6:
                 txtDate.setText("Junho " + yearSelected);
                 break;
 
-            case 6:
+            case 7:
                 txtDate.setText("Julho " + yearSelected);
                 break;
 
-            case 7:
+            case 8:
                 txtDate.setText("Agosto " + yearSelected);
                 break;
 
-            case 8:
+            case 9:
                 txtDate.setText("Setembro " + yearSelected);
                 break;
 
-            case 9:
+            case 10:
                 txtDate.setText("Outubro " + yearSelected);
                 break;
 
-            case 10:
+            case 11:
                 txtDate.setText("Novembro " + yearSelected);
                 break;
 
-            case 11:
+            case 12:
                 txtDate.setText("Dezembro " + yearSelected);
                 break;
         }

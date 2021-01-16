@@ -7,9 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 import model.Lancamento;
 import model.enums.LauchRecurrence;
 
@@ -40,7 +40,11 @@ public class ControllerDialogRepeatLaunch implements Initializable {
 
     final ToggleGroup group = new ToggleGroup();
 
-    double launchValue;
+    double launchValue, valueParcel;
+
+    int numberParcel;
+
+    Lancamento lancamento;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,11 +59,30 @@ public class ControllerDialogRepeatLaunch implements Initializable {
         btnFinalizarRepeat.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-
+                setLaunch();
             }
         });
+    }
 
-
+    public Lancamento setLaunch() {
+        if (radioButtonParcel.isSelected()) {
+            lancamento = new Lancamento();
+            lancamento.setFixed(false);
+            lancamento.setTotalParcelas(comboBoxNumberParcel.getSelectionModel().getSelectedItem());
+            lancamento.setRecurrence(LauchRecurrence.valueOf(comboBoxRecorrenciasParcel.getSelectionModel().getSelectedItem()));
+            lancamento.setValue(valueParcel);
+            close();
+            return lancamento;
+        }
+        if (radioButtonFixed.isSelected()) {
+            lancamento = new Lancamento();
+            lancamento.setFixed(true);
+            lancamento.setValue(launchValue);
+            lancamento.setRecurrence(LauchRecurrence.valueOf(comboBoxRecorrencias.getSelectionModel().getSelectedItem()));
+            close();
+            return lancamento;
+        }
+        return null;
     }
 
     public void getInfoValue(double value) {
@@ -67,14 +90,14 @@ public class ControllerDialogRepeatLaunch implements Initializable {
         txtValue.setText("R$:" + formatDecimal(launchValue));
     }
 
-    public void teste2() {
-        int numberParcel = comboBoxNumberParcel.getSelectionModel().getSelectedItem();
-        double valueParcel = launchValue / numberParcel;
+    public void setInfoParcel() {
+        numberParcel = comboBoxNumberParcel.getSelectionModel().getSelectedItem();
+        valueParcel = launchValue / numberParcel;
         txtNumberParcel.setText("Serão lançadas " + numberParcel + " parcelas de ");
         txtValueParcel.setText("R$:" + formatDecimal(valueParcel));
     }
 
-    public void teste() {
+    public void setTypeRepeat() {
         if (radioButtonParcel.isSelected()) {
             comboBoxRecorrencias.setVisible(false);
             comboBoxNumberParcel.setVisible(true);
@@ -93,7 +116,6 @@ public class ControllerDialogRepeatLaunch implements Initializable {
         }
     }
 
-
     private void initializeComboBoxRecorrenciasParcel() {
         comboBoxRecorrenciasParcel.getItems().add(String.valueOf(LauchRecurrence.ANUAL));
         comboBoxRecorrenciasParcel.getItems().add(String.valueOf(LauchRecurrence.SEMESTRAL));
@@ -103,7 +125,7 @@ public class ControllerDialogRepeatLaunch implements Initializable {
     }
 
     private void initializeComboBoxNumberParcel() {
-        for (int x = 2; x <= 480; x++){
+        for (int x = 2; x <= 480; x++) {
             comboBoxNumberParcel.getItems().add(x);
         }
     }
@@ -116,5 +138,9 @@ public class ControllerDialogRepeatLaunch implements Initializable {
         comboBoxRecorrencias.getItems().add(String.valueOf(LauchRecurrence.MENSAL));
     }
 
+    private void close() {
+        Stage stage = (Stage) btnFinalizarRepeat.getScene().getWindow();
+        stage.close();
+    }
 
 }

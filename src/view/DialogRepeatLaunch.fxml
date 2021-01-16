@@ -15,14 +15,14 @@
                </font>
            </Label>
            <JFXComboBox fx:id="comboBoxRecorrencias" layoutX="30.0" layoutY="171.0" prefHeight="35.0" prefWidth="430.0" />
-           <JFXRadioButton fx:id="radioButtonFixed" layoutX="28.0" layoutY="71.0" mnemonicParsing="false" onAction="#teste" prefHeight="20.0" prefWidth="225.0" selected="true" text="É um lançamento fixo">
+           <JFXRadioButton fx:id="radioButtonFixed" layoutX="28.0" layoutY="71.0" mnemonicParsing="false" onAction="#setTypeRepeat" prefHeight="20.0" prefWidth="225.0" selected="true" text="É um lançamento fixo">
                <font>
                    <Font name="Ebrima" size="14.0" />
                </font>
             <selectedColor>
                <Color red="0.33725491166114807" green="0.6352941393852234" blue="0.7921568751335144" />
             </selectedColor></JFXRadioButton>
-           <JFXRadioButton fx:id="radioButtonParcel" layoutX="28.0" layoutY="102.0" mnemonicParsing="false" onAction="#teste" prefHeight="20.0" prefWidth="229.0" text="É um lançamento parcelado em">
+           <JFXRadioButton fx:id="radioButtonParcel" layoutX="28.0" layoutY="102.0" mnemonicParsing="false" onAction="#setTypeRepeat" prefHeight="20.0" prefWidth="229.0" text="É um lançamento parcelado em">
                <font>
                    <Font name="Ebrima" size="14.0" />
                </font>
@@ -30,7 +30,7 @@
                <Color red="0.33725491166114807" green="0.6352941393852234" blue="0.7921568751335144" />
             </selectedColor>
            </JFXRadioButton>
-           <JFXComboBox fx:id="comboBoxNumberParcel" layoutX="30.0" layoutY="171.0" onAction="#teste2" prefHeight="35.0" prefWidth="200.0" visible="false" />
+           <JFXComboBox fx:id="comboBoxNumberParcel" layoutX="30.0" layoutY="171.0" onAction="#setInfoParcel" prefHeight="35.0" prefWidth="200.0" visible="false" />
            <JFXComboBox fx:id="comboBoxRecorrenciasParcel" layoutX="260.0" layoutY="171.0" prefHeight="35.0" prefWidth="200.0" visible="false" />
          <Label fx:id="txtInfo" layoutX="30.0" layoutY="153.0" text="Recorrencia:">
             <font>
