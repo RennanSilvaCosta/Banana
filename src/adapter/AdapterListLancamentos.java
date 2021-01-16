@@ -57,6 +57,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
             setIconCategory(lancamento);
             setBackgroundColor(lancamento);
             isFixed(lancamento);
+            isParcel(lancamento);
 
             txtTitle.setText(lancamento.getTitle());
             txtDescription.setText(lancamento.getDescription());
@@ -179,6 +180,18 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private void isParcel(Lancamento lancamento) {
+        try {
+            if (lancamento.getTotalParcelas() > 0) {
+                imgRecurrence.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_credito.png")));
+                txtFixed.setText(lancamento.getParcelas() + "/" + lancamento.getTotalParcelas());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

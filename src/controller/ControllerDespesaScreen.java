@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Lancamento;
+import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
 
 import java.io.FileInputStream;
@@ -54,7 +55,7 @@ public class ControllerDespesaScreen implements Initializable {
     @FXML
     DialogPane dialogPane;
 
-    Lancamento lancamento;
+    Lancamento lancamento = new Lancamento();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,7 +65,7 @@ public class ControllerDespesaScreen implements Initializable {
         btnSalvarDespesa.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                saveDespesa();
+                saveLaunch();
             }
         });
 
@@ -86,66 +87,100 @@ public class ControllerDespesaScreen implements Initializable {
         }
     }
 
-    private void saveDespesa() {
+    private void saveLaunch() {
         try {
-
             if (lancamento.isFixed()) {
-                System.out.println("is fixed");
+                saveDespesaFixed();
+            } else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0 ) {
+                saveDespesaParcelada();
+            } else {
+                saveDespesa();
             }
-
-            if (lancamento.getTotalParcelas() > 0) {
-                lancamento.setValue(txtValueDespesa.getAmount() / lancamento.getTotalParcelas());
-                lancamento.setTitle(txtTitleDespesa.getText());
-                lancamento.setDescription(txtDescriptionDespesa.getText());
-                lancamento.setNote(txtObsDespesa.getText());
-                lancamento.setType(LaunchType.DESPESA);
-                lancamento.setCategory(comboBoxCategoryDespesa.getSelectionModel().getSelectedItem().getText());
-                lancamento.setMonth(txtDataDespesa.getValue().getMonthValue());
-                lancamento.setYear(txtDataDespesa.getValue().getYear());
-                int month = txtDataDespesa.getValue().getMonthValue();
-                int year = 1;
-                int parcelas = 1;
-                for (int cont = 0; cont < lancamento.getTotalParcelas(); cont++) {
-                    if (month > 12){
-                        month = 1;
-                        lancamento.setYear(txtDataDespesa.getValue().getYear() + year);
-                        lancamento.setMonth(month);
-                        lancamento.setParcelas(parcelas);
-                        SQL.saveLauch(lancamento);
-                        month++;
-                        year++;
-                        parcelas++;
-                    }else {
-                        lancamento.setMonth(month);
-                        lancamento.setYear(txtDataDespesa.getValue().getYear() + (year-1));
-                        lancamento.setParcelas(parcelas);
-                        SQL.saveLauch(lancamento);
-                        month++;
-                        parcelas++;
-                    }
-                }
-                close();
-            }
-
-            /*
-            lancamento.setTitle(txtTitleDespesa.getText());
-            lancamento.setDescription(txtDescriptionDespesa.getText());
-            lancamento.setNote(txtObsDespesa.getText());
-            lancamento.setValue(txtValueDespesa.getAmount());
-            lancamento.setType(LaunchType.DESPESA);
-            lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
-            lancamento.setParcelas(0);
-            lancamento.setCategory(comboBoxCategoryDespesa.getSelectionModel().getSelectedItem().getText());
-            lancamento.setFixed(true);
-            SQL.saveLauch(lancamento);
-            close();
-
-            SQL.saveLauch(lancamento);*/
-
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    private void saveDespesa() throws SQLException {
+        lancamento.setTitle(txtTitleDespesa.getText());
+        lancamento.setDescription(txtDescriptionDespesa.getText());
+        lancamento.setNote(txtObsDespesa.getText());
+        lancamento.setValue(txtValueDespesa.getAmount());
+        lancamento.setMonth(txtDataDespesa.getValue().getMonthValue());
+        lancamento.setYear(txtDataDespesa.getValue().getYear());
+        lancamento.setType(LaunchType.DESPESA);
+        lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
+        lancamento.setParcelas(0);
+        lancamento.setTotalParcelas(0);
+        lancamento.setCategory(comboBoxCategoryDespesa.getSelectionModel().getSelectedItem().getText());
+        SQL.saveLauch(lancamento);
+        close();
+    }
+
+
+    private void saveDespesaFixed() throws SQLException {
+        lancamento.setTitle(txtTitleDespesa.getText());
+        lancamento.setDescription(txtDescriptionDespesa.getText());
+        lancamento.setNote(txtObsDespesa.getText());
+        lancamento.setType(LaunchType.DESPESA);
+        lancamento.setCategory(comboBoxCategoryDespesa.getSelectionModel().getSelectedItem().getText());
+        lancamento.setMonth(txtDataDespesa.getValue().getMonthValue());
+        lancamento.setYear(txtDataDespesa.getValue().getYear());
+        lancamento.setParcelas(0);
+        lancamento.setTotalParcelas(0);
+        int month = txtDataDespesa.getValue().getMonthValue();
+        int year = 1;
+
+        for (int cont = 0; cont < 12; cont++) {
+            if (month > 12) {
+                month = 1;
+                lancamento.setYear(txtDataDespesa.getValue().getYear() + year);
+                lancamento.setMonth(month);
+                SQL.saveLauch(lancamento);
+                month++;
+                year++;
+            } else {
+                lancamento.setMonth(month);
+                lancamento.setYear(txtDataDespesa.getValue().getYear() + (year - 1));
+                SQL.saveLauch(lancamento);
+                month++;
+            }
+        }
+        close();
+    }
+
+    private void saveDespesaParcelada() throws SQLException {
+        lancamento.setValue(txtValueDespesa.getAmount() / lancamento.getTotalParcelas());
+        lancamento.setTitle(txtTitleDespesa.getText());
+        lancamento.setDescription(txtDescriptionDespesa.getText());
+        lancamento.setNote(txtObsDespesa.getText());
+        lancamento.setType(LaunchType.DESPESA);
+        lancamento.setCategory(comboBoxCategoryDespesa.getSelectionModel().getSelectedItem().getText());
+        lancamento.setMonth(txtDataDespesa.getValue().getMonthValue());
+        lancamento.setYear(txtDataDespesa.getValue().getYear());
+        int month = txtDataDespesa.getValue().getMonthValue();
+        int year = 1;
+        int parcelas = 1;
+        for (int cont = 0; cont < lancamento.getTotalParcelas(); cont++) {
+            if (month > 12) {
+                month = 1;
+                lancamento.setYear(txtDataDespesa.getValue().getYear() + year);
+                lancamento.setMonth(month);
+                lancamento.setParcelas(parcelas);
+                SQL.saveLauch(lancamento);
+                month++;
+                year++;
+                parcelas++;
+            } else {
+                lancamento.setMonth(month);
+                lancamento.setYear(txtDataDespesa.getValue().getYear() + (year - 1));
+                lancamento.setParcelas(parcelas);
+                SQL.saveLauch(lancamento);
+                month++;
+                parcelas++;
+            }
+        }
+        close();
     }
 
     private void repeatLaunch() {
