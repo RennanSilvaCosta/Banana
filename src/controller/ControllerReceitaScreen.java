@@ -7,10 +7,9 @@ import helper.CurrencyField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -20,11 +19,14 @@ import model.enums.LaunchType;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import static util.Helper.formatDecimal;
 
 public class ControllerReceitaScreen implements Initializable {
 
@@ -32,10 +34,10 @@ public class ControllerReceitaScreen implements Initializable {
     CurrencyField txtValorReceita = new CurrencyField();
 
     @FXML
-    JFXComboBox<Label> comboBoxCategoriasReceita = new JFXComboBox<Label>();
+    JFXComboBox<Label> comboBoxCategoriasReceita = new JFXComboBox<>();
 
     @FXML
-    Label labelCategorias, txtErrorTitleReceita, txtErrorDataReceita, txtErrorValorReceita, txtErrorCategoriaReceita;
+    Label labelCategorias, txtErrorTitleReceita, txtErrorDataReceita, txtErrorValorReceita, txtErrorCategoriaReceita, txtInfoRepeat;
 
     @FXML
     JFXButton btnRepetirReceita, btnAnexarReceita, btnSaveReceita;
@@ -46,6 +48,8 @@ public class ControllerReceitaScreen implements Initializable {
     @FXML
     DatePicker txtDataReceita;
 
+    Lancamento lancamento = new Lancamento();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeComboboxCategorias();
@@ -54,7 +58,14 @@ public class ControllerReceitaScreen implements Initializable {
         btnSaveReceita.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                saveReceita();
+                saveLaunch();
+            }
+        });
+
+        btnRepetirReceita.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                repeatLaunch();
             }
         });
 
@@ -69,25 +80,129 @@ public class ControllerReceitaScreen implements Initializable {
         }
     }
 
-    private void saveReceita() {
+    private void repeatLaunch() {
         try {
-            Lancamento lancamento = new Lancamento();
-            lancamento.setTitle(txtTituloReceita.getText());
-            lancamento.setDescription(txtDescricaoReceita.getText());
-            lancamento.setNote(txtObservacaoReceita.getText());
-            lancamento.setValue(txtValorReceita.getAmount());
-            //lancamento.setDate(txtDataReceita.getValue().getMonth());
-            lancamento.setType(LaunchType.RECEITA);
-            lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
-            lancamento.setTotalParcelas(0);
-            lancamento.setCategory(comboBoxCategoriasReceita.getSelectionModel().getSelectedItem().getText());
-            SQL.saveLauch(lancamento);
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/view/DialogRepeatLaunch.fxml"));
+            DialogPane dialogPane = fxmlLoader.load();
 
-            close();
+            ControllerDialogRepeatLaunch controller = fxmlLoader.getController();
+            controller.getInfoValue(txtValorReceita.getAmount());
 
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Repetir lançamento");
+            dialog.showAndWait();
+
+            lancamento = controller.setLaunch();
+            setInforRecurrence();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setInforRecurrence() {
+        if (lancamento.isFixed()) {
+            txtInfoRepeat.setText("Lançamento configurado como fixo. Com recorrencia " + lancamento.getRecurrence());
+        } else {
+            txtInfoRepeat.setText(lancamento.getTotalParcelas() + " parcelas de R$: " + formatDecimal(lancamento.getValue()));
+        }
+    }
+
+    private void saveLaunch() {
+        try {
+            if (lancamento.isFixed()) {
+                saveReceitaFixed();
+            } else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0 ) {
+                saveReceitaParcelada();
+            } else {
+                saveReceita();
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    private void saveReceita() throws SQLException {
+        lancamento.setTitle(txtTituloReceita.getText());
+        lancamento.setDescription(txtDescricaoReceita.getText());
+        lancamento.setNote(txtObservacaoReceita.getText());
+        lancamento.setValue(txtValorReceita.getAmount());
+        lancamento.setMonth(txtDataReceita.getValue().getMonthValue());
+        lancamento.setYear(txtDataReceita.getValue().getYear());
+        lancamento.setType(LaunchType.RECEITA);
+        lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
+        lancamento.setParcelas(0);
+        lancamento.setTotalParcelas(0);
+        lancamento.setCategory(comboBoxCategoriasReceita.getSelectionModel().getSelectedItem().getText());
+        SQL.saveLauch(lancamento);
+        close();
+    }
+
+    private void saveReceitaFixed() throws SQLException {
+        lancamento.setTitle(txtTituloReceita.getText());
+        lancamento.setDescription(txtDescricaoReceita.getText());
+        lancamento.setNote(txtObservacaoReceita.getText());
+        lancamento.setType(LaunchType.RECEITA);
+        lancamento.setCategory(comboBoxCategoriasReceita.getSelectionModel().getSelectedItem().getText());
+        lancamento.setMonth(txtDataReceita.getValue().getMonthValue());
+        lancamento.setYear(txtDataReceita.getValue().getYear());
+        lancamento.setParcelas(0);
+        lancamento.setTotalParcelas(0);
+        int month = txtDataReceita.getValue().getMonthValue();
+        int year = 1;
+
+        for (int cont = 0; cont < 12; cont++) {
+            if (month > 12) {
+                month = 1;
+                lancamento.setYear(txtDataReceita.getValue().getYear() + year);
+                lancamento.setMonth(month);
+                SQL.saveLauch(lancamento);
+                month++;
+                year++;
+            } else {
+                lancamento.setMonth(month);
+                lancamento.setYear(txtDataReceita.getValue().getYear() + (year - 1));
+                SQL.saveLauch(lancamento);
+                month++;
+            }
+        }
+        close();
+    }
+
+    private void saveReceitaParcelada() throws SQLException {
+        lancamento.setValue(txtValorReceita.getAmount() / lancamento.getTotalParcelas());
+        lancamento.setTitle(txtTituloReceita.getText());
+        lancamento.setDescription(txtDescricaoReceita.getText());
+        lancamento.setNote(txtObservacaoReceita.getText());
+        lancamento.setType(LaunchType.RECEITA);
+        lancamento.setCategory(comboBoxCategoriasReceita.getSelectionModel().getSelectedItem().getText());
+        lancamento.setMonth(txtDataReceita.getValue().getMonthValue());
+        lancamento.setYear(txtDataReceita.getValue().getYear());
+        int month = txtDataReceita.getValue().getMonthValue();
+        int year = 1;
+        int parcelas = 1;
+        for (int cont = 0; cont < lancamento.getTotalParcelas(); cont++) {
+            if (month > 12) {
+                month = 1;
+                lancamento.setYear(txtDataReceita.getValue().getYear() + year);
+                lancamento.setMonth(month);
+                lancamento.setParcelas(parcelas);
+                SQL.saveLauch(lancamento);
+                month++;
+                year++;
+                parcelas++;
+            } else {
+                lancamento.setMonth(month);
+                lancamento.setYear(txtDataReceita.getValue().getYear() + (year - 1));
+                lancamento.setParcelas(parcelas);
+                SQL.saveLauch(lancamento);
+                month++;
+                parcelas++;
+            }
+        }
+        close();
     }
 
     private void initializeComboboxCategorias() {

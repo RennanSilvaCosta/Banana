@@ -62,7 +62,7 @@
               <font>
                   <Font name="System Bold" size="12.0" />
               </font></JFXButton>
-         <Label fx:id="txtInfoRepeat" alignment="CENTER" layoutX="31.0" layoutY="339.0" prefHeight="20.0" prefWidth="435.0" textAlignment="CENTER" />
+         <Label fx:id="txtInfoRepeat" alignment="CENTER" layoutX="30.0" layoutY="340.0" prefHeight="20.0" prefWidth="435.0" textAlignment="CENTER" />
       </Pane>
    </content>
    <buttonTypes>

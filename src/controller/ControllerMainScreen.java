@@ -121,6 +121,7 @@ public class ControllerMainScreen implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        new FadeIn(listViewLancamentos).play();
     }
 
     private void goBackDate() {

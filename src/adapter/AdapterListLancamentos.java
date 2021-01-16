@@ -110,9 +110,9 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
                 case "Impostos e Taxas":
                     imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_impostos_64px.png")));
                     break;
-                /*case "Investimentos":
-                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_investimentos_64px.png")));
-                    break;*/
+                case "Assinaturas e serviços":
+                    imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_assinatura_servico_64px.png")));
+                    break;
                 case "Lazer e hobbies":
                     imgCategory.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\category\\icon_lazer_64px.png")));
                     break;
@@ -174,8 +174,12 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
     private void isFixed(Lancamento lancamento) {
         try {
             if (lancamento.isFixed()) {
+                imgRecurrence.setVisible(true);
                 imgRecurrence.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_repeat_32px.png")));
                 txtFixed.setText("Fixa");
+            } else {
+                imgRecurrence.setVisible(false);
+                txtFixed.setText("");
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -185,6 +189,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
     private void isParcel(Lancamento lancamento) {
         try {
             if (lancamento.getTotalParcelas() > 0) {
+                imgRecurrence.setVisible(true);
                 imgRecurrence.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_credito.png")));
                 txtFixed.setText(lancamento.getParcelas() + "/" + lancamento.getTotalParcelas());
             }

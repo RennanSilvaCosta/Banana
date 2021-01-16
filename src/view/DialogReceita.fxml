@@ -38,14 +38,14 @@
             </font>
          </Label>
          <JFXComboBox fx:id="comboBoxCategoriasReceita" focusColor="LIMEGREEN" layoutX="260.0" layoutY="279.0" prefHeight="35.0" prefWidth="200.0" />
-         <JFXButton fx:id="btnAnexarReceita" buttonType="RAISED" layoutX="140.0" layoutY="356.0" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="btnRepetir" stylesheets="@../stylesheets/styleButtons.css" />
-         <JFXButton fx:id="btnRepetirReceita" buttonType="RAISED" layoutX="310.0" layoutY="356.0" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="btnRepetir" stylesheets="@../stylesheets/styleButtons.css" />
+         <JFXButton fx:id="btnAnexarReceita" buttonType="RAISED" layoutX="122.0" layoutY="380.0" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="btnRepetir" stylesheets="@../stylesheets/styleButtons.css" />
+         <JFXButton fx:id="btnRepetirReceita" buttonType="RAISED" layoutX="320.0" layoutY="380.0" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="btnRepetir" stylesheets="@../stylesheets/styleButtons.css" />
          <Accordion />
-         <Label layoutX="147.0" layoutY="414.0" text="Anexar">
+         <Label layoutX="129.0" layoutY="440.0" text="Anexar">
             <font>
                <Font name="Ebrima" size="12.0" />
             </font></Label>
-         <Label layoutX="316.0" layoutY="414.0" text="Repetir" />
+         <Label layoutX="326.0" layoutY="440.0" text="Repetir" />
          <Label layoutX="28.0" layoutY="189.0" text="Observações (opcional)" textFill="#979797">
             <font>
                <Font name="Ebrima" size="14.0" />
@@ -82,6 +82,7 @@
                <Font name="Ebrima" size="14.0" />
             </font>
          </Label>
+         <Label fx:id="txtInfoRepeat" alignment="CENTER" layoutX="30.0" layoutY="340.0" prefHeight="20.0" prefWidth="435.0" textAlignment="CENTER" />
       </Pane>
    </content>
    <buttonTypes>
