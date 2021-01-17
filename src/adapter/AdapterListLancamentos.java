@@ -53,7 +53,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
                 }
             }
 
-            initializeButtons();
+            //initializeButtons();
             setIconCategory(lancamento);
             setBackgroundColor(lancamento);
             isFixed(lancamento);
@@ -61,7 +61,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
 
             txtTitle.setText(lancamento.getTitle());
             txtDescription.setText(lancamento.getDescription());
-            txtValue.setText("R$" + formatDecimal(lancamento.getValue()));
+            txtValue.setText("R$" + formatDecimal(lancamento.getValue()).trim());
 
             setText(null);
             setGraphic(gridPane);
@@ -152,11 +152,11 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
     private void setBackgroundColor(Lancamento lancamento) {
         switch (lancamento.getType()) {
             case RECEITA:
-                gridPane.setStyle("-fx-background-color: #EDFDF4;");
+                gridPane.setStyle("-fx-background-color: #F3F3F3;"); //F3F3F3
                 txtValue.setTextFill(Paint.valueOf("#56CAA4"));
                 break;
             case DESPESA:
-                gridPane.setStyle("-fx-background-color: #FDEDED;");
+                gridPane.setStyle("-fx-background-color: #FBF8F6;");
                 txtValue.setTextFill(Paint.valueOf("#E06A63"));
         }
     }

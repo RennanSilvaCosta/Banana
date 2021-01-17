@@ -36,7 +36,7 @@ public class SQL {
 
         List<Lancamento> lancamentos = new ArrayList<>();
 
-        statement = connection.prepareStatement("SELECT * FROM tb_lancamento WHERE month=" + month + " and year=" + year);
+        statement = connection.prepareStatement("SELECT * FROM tb_lancamento WHERE month=" + month + " and year=" + year + "  ORDER BY type DESC");
         resultSet = statement.executeQuery();
 
         while (resultSet.next()) {

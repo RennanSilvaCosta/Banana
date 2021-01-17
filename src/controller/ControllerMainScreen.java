@@ -103,9 +103,9 @@ public class ControllerMainScreen implements Initializable {
             }
         }
         double totalSaldo = totalReceita - totalDespesa;
-        txtTotalReceita.setText(formatDecimal(totalReceita));
-        txtTotalDespesa.setText(formatDecimal(totalDespesa));
-        txtTotalSaldo.setText(formatDecimal(totalSaldo));
+        txtTotalReceita.setText(formatDecimal(totalReceita).trim());
+        txtTotalDespesa.setText(formatDecimal(totalDespesa).trim());
+        txtTotalSaldo.setText(formatDecimal(totalSaldo).trim());
 
     }
 
@@ -153,51 +153,51 @@ public class ControllerMainScreen implements Initializable {
 
         switch (month) {
             case 1:
-                txtDate.setText("Janeiro " + yearSelected);
+                txtDate.setText("JANEIRO " + yearSelected);
                 break;
 
             case 2:
-                txtDate.setText("Fevereiro " + yearSelected);
+                txtDate.setText("FEVEREIRO " + yearSelected);
                 break;
 
             case 3:
-                txtDate.setText("Março " + yearSelected);
+                txtDate.setText("MARÇO " + yearSelected);
                 break;
 
             case 4:
-                txtDate.setText("Abril " + yearSelected);
+                txtDate.setText("ABRIL " + yearSelected);
                 break;
 
             case 5:
-                txtDate.setText("Maio " + yearSelected);
+                txtDate.setText("MAIO " + yearSelected);
                 break;
 
             case 6:
-                txtDate.setText("Junho " + yearSelected);
+                txtDate.setText("JUNHO " + yearSelected);
                 break;
 
             case 7:
-                txtDate.setText("Julho " + yearSelected);
+                txtDate.setText("JULHO " + yearSelected);
                 break;
 
             case 8:
-                txtDate.setText("Agosto " + yearSelected);
+                txtDate.setText("AGOSTO " + yearSelected);
                 break;
 
             case 9:
-                txtDate.setText("Setembro " + yearSelected);
+                txtDate.setText("SETEMBRO " + yearSelected);
                 break;
 
             case 10:
-                txtDate.setText("Outubro " + yearSelected);
+                txtDate.setText("OUTUBRO " + yearSelected);
                 break;
 
             case 11:
-                txtDate.setText("Novembro " + yearSelected);
+                txtDate.setText("NOVEMBRO " + yearSelected);
                 break;
 
             case 12:
-                txtDate.setText("Dezembro " + yearSelected);
+                txtDate.setText("DEZEMBRO " + yearSelected);
                 break;
         }
     }
@@ -207,51 +207,51 @@ public class ControllerMainScreen implements Initializable {
         switch (monthSelected) {
 
             case 1:
-                txtDate.setText("Janeiro " + yearSelected);
+                txtDate.setText("JANEIRO " + yearSelected);
                 break;
 
             case 2:
-                txtDate.setText("Fevereiro " + yearSelected);
+                txtDate.setText("FEVEREIRO " + yearSelected);
                 break;
 
             case 3:
-                txtDate.setText("Março " + yearSelected);
+                txtDate.setText("MARÇO " + yearSelected);
                 break;
 
             case 4:
-                txtDate.setText("Abril " + yearSelected);
+                txtDate.setText("ABRIL " + yearSelected);
                 break;
 
             case 5:
-                txtDate.setText("Maio " + yearSelected);
+                txtDate.setText("MAIO " + yearSelected);
                 break;
 
             case 6:
-                txtDate.setText("Junho " + yearSelected);
+                txtDate.setText("JUNHO " + yearSelected);
                 break;
 
             case 7:
-                txtDate.setText("Julho " + yearSelected);
+                txtDate.setText("JULHO " + yearSelected);
                 break;
 
             case 8:
-                txtDate.setText("Agosto " + yearSelected);
+                txtDate.setText("AGOSTO " + yearSelected);
                 break;
 
             case 9:
-                txtDate.setText("Setembro " + yearSelected);
+                txtDate.setText("SETEMBRO " + yearSelected);
                 break;
 
             case 10:
-                txtDate.setText("Outubro " + yearSelected);
+                txtDate.setText("OUTUBRO " + yearSelected);
                 break;
 
             case 11:
-                txtDate.setText("Novembro " + yearSelected);
+                txtDate.setText("NOVEMBRO " + yearSelected);
                 break;
 
             case 12:
-                txtDate.setText("Dezembro " + yearSelected);
+                txtDate.setText("DEZEMBRO " + yearSelected);
                 break;
         }
     }

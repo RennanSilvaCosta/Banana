@@ -1,50 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <Pane prefHeight="800.0" prefWidth="1080.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerMainScreen">
-   <Pane prefHeight="800.0" prefWidth="1080.0" style="-fx-background-color: white;">
-      <ImageView fx:id="imgAvancaMes" fitHeight="64.0" fitWidth="64.0" layoutX="804.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" x="64.0">
+   <Pane fx:id="paneMain" prefHeight="800.0" prefWidth="1080.0" styleClass="paneMain" stylesheets="@../stylesheets/styleMainScreen.css">
+      <ImageView fx:id="imgAvancaMes" fitHeight="32.0" fitWidth="32.0" layoutX="696.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" x="64.0">
          <Image url="@../icons/icon_seta_direita.png" />
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
-      <ImageView fx:id="imgRetrocedeMes" fitHeight="64.0" fitWidth="64.0" layoutX="94.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" x="64.0">
+      <ImageView fx:id="imgRetrocedeMes" fitHeight="32.0" fitWidth="32.0" layoutX="234.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" x="64.0">
          <Image url="@../icons/icon_seta_esquerda.png" />
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
-      <Label fx:id="txtDate" alignment="CENTER" layoutX="290.0" layoutY="15.0" prefHeight="62.0" prefWidth="500.0" text="Setembro 2021">
+      <Label fx:id="txtDate" alignment="CENTER" layoutX="330.0" layoutY="15.0" prefHeight="62.0" prefWidth="430.0" text="Setembro 2021" textFill="WHITE">
          <font>
-            <Font name="Ebrima Bold" size="48.0" />
+            <Font name="Ebrima Bold" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="133.0" layoutY="120.0" text="Total Receita" textFill="#cfcfcf">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="120.0" prefHeight="25.0" prefWidth="333.0" text="Total Receita" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Ebrima Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="txtTotalReceita" alignment="CENTER" layoutX="20.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="333.0" text="1.000,00" textFill="#56a2ca">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
-      <Label layoutX="480.0" layoutY="120.0" text="Total despesa" textFill="#cfcfcf">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="txtTotalDespesa" alignment="CENTER" layoutX="373.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="333.0" text="380,00" textFill="#ca5656">
+      <Label fx:id="txtTotalReceita" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="330.0" text="0" textAlignment="CENTER" textFill="#56a2ca">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label layoutX="850.0" layoutY="120.0" text="Saldo geral" textFill="#cfcfcf">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="379.0" layoutY="120.0" prefHeight="25.0" prefWidth="333.0" text="Total despesa" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Ebrima Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="txtTotalSaldo" alignment="CENTER" layoutX="733.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="333.0" text="620,00" textFill="#56caa4">
+      <Label fx:id="txtTotalDespesa" alignment="CENTER" contentDisplay="CENTER" layoutX="380.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="330.0" text="100,00" textAlignment="CENTER" textFill="#ca5656">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="734.0" layoutY="120.0" prefHeight="25.0" prefWidth="333.0" text="Saldo geral" textFill="WHITE">
+         <font>
+            <Font name="Ebrima Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtTotalSaldo" alignment="CENTER" contentDisplay="CENTER" layoutX="736.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="330.0" text="0" textAlignment="CENTER" textFill="#56caa4">
          <font>
             <Font size="28.0" />
          </font>
@@ -57,6 +64,9 @@
          <font>
             <Font name="Ebrima" size="14.0" />
          </font></JFXButton>
-      <JFXListView fx:id="listViewLancamentos" layoutX="8.0" layoutY="201.0" prefHeight="500.0" prefWidth="1065.0" />
+      <JFXListView fx:id="listViewLancamentos" layoutX="8.0" layoutY="201.0" prefHeight="500.0" prefWidth="1065.0" style="-fx-background-color: trasnparent;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXListView>
    </Pane>
 </Pane>
