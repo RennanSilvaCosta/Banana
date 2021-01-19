@@ -1,4 +1,10 @@
-.text_field:focused{
-    -fx-faint-focus-color: transparent;
-    -fx-focus-color: rgba(50,205,50.2);
+.pane_background {
+    -fx-background-color: #4CB050;
+}
+
+.text_field:focused {
+    -fx-faint-focus-color: white;
+    -fx-focus-color: white;
+    -fx-text-fill: white;
+    -fx-text-color: white;
 }

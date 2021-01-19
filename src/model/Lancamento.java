@@ -10,8 +10,6 @@ public class Lancamento implements Serializable {
     private Integer id;
     private String title;
     private String category;
-    private String description;
-    private String note;
     private Double value;
     private Integer totalParcelas;
     private Integer parcelas;
@@ -20,16 +18,15 @@ public class Lancamento implements Serializable {
     private boolean fixed;
     private int month;
     private int year;
+    private boolean paid;
 
     public Lancamento() {
     }
 
-    public Lancamento(Integer id, String title, String category, String description, String note, Double value, Integer totalParcelas, LaunchType type, LauchRecurrence recurrence, boolean fixed, int month, int year) {
+    public Lancamento(Integer id, String title, String category, Double value, Integer totalParcelas, LaunchType type, LauchRecurrence recurrence, boolean fixed, int month, int year, boolean paid) {
         this.id = id;
         this.title = title;
         this.category = category;
-        this.description = description;
-        this.note = note;
         this.value = value;
         this.totalParcelas = totalParcelas;
         this.type = type;
@@ -37,6 +34,7 @@ public class Lancamento implements Serializable {
         this.fixed = fixed;
         this.month = month;
         this.year = year;
+        this.paid = paid;
     }
 
     public Integer getId() {
@@ -61,22 +59,6 @@ public class Lancamento implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
 
     public Double getValue() {
@@ -141,5 +123,13 @@ public class Lancamento implements Serializable {
 
     public void setParcelas(Integer parcelas) {
         this.parcelas = parcelas;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 }

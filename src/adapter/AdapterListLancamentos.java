@@ -25,7 +25,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
     private GridPane gridPane;
 
     @FXML
-    Label txtTitle, txtDescription, txtValue, txtFixed;
+    Label txtTitle, txtDescription, txtValue, txtFixed, txtCifrao;
 
     @FXML
     JFXButton btnEditar, btnExcluir, btnAnexar;
@@ -60,8 +60,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
             isParcel(lancamento);
 
             txtTitle.setText(lancamento.getTitle());
-            txtDescription.setText(lancamento.getDescription());
-            txtValue.setText("R$" + formatDecimal(lancamento.getValue()).trim());
+            txtValue.setText(formatDecimal(lancamento.getValue()).trim());
 
             setText(null);
             setGraphic(gridPane);
@@ -154,10 +153,12 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
             case RECEITA:
                 gridPane.setStyle("-fx-background-color: #F3F3F3;"); //F3F3F3
                 txtValue.setTextFill(Paint.valueOf("#56CAA4"));
+                txtCifrao.setTextFill(Paint.valueOf("#56CAA4"));
                 break;
             case DESPESA:
                 gridPane.setStyle("-fx-background-color: #FBF8F6;");
                 txtValue.setTextFill(Paint.valueOf("#E06A63"));
+                txtCifrao.setTextFill(Paint.valueOf("#E06A63"));
         }
     }
 
@@ -196,7 +197,6 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
 }

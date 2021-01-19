@@ -2,70 +2,115 @@
 
 <?import com.jfoenix.controls.*?>
 <?import helper.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<DialogPane fx:id="dialogPane" expanded="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerDespesaScreen">
-   <content>
-      <Pane fx:id="pane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="490.0" style="-fx-background-color: white;">
-          <Label layoutX="28.0" layoutY="25.0" text="Nova Despesa" textFill="#e06a63">
-              <font>
-                  <Font name="Ebrima Bold" size="18.0" />
-              </font>
-          </Label>
-          <TextField fx:id="txtTitleDespesa" layoutX="28.0" layoutY="87.0" prefHeight="35.0" prefWidth="435.0" promptText="Conta de luz" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
-          <Label layoutX="28.0" layoutY="67.0" text="Titulo *" textFill="#979797">
-              <font>
-                  <Font name="Ebrima" size="14.0" />
-              </font>
-          </Label>
-          <TextField fx:id="txtDescriptionDespesa" layoutX="28.0" layoutY="147.0" prefHeight="35.0" prefWidth="435.0" promptText="Conta de luz de todo mês" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
-          <Label layoutX="28.0" layoutY="127.0" text="Descrição (opcional)" textFill="#979797">
-              <font>
-                  <Font name="Ebrima" size="14.0" />
-              </font>
-          </Label>
-          <Label layoutX="30.0" layoutY="259.0" text="Valor *" textFill="#979797">
-              <font>
-                  <Font name="Ebrima" size="14.0" />
-              </font>
-          </Label>
-          <CurrencyField fx:id="txtValueDespesa" layoutX="30.0" layoutY="279.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="170.0" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css"> </CurrencyField>
-          <Label layoutX="260.0" layoutY="259.0" text="Categoria *" textFill="#979797">
-              <font>
-                  <Font name="Ebrima" size="14.0" />
-              </font>
-          </Label>
-          <JFXComboBox fx:id="comboBoxCategoryDespesa" focusColor="RED" layoutX="260.0" layoutY="279.0" prefHeight="35.0" prefWidth="200.0" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
-          <JFXButton fx:id="btnAnexarDespesa" buttonType="RAISED" layoutX="122.0" layoutY="380.0" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="btnRepetir" stylesheets="@../stylesheets/styleButtons.css" />
-          <JFXButton fx:id="btnRepetirDespesa" buttonType="RAISED" layoutX="320.0" layoutY="380.0" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="btnRepetir" stylesheets="@../stylesheets/styleButtons.css" />
-          <Accordion />
-          <Label layoutX="129.0" layoutY="440.0" text="Anexar">
-              <font>
-                  <Font name="Ebrima" size="12.0" />
-              </font></Label>
-          <Label layoutX="326.0" layoutY="440.0" text="Repetir" />
-          <Label layoutX="28.0" layoutY="189.0" text="Observações (opcional)" textFill="#979797">
-              <font>
-                  <Font name="Ebrima" size="14.0" />
-              </font>
-          </Label>
-          <TextField fx:id="txtObsDespesa" layoutX="28.0" layoutY="209.0" prefHeight="35.0" prefWidth="170.0" promptText="Mais caro que o mês passado" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
-          <DatePicker fx:id="txtDataDespesa" layoutX="260.0" layoutY="209.0" prefHeight="35.0" prefWidth="200.0" styleClass="text_field" stylesheets="@../stylesheets/styleAddDespesa.css" />
-          <Label layoutX="260.0" layoutY="189.0" text="Data *" textFill="#979797">
-              <font>
-                  <Font name="Ebrima" size="14.0" />
-              </font>
-          </Label>
-          <JFXButton fx:id="btnSalvarDespesa" buttonType="RAISED" layoutX="120.0" layoutY="474.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" styleClass="btnAddDespesa" stylesheets="@../stylesheets/styleButtons.css" text="Salvar Despesa">
-              <font>
-                  <Font name="System Bold" size="12.0" />
-              </font></JFXButton>
-         <Label fx:id="txtInfoRepeat" alignment="CENTER" layoutX="30.0" layoutY="340.0" prefHeight="20.0" prefWidth="435.0" textAlignment="CENTER" />
-      </Pane>
-   </content>
-   <buttonTypes>
-      <ButtonType fx:constant="OK" />
-   </buttonTypes>
+<DialogPane expanded="true" prefHeight="780.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerDespesaScreen">
+    <content>
+        <Pane prefHeight="780.0" prefWidth="450.0" style="-fx-background-radius: 20 20 20 20;" styleClass="pane_background" stylesheets="@../stylesheets/styleAddDespesa.css">
+            <CurrencyField fx:id="editTextValueExpense" layoutX="30.0" layoutY="86.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="397.0" style="-fx-background-color: transparent;" styleClass="text_field" stylesheets="@../stylesheets/styleAddReceita.css">
+                <font>
+                    <Font name="Calibri Bold" size="36.0" />
+                </font>
+                <padding>
+                    <Insets right="10.0" />
+                </padding></CurrencyField>
+            <Pane layoutY="150.0" prefHeight="630.0" prefWidth="450.0" style="-fx-background-color: white; -fx-background-radius: 30 30 20 20;">
+                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="37.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <Image url="@../icons/receita/icon_check.png"/>
+                </ImageView>
+                <Label fx:id="lbStatusPay" layoutX="92.0" layoutY="42.0" prefHeight="22.0" prefWidth="250.0" text="Pago">
+                    <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                    </font>
+                </Label>
+                <JFXCheckBox fx:id="checkBoxExpensePaid" onAction="#statusPay" checkedColor="#d0372b" layoutX="370.0" layoutY="44.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="17.0" text=" " />
+                <Separator layoutX="25.0" layoutY="96.0" prefWidth="400.0" />
+                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/receita/icon_calendar_32px.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="lbDateThisMonth" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" layoutY="126.0" prefHeight="30.0" prefWidth="103.0" style="-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;" text="Este mês">
+                    <font>
+                        <Font name="Calibri" size="16.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lbDateNextMonth" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="126.0" prefHeight="30.0" prefWidth="103.0" style="-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;" text="Proximo mês">
+                    <font>
+                        <Font name="Calibri" size="16.0" />
+                    </font>
+                </Label>
+                <DatePicker fx:id="dateExpense" layoutX="310.0" layoutY="126.0" prefHeight="30.0" prefWidth="90.0" />
+                <Separator layoutX="25.0" layoutY="186.0" prefWidth="400.0" />
+                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/receita/icon_description_32px.png" />
+                    </image>
+                </ImageView>
+                <JFXTextField fx:id="editTextDescriptionExpense" focusColor="#d0372b" layoutX="92.0" layoutY="217.0" prefHeight="25.0" prefWidth="307.0" promptText="Descrição" unFocusColor="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                    </font></JFXTextField>
+                <Separator layoutX="25.0" layoutY="272.0" prefWidth="400.0" />
+                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/receita/icon_categorias_32px.png" />
+                    </image>
+                </ImageView>
+                <JFXComboBox fx:id="cbCategoryExpense" focusColor="#d0372b" layoutX="92.0" layoutY="307.0" prefHeight="25.0" prefWidth="307.0" promptText="Categoria" />
+                <Separator layoutX="25.0" layoutY="370.0" prefWidth="400.0" />
+                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/receita/icon_fixa_32px.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="lbStatusFixedExpense" layoutX="92.0" layoutY="405.0" prefHeight="22.0" prefWidth="222.0" text="Despesa fixa">
+                    <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                    </font>
+                </Label>
+                <JFXCheckBox fx:id="checkBoxExpenseFixed" onAction="#statusFixed" checkedColor="#d0372b" layoutX="370.0" layoutY="407.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="17.0" text=" " />
+                <Separator layoutX="25.0" layoutY="459.0" prefWidth="400.0" />
+                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/receita/icon_repeat_32px.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="lbRepeatStatusExpense" layoutX="92.0" layoutY="490.0" prefHeight="22.0" prefWidth="222.0" text="Repetir">
+                    <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                    </font>
+                </Label>
+                <JFXCheckBox fx:id="checkBoxExpenseRepeat" onAction="#isRepeat" checkedColor="#d0372b" layoutX="370.0" layoutY="492.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="17.0" text=" " />
+                <Separator layoutX="25.0" layoutY="536.0" prefWidth="400.0" />
+                <JFXButton fx:id="btnSaveExpense" buttonType="RAISED" layoutX="195.0" layoutY="556.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: #C80000; -fx-background-radius: 50 50 50 50;" text=" " />
+            </Pane>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../icons/receita/icon_seta_esquerda_add_receita.png" />
+                </image>
+            </ImageView>
+            <Label layoutX="92.0" layoutY="19.0" prefHeight="22.0" prefWidth="231.0" text="Nova despesa" textFill="WHITE">
+                <font>
+                    <Font name="Calibri Bold" size="18.0" />
+                </font>
+            </Label>
+            <Label layoutX="30.0" layoutY="64.0" prefHeight="22.0" prefWidth="231.0" text="Valor da despesa" textFill="WHITE">
+                <font>
+                    <Font name="Calibri Bold" size="14.0" />
+                </font>
+            </Label>
+        </Pane>
+    </content>
+    <buttonTypes>
+        <ButtonType fx:constant="OK" />
+    </buttonTypes>
+
+
+
 </DialogPane>

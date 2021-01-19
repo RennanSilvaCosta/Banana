@@ -16,15 +16,15 @@ public class SQL {
     public static void createTables() throws SQLException {
         Statement statement = getConnect().createStatement();
         statement.execute("CREATE TABLE IF NOT EXISTS tb_lancamento( id_lancamento INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR, title VARCHAR," +
-                " category VARCHAR, description VARCHAR, note VARCHAR, month INTEGER, year INTEGER, value DOUBLE, recurrence VARCHAR, parcelas INTEGER, totalParcelas INTEGER, fixed BOOLEAN)");
+                " category VARCHAR, month INTEGER, year INTEGER, value DOUBLE, recurrence VARCHAR, parcelas INTEGER, totalParcelas INTEGER, fixed BOOLEAN, paid BOOLEAN)");
         statement.close();
     }
 
     public static void saveLauch(Lancamento lancamento) throws SQLException {
         Connection connection = getConnect();
         Statement statement = connection.createStatement();
-        statement.execute("INSERT INTO tb_lancamento (type, title, category, description, note, month, year, value, recurrence, parcelas, totalParcelas, fixed) " +
-                "VALUES ('"+lancamento.getType()+"','"+ lancamento.getTitle()+"'," + "'" + lancamento.getCategory() + "', " + "'" + lancamento.getDescription() + "', '"+ lancamento.getNote()+"', '"+ lancamento.getMonth()+"', '" +lancamento.getYear() +"', '"+ lancamento.getValue()+"', '"+ lancamento.getRecurrence()+"', '" +lancamento.getParcelas() + "', '"+ lancamento.getTotalParcelas()+"', "+ lancamento.isFixed() +");");
+        statement.execute("INSERT INTO tb_lancamento (type, title, category, month, year, value, recurrence, parcelas, totalParcelas, fixed, paid) " +
+                "VALUES ('"+lancamento.getType()+"','"+ lancamento.getTitle()+"', " + "'" + lancamento.getCategory() + "', " + " '"+ lancamento.getMonth()+"', '" +lancamento.getYear() +"', '"+ lancamento.getValue()+"', '"+ lancamento.getRecurrence()+"', '" +lancamento.getParcelas() + "', '"+ lancamento.getTotalParcelas()+"', "+ lancamento.isFixed() + " , " + lancamento.isPaid() + ");");
         statement.close();
     }
 
@@ -46,14 +46,13 @@ public class SQL {
             lancamento.setTitle(resultSet.getString("title"));
             lancamento.setType(LaunchType.valueOf(resultSet.getString("type")));
             lancamento.setCategory(resultSet.getString("category"));
-            lancamento.setDescription(resultSet.getString("description"));
-            lancamento.setNote(resultSet.getString("note"));
             lancamento.setMonth(resultSet.getInt("month"));
             lancamento.setYear(resultSet.getInt("year"));
             lancamento.setValue(resultSet.getDouble("value"));
             lancamento.setParcelas(resultSet.getInt("parcelas"));
             lancamento.setTotalParcelas(resultSet.getInt("totalParcelas"));
             lancamento.setFixed(resultSet.getBoolean("fixed"));
+            lancamento.setPaid(resultSet.getBoolean("paid"));
             lancamentos.add(lancamento);
         }
         statement.close();
