@@ -1,3 +1,7 @@
 .paneMain {
     -fx-background-color: linear-gradient(to top, #FFB300, #FFCA28);
 }
+
+.paneResume {
+    -fx-background-color: linear-gradient(to top, #FEBA0F, #FFE082);
+}

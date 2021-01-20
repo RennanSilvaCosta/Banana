@@ -7,66 +7,71 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="800.0" prefWidth="1080.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerMainScreen">
-   <Pane fx:id="paneMain" prefHeight="800.0" prefWidth="1080.0" styleClass="paneMain" stylesheets="@../stylesheets/styleMainScreen.css">
-      <ImageView fx:id="imgAvancaMes" fitHeight="32.0" fitWidth="32.0" layoutX="696.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" x="64.0">
-         <Image url="@../icons/icon_seta_direita.png" />
+<Pane layoutY="1.0" prefHeight="691.0" prefWidth="1000.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerMainScreen">
+   <Pane fx:id="paneMain" layoutX="150.0" layoutY="12.0" prefHeight="667.0" prefWidth="700.0" style="-fx-background-color: #EFEFEF; -fx-border-color: black; -fx-border-radius: 30 30 0 0; -fx-background-radius: 30 30 0 0;">
+      <Pane layoutX="1.0" layoutY="1.0" prefHeight="180.0" prefWidth="698.0" style="-fx-background-radius: 30 30 30 30;" styleClass="paneResume" stylesheets="@../stylesheets/styleMainScreen.css">
+         <Label layoutX="120.0" layoutY="104.0" prefHeight="26.0" prefWidth="64.0" text="Receitas">
+            <font>
+               <Font name="Ebrima Bold" size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="txtDate" alignment="CENTER" layoutX="199.0" layoutY="14.0" prefHeight="45.0" prefWidth="300.0" text="Setembro 2021">
+            <font>
+               <Font name="Ebrima Bold" size="24.0" />
+            </font>
+         </Label>
+         <ImageView fx:id="imgRetrocedeMes" fitHeight="32.0" fitWidth="32.0" layoutX="103.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" x="64.0">
+            <Image url="@../icons/icon_seta_esquerda.png" />
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ImageView>
+         <Label fx:id="txtTotalReceita" alignment="CENTER" contentDisplay="CENTER" layoutX="270.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="150.0" text="R$ 8974,36" textAlignment="CENTER" textFill="#56a2ca">
+            <font>
+               <Font name="Ebrima Bold" size="14.0" />
+            </font>
+         </Label>
+         <ImageView fx:id="imgAvancaMes" fitHeight="32.0" fitWidth="32.0" layoutX="431.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" x="64.0">
+            <Image url="@../icons/icon_seta_direita.png" />
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ImageView>
+         <Label fx:id="txtTotalSaldo" contentDisplay="CENTER" layoutX="120.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="143.0" text="R$ 2587,55" textAlignment="CENTER" textFill="#56caa4">
+            <font>
+               <Font name="Ebrima Bold" size="14.0" />
+            </font>
+         </Label>
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="275.0" layoutY="104.0" prefHeight="26.0" prefWidth="150.0" text="Saldo geral">
+            <font>
+               <Font name="Ebrima Bold" size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="txtTotalDespesa" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="475.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="104.0" text="R$ 1299,65" textAlignment="CENTER" textFill="#ca5656">
+            <font>
+               <Font name="Ebrima Bold" size="14.0" />
+            </font>
+         </Label>
+         <Label contentDisplay="RIGHT" layoutX="515.0" layoutY="104.0" prefHeight="26.0" prefWidth="64.0" text="Despesas">
+            <font>
+               <Font name="Ebrima Bold" size="14.0" />
+            </font>
+         </Label>
+         <JFXButton fx:id="btnAddReceita" buttonType="RAISED" layoutX="60.0" layoutY="102.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #64B86C; -fx-background-radius: 50 50 50 50;" text=" " />
+         <JFXButton fx:id="btnAddDespesa" buttonType="RAISED" layoutX="590.0" layoutY="102.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #C80000; -fx-background-radius: 50 50 50 50;" text=" " />
+      </Pane>
+      <ImageView fitHeight="300.0" fitWidth="698.0" layoutX="1.0" layoutY="389.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../stylesheets/backbround_main_screen.png" />
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="275.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icon_banana.png" />
+         </image>
+      </ImageView>
+      <JFXListView fx:id="listViewLancamentos" layoutX="20.0" layoutY="215.0" prefHeight="420.0" prefWidth="660.0" style="-fx-background-radius: 10 10 10 10;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-      </ImageView>
-      <ImageView fx:id="imgRetrocedeMes" fitHeight="32.0" fitWidth="32.0" layoutX="234.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" x="64.0">
-         <Image url="@../icons/icon_seta_esquerda.png" />
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <Label fx:id="txtDate" alignment="CENTER" layoutX="330.0" layoutY="15.0" prefHeight="62.0" prefWidth="430.0" text="Setembro 2021" textFill="WHITE">
-         <font>
-            <Font name="Ebrima Bold" size="36.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="120.0" prefHeight="25.0" prefWidth="333.0" text="Total Receita" textFill="WHITE">
-         <font>
-            <Font name="Ebrima Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="txtTotalReceita" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="330.0" text="0" textAlignment="CENTER" textFill="#56a2ca">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="379.0" layoutY="120.0" prefHeight="25.0" prefWidth="333.0" text="Total despesa" textFill="WHITE">
-         <font>
-            <Font name="Ebrima Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="txtTotalDespesa" alignment="CENTER" contentDisplay="CENTER" layoutX="380.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="330.0" text="100,00" textAlignment="CENTER" textFill="#ca5656">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="734.0" layoutY="120.0" prefHeight="25.0" prefWidth="333.0" text="Saldo geral" textFill="WHITE">
-         <font>
-            <Font name="Ebrima Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="txtTotalSaldo" alignment="CENTER" contentDisplay="CENTER" layoutX="736.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="330.0" text="0" textAlignment="CENTER" textFill="#56caa4">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
-      <JFXButton fx:id="btnAddDespesa" buttonType="RAISED" layoutX="110.0" layoutY="732.0" prefHeight="50.0" prefWidth="250.0" styleClass="btnAddDespesa" stylesheets="@../stylesheets/styleButtons.css" text="Adicionar Despesa" textFill="WHITE">
-         <font>
-            <Font size="14.0" />
-         </font></JFXButton>
-      <JFXButton fx:id="btnAddReceita" buttonType="RAISED" layoutX="746.0" layoutY="732.0" prefHeight="50.0" prefWidth="250.0" styleClass="btnAddReceita" stylesheets="@../stylesheets/styleButtons.css" text="Adicionar Receita" textFill="WHITE">
-         <font>
-            <Font name="Ebrima" size="14.0" />
-         </font></JFXButton>
-      <JFXListView fx:id="listViewLancamentos" layoutX="8.0" layoutY="201.0" prefHeight="500.0" prefWidth="1065.0" style="-fx-background-color: trasnparent;">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></JFXListView>
+      </JFXListView>
    </Pane>
 </Pane>

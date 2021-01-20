@@ -2,6 +2,9 @@ package controller;
 
 import adapter.AdapterListLancamentos;
 import animatefx.animation.FadeIn;
+import animatefx.animation.SlideInDown;
+import animatefx.animation.SlideInLeft;
+import animatefx.animation.SlideInRight;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import dao.SQL;
@@ -10,31 +13,31 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Lancamento;
 import model.enums.LaunchType;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.ResourceBundle;
 
 import static util.Helper.formatDecimal;
 
 public class ControllerMainScreen implements Initializable {
-
-    private double xOffset = 0;
-    private double yOffset = 0;
-
-    @FXML
-    Button btnTeste;
 
     @FXML
     JFXButton btnAddDespesa, btnAddReceita = new JFXButton();
@@ -59,6 +62,15 @@ public class ControllerMainScreen implements Initializable {
         setDate();
         initializeListLancamentos();
         setInfoValues();
+
+        try {
+            btnAddReceita.setGraphic(new ImageView(new Image( new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_seta_cima.png"))));
+            btnAddReceita.setGraphicTextGap(-5);
+            btnAddDespesa.setGraphic(new ImageView(new Image( new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_seta_baixo.png"))));
+            btnAddDespesa.setGraphicTextGap(-5);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         btnAddReceita.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -93,6 +105,9 @@ public class ControllerMainScreen implements Initializable {
         new FadeIn(txtTotalReceita).play();
         new FadeIn(txtTotalDespesa).play();
         new FadeIn(txtTotalSaldo).play();
+        new SlideInDown(txtTotalReceita).setSpeed(1).play();
+        new SlideInDown(txtTotalDespesa).setSpeed(1).play();
+        new SlideInDown(txtTotalSaldo).setSpeed(1).play();
         double totalReceita = 0;
         double totalDespesa = 0;
         for (Lancamento lanc : lancamentos) {
@@ -107,7 +122,6 @@ public class ControllerMainScreen implements Initializable {
         txtTotalReceita.setText(formatDecimal(totalReceita).trim());
         txtTotalDespesa.setText(formatDecimal(totalDespesa).trim());
         txtTotalSaldo.setText(formatDecimal(totalSaldo).trim());
-
     }
 
     public void initializeListLancamentos() {
@@ -133,6 +147,7 @@ public class ControllerMainScreen implements Initializable {
             setDate(monthSelected);
         }
         setDate(monthSelected);
+        new SlideInLeft(txtDate).setSpeed(2).play();
         initializeListLancamentos();
         setInfoValues();
     }
@@ -145,13 +160,13 @@ public class ControllerMainScreen implements Initializable {
             setDate(monthSelected);
         }
         setDate(monthSelected);
+        new SlideInRight(txtDate).setSpeed(2).play();
         initializeListLancamentos();
         setInfoValues();
     }
 
     private void setDate(int month) {
         new FadeIn(txtDate).play();
-
         switch (month) {
             case 1:
                 txtDate.setText("JANEIRO " + yearSelected);
@@ -254,40 +269,6 @@ public class ControllerMainScreen implements Initializable {
             case 12:
                 txtDate.setText("DEZEMBRO " + yearSelected);
                 break;
-        }
-    }
-
-    public void loadNewViewAndCloseOld(String caminho, JFXButton componente) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(caminho));
-            Parent parent = fxmlLoader.load();
-            Stage stage = new Stage();
-            Scene scene = new Scene(parent);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-
-            if (componente != null) {
-                //a partir do componenete de layout recupero a janela a ser fechada
-                Stage stage2 = (Stage) componente.getScene().getWindow();
-                stage2.close();
-            }
-
-            scene.setOnMousePressed(event -> {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            });
-
-            scene.setOnMouseDragged(event -> {
-                stage.setX(event.getScreenX() - xOffset);
-                stage.setY(event.getScreenY() - yOffset);
-                stage.setOpacity(0.7);
-            });
-
-            scene.setOnMouseReleased(mouseEvent -> stage.setOpacity(1));
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

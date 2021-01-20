@@ -5,7 +5,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
@@ -17,6 +19,8 @@ public class Main extends Application {
         SQL.createTables();
         Parent root = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
         Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
