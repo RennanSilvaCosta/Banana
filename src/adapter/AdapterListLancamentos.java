@@ -25,7 +25,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
     private GridPane gridPane;
 
     @FXML
-    Label txtTitle, txtDescription, txtValue, txtFixed, txtCifrao;
+    Label txtTitle, txtDescription, txtValue, txtFixed;
 
     @FXML
     JFXButton btnEditar, btnExcluir, btnAnexar;
@@ -56,8 +56,8 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
             //initializeButtons();
             setIconCategory(lancamento);
             setBackgroundColor(lancamento);
-            isFixed(lancamento);
-            isParcel(lancamento);
+            //isFixed(lancamento);
+            //isParcel(lancamento);
 
             txtTitle.setText(lancamento.getTitle());
             txtValue.setText(formatDecimal(lancamento.getValue()).trim());
@@ -153,12 +153,10 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
             case RECEITA:
                 gridPane.setStyle("-fx-background-color: #F3F3F3;"); //F3F3F3
                 txtValue.setTextFill(Paint.valueOf("#56CAA4"));
-                txtCifrao.setTextFill(Paint.valueOf("#56CAA4"));
                 break;
             case DESPESA:
                 gridPane.setStyle("-fx-background-color: #FBF8F6;");
                 txtValue.setTextFill(Paint.valueOf("#E06A63"));
-                txtCifrao.setTextFill(Paint.valueOf("#E06A63"));
         }
     }
 

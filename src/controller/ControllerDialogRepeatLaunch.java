@@ -60,13 +60,13 @@ public class ControllerDialogRepeatLaunch implements Initializable {
 
     public void getInfoValue(double value) {
         launchValue = value;
-        txtValue.setText("R$:" + formatDecimal(launchValue));
+        txtValue.setText(formatDecimal(launchValue));
     }
 
     public void setInfoParcel() {
         numberParcel = comboBoxNumberParcel.getSelectionModel().getSelectedItem();
         valueParcel = launchValue / numberParcel;
-        txtValueParcel.setText("Serão lançadas " + numberParcel + " parcelas de R$: " + formatDecimal(valueParcel).trim());
+        txtValueParcel.setText("Serão lançadas " + numberParcel + " parcelas de " + formatDecimal(valueParcel).trim());
     }
 
 

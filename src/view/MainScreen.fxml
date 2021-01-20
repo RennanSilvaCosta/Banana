@@ -26,7 +26,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </ImageView>
-         <Label fx:id="txtTotalReceita" alignment="CENTER" contentDisplay="CENTER" layoutX="270.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="150.0" text="R$ 8974,36" textAlignment="CENTER" textFill="#56a2ca">
+         <Label fx:id="txtTotalReceita" alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="150.0" text="R$ 8974,36" textAlignment="CENTER" textFill="#56a2ca">
             <font>
                <Font name="Ebrima Bold" size="14.0" />
             </font>
@@ -42,7 +42,7 @@
                <Font name="Ebrima Bold" size="14.0" />
             </font>
          </Label>
-         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="275.0" layoutY="104.0" prefHeight="26.0" prefWidth="150.0" text="Saldo geral">
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="199.0" layoutY="104.0" prefHeight="26.0" prefWidth="300.0" text="Saldo geral">
             <font>
                <Font name="Ebrima Bold" size="14.0" />
             </font>

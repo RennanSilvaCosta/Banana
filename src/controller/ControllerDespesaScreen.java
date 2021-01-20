@@ -273,7 +273,7 @@ public class ControllerDespesaScreen implements Initializable {
                 lancamento.setTotalParcelas(lanc.getTotalParcelas());
                 lancamento.setRecurrence(lanc.getRecurrence());
                 lancamento.setValue(lanc.getValue());
-                lbRepeatStatusExpense.setText(lancamento.getTotalParcelas() + " parcelas de R$: " + formatDecimal(lancamento.getValue()).trim());
+                lbRepeatStatusExpense.setText(lancamento.getTotalParcelas() + " parcelas de " + formatDecimal(lancamento.getValue()).trim());
             }
 
         } catch (IOException e) {
