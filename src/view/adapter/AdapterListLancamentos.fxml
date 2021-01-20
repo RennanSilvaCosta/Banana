@@ -24,7 +24,7 @@
          <Insets left="10.0" top="5.0" />
       </GridPane.margin>
    </Label>
-   <Label fx:id="txtDescription" prefHeight="20.0" prefWidth="250.0" text="Salario de todo mês" GridPane.columnIndex="1">
+   <Label fx:id="txtCategory" prefHeight="20.0" prefWidth="250.0" text="Salario de todo mês" GridPane.columnIndex="1">
       <font>
          <Font size="14.0" />
       </font>
@@ -40,7 +40,7 @@
          <Insets left="5.0" right="10.0" top="5.0" />
       </GridPane.margin>
    </Label>
-   <Label alignment="CENTER" contentDisplay="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+   <Label fx:id="txtParcel" alignment="CENTER" contentDisplay="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
       <GridPane.margin>
          <Insets right="10.0" />
       </GridPane.margin>
@@ -48,20 +48,14 @@
          <Font name="Ebrima" size="14.0" />
       </font>
    </Label>
-   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+   <ImageView fx:id="img1" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
       <GridPane.margin>
          <Insets bottom="10.0" right="10.0" />
       </GridPane.margin>
-      <image>
-         <Image url="@../../icons/receita/icon_fixed_receita.png" />
-      </image>
    </ImageView>
-   <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="624.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+   <ImageView fx:id="img2" fitHeight="16.0" fitWidth="16.0" layoutX="624.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
       <GridPane.margin>
          <Insets bottom="10.0" right="35.0" />
       </GridPane.margin>
-      <image>
-         <Image url="@../../icons/despesa/icon_fixed_despesa.png" />
-      </image>
    </ImageView>
 </GridPane>

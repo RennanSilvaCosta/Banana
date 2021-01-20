@@ -1,6 +1,5 @@
 package adapter;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -10,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import model.Lancamento;
+import model.enums.LaunchType;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,13 +25,10 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
     private GridPane gridPane;
 
     @FXML
-    Label txtTitle, txtDescription, txtValue, txtFixed;
+    Label txtTitle, txtCategory, txtValue, txtParcel;
 
     @FXML
-    JFXButton btnEditar, btnExcluir, btnAnexar;
-
-    @FXML
-    ImageView imgCategory, imgRecurrence;
+    ImageView imgCategory, img1, img2;
 
     @Override
     protected void updateItem(Lancamento lancamento, boolean empty) {
@@ -53,13 +50,14 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
                 }
             }
 
-            //initializeButtons();
             setIconCategory(lancamento);
             setBackgroundColor(lancamento);
-            //isFixed(lancamento);
-            //isParcel(lancamento);
+            isFixed(lancamento);
+            isParcel(lancamento);
+            isPaid(lancamento);
 
             txtTitle.setText(lancamento.getTitle());
+            txtCategory.setText(lancamento.getCategory());
             txtValue.setText(formatDecimal(lancamento.getValue()).trim());
 
             setText(null);
@@ -151,34 +149,25 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
     private void setBackgroundColor(Lancamento lancamento) {
         switch (lancamento.getType()) {
             case RECEITA:
-                gridPane.setStyle("-fx-background-color: #F3F3F3;"); //F3F3F3
-                txtValue.setTextFill(Paint.valueOf("#56CAA4"));
+                gridPane.setStyle("-fx-background-color: #EDFDF4;");
+                txtValue.setTextFill(Paint.valueOf("#64B86C"));
                 break;
             case DESPESA:
-                gridPane.setStyle("-fx-background-color: #FBF8F6;");
-                txtValue.setTextFill(Paint.valueOf("#E06A63"));
-        }
-    }
-
-    private void initializeButtons() {
-        try {
-            btnEditar.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_edit_24px.png"))));
-            btnExcluir.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_delete_24px.png"))));
-            btnAnexar.setGraphic(new ImageView(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_anexar_24px.png"))));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+                gridPane.setStyle("-fx-background-color: #FDEDED;");
+                txtValue.setTextFill(Paint.valueOf("#C80000"));
         }
     }
 
     private void isFixed(Lancamento lancamento) {
         try {
-            if (lancamento.isFixed()) {
-                imgRecurrence.setVisible(true);
-                imgRecurrence.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_repeat_32px.png")));
-                txtFixed.setText("Fixa");
+            if (lancamento.isFixed() && lancamento.getType().equals(LaunchType.RECEITA)) {
+                img1.setVisible(true);
+                img1.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\icon_fixed_receita.png")));
+            } else if (lancamento.isFixed() && lancamento.getType().equals(LaunchType.DESPESA)) {
+                img1.setVisible(true);
+                img1.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\despesa\\icon_fixed_despesa.png")));
             } else {
-                imgRecurrence.setVisible(false);
-                txtFixed.setText("");
+                img1.setVisible(false);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -186,11 +175,20 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
     }
 
     private void isParcel(Lancamento lancamento) {
+        if (lancamento.getTotalParcelas() > 0) {
+            txtParcel.setText(lancamento.getParcelas() + "/" + lancamento.getTotalParcelas());
+        } else {
+            txtParcel.setText("");
+        }
+    }
+
+    private void isPaid(Lancamento lancamento) {
         try {
-            if (lancamento.getTotalParcelas() > 0) {
-                imgRecurrence.setVisible(true);
-                imgRecurrence.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_credito.png")));
-                txtFixed.setText(lancamento.getParcelas() + "/" + lancamento.getTotalParcelas());
+            if (lancamento.isPaid() && lancamento.isFixed()) {
+                img2.setVisible(true);
+                img2.setImage(new Image(new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_paid_status.png")));
+            } else {
+                img2.setVisible(false);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

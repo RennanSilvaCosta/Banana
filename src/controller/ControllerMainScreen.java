@@ -13,10 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -36,11 +33,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static util.Helper.formatDecimal;
+import static util.Helper.teste;
 
 public class ControllerMainScreen implements Initializable {
 
     @FXML
-    JFXButton btnAddDespesa, btnAddReceita = new JFXButton();
+    JFXButton btnAddDespesa, btnAddReceita, btnClose = new JFXButton();
 
     @FXML
     Label txtTotalReceita, txtTotalDespesa, txtTotalSaldo, txtDate;
@@ -99,6 +97,16 @@ public class ControllerMainScreen implements Initializable {
                 goBackDate();
             }
         });
+
+        btnClose.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
+
+        teste(LaunchType.DESPESA);
+
     }
 
     private void setInfoValues() {
@@ -136,7 +144,7 @@ public class ControllerMainScreen implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        new FadeIn(listViewLancamentos).play();
+        new FadeIn(listViewLancamentos).setSpeed(2).play();
     }
 
     private void goBackDate() {
@@ -311,4 +319,5 @@ public class ControllerMainScreen implements Initializable {
             e.printStackTrace();
         }
     }
+
 }
