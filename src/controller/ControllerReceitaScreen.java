@@ -68,7 +68,7 @@ public class ControllerReceitaScreen implements Initializable {
         initializeComboBoxCategory();
 
         try {
-            btnSaveReceita.setGraphic(new ImageView(new Image( new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_save_launch_32px.png"))));
+            btnSaveReceita.setGraphic(new ImageView(new Image( new FileInputStream("C:/Users/renna/IdeaProjects/banana/src/icons/icon_save_launch_32px.png"))));
             btnSaveReceita.setGraphicTextGap(-5);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -227,10 +227,10 @@ public class ControllerReceitaScreen implements Initializable {
     private void initializeComboBoxCategory() {
         Map<String, String> categorias = new HashMap<>();
 
-        categorias.put("Emprestimos", "C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\combobox\\icon_emprestimos_24px.png");
-        categorias.put("Salario", "C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\combobox\\icon_salario_24px.png");
-        categorias.put("Investimentos", "C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\combobox\\icon_investimentos_24px.png");
-        categorias.put("Outras receitas", "C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\receita\\combobox\\icon_outras_receitas_24px.png");
+        categorias.put("Emprestimos", "C:/Users/renna/IdeaProjects/banana/src/icons/receita/combobox/icon_emprestimos_24px.png");
+        categorias.put("Salario", "C:/Users/renna/IdeaProjects/banana/src/icons/receita/combobox/icon_salario_24px.png");
+        categorias.put("Investimentos", "C:/Users/renna/IdeaProjects/banana/src/icons/receita/combobox/icon_investimentos_24px.png");
+        categorias.put("Outras receitas", "C:/Users/renna/IdeaProjects/banana/src/icons/receita/combobox/icon_outras_receitas_24px.png");
 
         try {
             for (String labelsItemList : categorias.keySet()) {

@@ -62,9 +62,9 @@ public class ControllerMainScreen implements Initializable {
         setInfoValues();
 
         try {
-            btnAddReceita.setGraphic(new ImageView(new Image( new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_seta_cima.png"))));
+            btnAddReceita.setGraphic(new ImageView(new Image( new FileInputStream("C:/Users/renna/IdeaProjects/banana/src/icons/icon_seta_cima.png"))));
             btnAddReceita.setGraphicTextGap(-5);
-            btnAddDespesa.setGraphic(new ImageView(new Image( new FileInputStream("C:\\Users\\renna\\IdeaProjects\\banana\\src\\icons\\icon_seta_baixo.png"))));
+            btnAddDespesa.setGraphic(new ImageView(new Image( new FileInputStream("C:/Users/renna/IdeaProjects/banana/src/icons/icon_seta_baixo.png"))));
             btnAddDespesa.setGraphicTextGap(-5);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
