@@ -13,7 +13,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -22,8 +25,6 @@ import javafx.stage.StageStyle;
 import model.Lancamento;
 import model.enums.LaunchType;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -61,14 +62,12 @@ public class ControllerMainScreen implements Initializable {
         initializeListLancamentos();
         setInfoValues();
 
-        try {
-            btnAddReceita.setGraphic(new ImageView(new Image( new FileInputStream("C:/Users/renna/IdeaProjects/banana/src/icons/icon_seta_cima.png"))));
-            btnAddReceita.setGraphicTextGap(-5);
-            btnAddDespesa.setGraphic(new ImageView(new Image( new FileInputStream("C:/Users/renna/IdeaProjects/banana/src/icons/icon_seta_baixo.png"))));
-            btnAddDespesa.setGraphicTextGap(-5);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+
+        btnAddReceita.setGraphic(new ImageView(new Image("/icons/icon_seta_cima.png")));
+        btnAddReceita.setGraphicTextGap(-5);
+        btnAddDespesa.setGraphic(new ImageView(new Image("/icons/icon_seta_cima.png")));
+        btnAddDespesa.setGraphicTextGap(-5);
+
 
         btnAddReceita.setOnAction(new EventHandler<ActionEvent>() {
             @Override

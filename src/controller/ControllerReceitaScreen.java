@@ -19,8 +19,6 @@ import model.Lancamento;
 import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -67,12 +65,8 @@ public class ControllerReceitaScreen implements Initializable {
 
         initializeComboBoxCategory();
 
-        try {
-            btnSaveReceita.setGraphic(new ImageView(new Image( new FileInputStream("C:/Users/renna/IdeaProjects/banana/src/icons/icon_save_launch_32px.png"))));
-            btnSaveReceita.setGraphicTextGap(-5);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        btnSaveReceita.setGraphic(new ImageView(new Image("/icons/icon_save_launch_32px.png")));
+        btnSaveReceita.setGraphicTextGap(-5);
 
         lbDateThisMonth.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -83,9 +77,9 @@ public class ControllerReceitaScreen implements Initializable {
                     lbDateNextMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
                     dateIncome.setValue(null);
                     lbDateThisMonth.requestFocus();
-                    monthLaunch = calendar.get(Calendar.MONTH) +1;
+                    monthLaunch = calendar.get(Calendar.MONTH) + 1;
                     yearLaunch = Calendar.getInstance().get(Calendar.YEAR);
-                }else{
+                } else {
                     lbDateThisMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
                 }
 
@@ -102,7 +96,7 @@ public class ControllerReceitaScreen implements Initializable {
                     lbDateNextMonth.requestFocus();
                     monthLaunch = calendar.get(Calendar.MONTH) + 2;
                     yearLaunch = Calendar.getInstance().get(Calendar.YEAR);
-                }else{
+                } else {
                     lbDateNextMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
                 }
             }
@@ -113,7 +107,7 @@ public class ControllerReceitaScreen implements Initializable {
             public void handle(ActionEvent actionEvent) {
                 lbDateThisMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
                 lbDateNextMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
-                monthLaunch = calendar.get(Calendar.MONTH) +1;
+                monthLaunch = calendar.get(Calendar.MONTH) + 1;
                 yearLaunch = Calendar.getInstance().get(Calendar.YEAR);
             }
         });
@@ -130,7 +124,7 @@ public class ControllerReceitaScreen implements Initializable {
         try {
             if (lancamento.isFixed()) {
                 saveReceitaFixed();
-            } else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0 ) {
+            } else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0) {
                 saveReceitaParcelada();
             } else {
                 saveReceita();
@@ -227,26 +221,22 @@ public class ControllerReceitaScreen implements Initializable {
     private void initializeComboBoxCategory() {
         Map<String, String> categorias = new HashMap<>();
 
-        categorias.put("Emprestimos", "C:/Users/renna/IdeaProjects/banana/src/icons/receita/combobox/icon_emprestimos_24px.png");
-        categorias.put("Salario", "C:/Users/renna/IdeaProjects/banana/src/icons/receita/combobox/icon_salario_24px.png");
-        categorias.put("Investimentos", "C:/Users/renna/IdeaProjects/banana/src/icons/receita/combobox/icon_investimentos_24px.png");
-        categorias.put("Outras receitas", "C:/Users/renna/IdeaProjects/banana/src/icons/receita/combobox/icon_outras_receitas_24px.png");
+        categorias.put("Emprestimos", "/icons/receita/combobox/icon_emprestimos_24px.png");
+        categorias.put("Salario", "/icons/receita/combobox/icon_salario_24px.png");
+        categorias.put("Investimentos", "/icons/receita/combobox/icon_investimentos_24px.png");
+        categorias.put("Outras receitas", "/icons/receita/combobox/icon_outras_receitas_24px.png");
 
-        try {
-            for (String labelsItemList : categorias.keySet()) {
-                labelCategorias = new Label(labelsItemList);
-                labelCategorias.setGraphic(new ImageView(new Image(new FileInputStream(categorias.get(labelsItemList)))));
-                labelCategorias.setGraphicTextGap(20);
-                cbCategoryIncome.getItems().add(labelCategorias);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        for (String labelsItemList : categorias.keySet()) {
+            labelCategorias = new Label(labelsItemList);
+            labelCategorias.setGraphic(new ImageView(new Image(categorias.get(labelsItemList))));
+            labelCategorias.setGraphicTextGap(20);
+            cbCategoryIncome.getItems().add(labelCategorias);
         }
     }
 
     @FXML
     public void statusPay() {
-        if (checkBoxIncomePaid.isSelected()){
+        if (checkBoxIncomePaid.isSelected()) {
             lbStatusPay.setText("Recebido");
             paid = true;
         } else {
@@ -263,13 +253,13 @@ public class ControllerReceitaScreen implements Initializable {
 
     @FXML
     public void isRepeat() {
-       if (checkBoxIncomeRepeat.isSelected()) {
-           checkBoxIncomeFixed.setSelected(false);
-           lancamento.setFixed(false);
-           repeatLaunch();
-       } else {
-           lbRepeatStatusIncome.setText("Repetir");
-       }
+        if (checkBoxIncomeRepeat.isSelected()) {
+            checkBoxIncomeFixed.setSelected(false);
+            lancamento.setFixed(false);
+            repeatLaunch();
+        } else {
+            lbRepeatStatusIncome.setText("Repetir");
+        }
     }
 
     private void repeatLaunch() {
@@ -289,7 +279,7 @@ public class ControllerReceitaScreen implements Initializable {
             lancamento = controller.setLaunch();
 
             Lancamento lanc = controller.setLaunch();
-            if (lanc != null){
+            if (lanc != null) {
                 lancamento.setTotalParcelas(lanc.getTotalParcelas());
                 lancamento.setRecurrence(lanc.getRecurrence());
                 lancamento.setValue(lanc.getValue());

@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane layoutY="1.0" prefHeight="691.0" prefWidth="1000.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerMainScreen">
-   <Pane fx:id="paneMain" layoutX="150.0" layoutY="12.0" prefHeight="667.0" prefWidth="700.0" style="-fx-background-color: #EFEFEF; -fx-border-color: black; -fx-border-radius: 30 30 0 0; -fx-background-radius: 30 30 0 0;">
-      <Pane layoutX="1.0" layoutY="1.0" prefHeight="180.0" prefWidth="698.0" style="-fx-background-radius: 30 30 30 30;" styleClass="paneResume" stylesheets="@../stylesheets/styleMainScreen.css">
-         <Label layoutX="120.0" layoutY="104.0" prefHeight="26.0" prefWidth="64.0" text="Receitas">
+<Pane layoutY="1.0" prefHeight="615.0" prefWidth="867.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerMainScreen">
+   <Pane fx:id="paneMain" layoutX="100.0" layoutY="12.0" prefHeight="585.0" prefWidth="700.0" style="-fx-background-color: #EFEFEF; -fx-border-color: black; -fx-border-radius: 30 30 0 0; -fx-background-radius: 30 30 0 0;">
+      <Pane layoutX="1.0" layoutY="1.0" prefHeight="136.0" prefWidth="698.0" style="-fx-background-radius: 30 30 30 30;" styleClass="paneResume" stylesheets="@../stylesheets/styleMainScreen.css">
+         <Label layoutX="119.0" layoutY="67.0" prefHeight="26.0" prefWidth="64.0" text="Receitas">
             <font>
                <Font name="Ebrima Bold" size="14.0" />
             </font>
@@ -26,7 +26,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </ImageView>
-         <Label fx:id="txtTotalReceita" alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="150.0" text="R$ 8974,36" textAlignment="CENTER" textFill="#56a2ca">
+         <Label fx:id="txtTotalReceita" alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="90.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="150.0" text="R$ 8974,36" textAlignment="CENTER" textFill="#56a2ca">
             <font>
                <Font name="Ebrima Bold" size="14.0" />
             </font>
@@ -37,34 +37,34 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </ImageView>
-         <Label fx:id="txtTotalSaldo" contentDisplay="CENTER" layoutX="120.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="143.0" text="R$ 2587,55" textAlignment="CENTER" textFill="#56caa4">
+         <Label fx:id="txtTotalSaldo" contentDisplay="CENTER" layoutX="119.0" layoutY="90.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="143.0" text="R$ 2587,55" textAlignment="CENTER" textFill="#56caa4">
             <font>
                <Font name="Ebrima Bold" size="14.0" />
             </font>
          </Label>
-         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="199.0" layoutY="104.0" prefHeight="26.0" prefWidth="300.0" text="Saldo geral">
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="198.0" layoutY="67.0" prefHeight="26.0" prefWidth="300.0" text="Saldo geral">
             <font>
                <Font name="Ebrima Bold" size="14.0" />
             </font>
          </Label>
-         <Label fx:id="txtTotalDespesa" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="475.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="104.0" text="R$ 1299,65" textAlignment="CENTER" textFill="#ca5656">
+         <Label fx:id="txtTotalDespesa" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="474.0" layoutY="90.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="104.0" text="R$ 1299,65" textAlignment="CENTER" textFill="#ca5656">
             <font>
                <Font name="Ebrima Bold" size="14.0" />
             </font>
          </Label>
-         <Label contentDisplay="RIGHT" layoutX="515.0" layoutY="104.0" prefHeight="26.0" prefWidth="64.0" text="Despesas">
+         <Label contentDisplay="RIGHT" layoutX="514.0" layoutY="67.0" prefHeight="26.0" prefWidth="64.0" text="Despesas">
             <font>
                <Font name="Ebrima Bold" size="14.0" />
             </font>
          </Label>
-         <JFXButton fx:id="btnAddReceita" buttonType="RAISED" layoutX="60.0" layoutY="102.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #64B86C; -fx-background-radius: 50 50 50 50;" text=" " />
-         <JFXButton fx:id="btnAddDespesa" buttonType="RAISED" layoutX="590.0" layoutY="102.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #C80000; -fx-background-radius: 50 50 50 50;" text=" " />
+         <JFXButton fx:id="btnAddReceita" buttonType="RAISED" layoutX="59.0" layoutY="65.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #64B86C; -fx-background-radius: 50 50 50 50;" text=" " />
+         <JFXButton fx:id="btnAddDespesa" buttonType="RAISED" layoutX="589.0" layoutY="65.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #C80000; -fx-background-radius: 50 50 50 50;" text=" " />
          <JFXButton fx:id="btnClose" layoutX="648.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="50.0" style="-fx-background-radius: 0 30 0 10; -fx-background-color: #FEBA0F;" text="X">
             <font>
                <Font name="System Bold" size="12.0" />
             </font></JFXButton>
       </Pane>
-      <ImageView fitHeight="300.0" fitWidth="698.0" layoutX="1.0" layoutY="389.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="300.0" fitWidth="698.0" layoutX="1.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@../stylesheets/backbround_main_screen.png" />
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="275.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
@@ -72,7 +72,7 @@
             <Image url="@../icons/icon_banana.png" />
          </image>
       </ImageView>
-      <JFXListView fx:id="listViewLancamentos" layoutX="20.0" layoutY="215.0" prefHeight="420.0" prefWidth="660.0" style="-fx-background-radius: 10 10 10 10;">
+      <JFXListView fx:id="listViewLancamentos" layoutX="20.0" layoutY="151.0" prefHeight="420.0" prefWidth="660.0" style="-fx-background-radius: 10 10 10 10;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
