@@ -20,8 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
-import javafx.stage.StageStyle;
 import model.Lancamento;
 import model.enums.LaunchType;
 
@@ -286,13 +284,9 @@ public class ControllerMainScreen implements Initializable {
             fxmlLoader.setLocation(getClass().getResource("/view/DialogReceita.fxml"));
             DialogPane dialogPane = fxmlLoader.load();
             Dialog<ButtonType> dialog = new Dialog<>();
-
-            dialog.initStyle(StageStyle.UNIFIED);
-            dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Adicionar nova receita");
             dialog.showAndWait();
-
             initializeListLancamentos();
             setInfoValues();
             new FadeIn(listViewLancamentos).play();

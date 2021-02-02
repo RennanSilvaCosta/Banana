@@ -9,28 +9,24 @@ import java.util.List;
 
 public class SQL {
 
-    public static Connection getConnect() throws SQLException {
-        return DriverManager.getConnection("jdbc:sqlite:banana.db");
-    }
-
     public static void createTables() throws SQLException {
-        Statement statement = getConnect().createStatement();
+        Statement statement = DAOFactory.getConnection().createStatement();
         statement.execute("CREATE TABLE IF NOT EXISTS tb_lancamento( id_lancamento INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR, title VARCHAR," +
                 " category VARCHAR, month INTEGER, year INTEGER, value DOUBLE, recurrence VARCHAR, parcelas INTEGER, totalParcelas INTEGER, fixed BOOLEAN, paid BOOLEAN)");
-        statement.close();
     }
 
     public static void saveLauch(Lancamento lancamento) throws SQLException {
-        Connection connection = getConnect();
+        Connection connection = DAOFactory.getConnection();
         Statement statement = connection.createStatement();
         statement.execute("INSERT INTO tb_lancamento (type, title, category, month, year, value, recurrence, parcelas, totalParcelas, fixed, paid) " +
                 "VALUES ('"+lancamento.getType()+"','"+ lancamento.getTitle()+"', " + "'" + lancamento.getCategory() + "', " + " '"+ lancamento.getMonth()+"', '" +lancamento.getYear() +"', '"+ lancamento.getValue()+"', '"+ lancamento.getRecurrence()+"', '" +lancamento.getParcelas() + "', '"+ lancamento.getTotalParcelas()+"', "+ lancamento.isFixed() + " , " + lancamento.isPaid() + ");");
         statement.close();
+        connection.close();
     }
 
     public static List<Lancamento> getLaunchByMonth(int month, int year) throws SQLException {
 
-        Connection connection = getConnect();
+        Connection connection = DAOFactory.getConnection();
         PreparedStatement statement;
         ResultSet resultSet;
 
@@ -55,6 +51,7 @@ public class SQL {
             lancamento.setPaid(resultSet.getBoolean("paid"));
             lancamentos.add(lancamento);
         }
+        resultSet.close();
         statement.close();
         return lancamentos;
     }

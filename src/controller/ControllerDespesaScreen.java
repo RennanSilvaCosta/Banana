@@ -222,10 +222,10 @@ public class ControllerDespesaScreen implements Initializable {
     @FXML
     public void statusPay() {
         if (checkBoxExpensePaid.isSelected()) {
-            lbStatusPay.setText("Recebido");
+            lbStatusPay.setText("Pago");
             paid = true;
         } else {
-            lbStatusPay.setText("Não recebido");
+            lbStatusPay.setText("Não pago");
             paid = false;
         }
     }
