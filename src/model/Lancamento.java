@@ -4,6 +4,8 @@ import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class Lancamento implements Serializable {
 
@@ -16,14 +18,13 @@ public class Lancamento implements Serializable {
     private LaunchType type;
     private LauchRecurrence recurrence;
     private boolean fixed;
-    private int month;
-    private int year;
+    private LocalDate date;
     private boolean paid;
 
     public Lancamento() {
     }
 
-    public Lancamento(Integer id, String title, String category, Double value, Integer totalParcelas, LaunchType type, LauchRecurrence recurrence, boolean fixed, int month, int year, boolean paid) {
+    public Lancamento(Integer id, String title, String category, Double value, Integer totalParcelas, LaunchType type, LauchRecurrence recurrence, boolean fixed, LocalDate date, boolean paid) {
         this.id = id;
         this.title = title;
         this.category = category;
@@ -32,8 +33,7 @@ public class Lancamento implements Serializable {
         this.type = type;
         this.recurrence = recurrence;
         this.fixed = fixed;
-        this.month = month;
-        this.year = year;
+        this.date = date;
         this.paid = paid;
     }
 
@@ -101,20 +101,12 @@ public class Lancamento implements Serializable {
         this.fixed = fixed;
     }
 
-    public int getMonth() {
-        return month;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Integer getParcelas() {

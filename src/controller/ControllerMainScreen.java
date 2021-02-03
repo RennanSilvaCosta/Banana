@@ -26,13 +26,13 @@ import model.enums.LaunchType;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import static util.Helper.formatDecimal;
-import static util.Helper.teste;
 
 public class ControllerMainScreen implements Initializable {
 
@@ -59,7 +59,6 @@ public class ControllerMainScreen implements Initializable {
         setDate();
         initializeListLancamentos();
         setInfoValues();
-
 
         btnAddReceita.setGraphic(new ImageView(new Image("/icons/icon_seta_cima.png")));
         btnAddReceita.setGraphicTextGap(-5);
@@ -102,7 +101,7 @@ public class ControllerMainScreen implements Initializable {
             }
         });
 
-        teste(LaunchType.DESPESA);
+        LaunchType.DESPESA.toString();
 
     }
 
@@ -133,7 +132,7 @@ public class ControllerMainScreen implements Initializable {
         try {
             lancamentos.clear();
             listViewLancamentos.getItems().clear();
-            lancamentos = SQL.getLaunchByMonth(monthSelected, yearSelected);
+            lancamentos = SQL.getLaunchByMonth(LocalDate.now());
             for (Lancamento lanc : lancamentos) {
                 listViewLancamentos.getItems().add(lanc);
                 listViewLancamentos.setCellFactory(lancamento -> new AdapterListLancamentos());
@@ -153,7 +152,7 @@ public class ControllerMainScreen implements Initializable {
         }
         setDate(monthSelected);
         new SlideInLeft(txtDate).setSpeed(2).play();
-        initializeListLancamentos();
+       // initializeListLancamentos();
         setInfoValues();
     }
 
@@ -166,7 +165,7 @@ public class ControllerMainScreen implements Initializable {
         }
         setDate(monthSelected);
         new SlideInRight(txtDate).setSpeed(2).play();
-        initializeListLancamentos();
+        //initializeListLancamentos();
         setInfoValues();
     }
 
@@ -287,7 +286,7 @@ public class ControllerMainScreen implements Initializable {
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Adicionar nova receita");
             dialog.showAndWait();
-            initializeListLancamentos();
+            //initializeListLancamentos();
             setInfoValues();
             new FadeIn(listViewLancamentos).play();
         } catch (IOException e) {
@@ -305,7 +304,7 @@ public class ControllerMainScreen implements Initializable {
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Adicionar nova despesa");
             dialog.showAndWait();
-            initializeListLancamentos();
+            //initializeListLancamentos();
             setInfoValues();
             new FadeIn(listViewLancamentos).play();
         } catch (IOException e) {

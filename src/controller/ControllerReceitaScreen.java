@@ -115,12 +115,12 @@ public class ControllerReceitaScreen implements Initializable {
         btnSaveReceita.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                saveLaunch();
+                //saveLaunch();
             }
         });
     }
 
-    private void saveLaunch() {
+    /*private void saveLaunch() {
         try {
             if (lancamento.isFixed()) {
                 saveReceitaFixed();
@@ -132,9 +132,9 @@ public class ControllerReceitaScreen implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
+    }*/
 
-    private void saveReceita() throws SQLException {
+    /*private void saveReceita() throws SQLException {
         lancamento.setTitle(editTextDescriptionIncome.getText());
         lancamento.setValue(editTextValueIncome.getAmount());
         lancamento.setPaid(paid);
@@ -147,9 +147,9 @@ public class ControllerReceitaScreen implements Initializable {
         lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
         SQL.saveLauch(lancamento);
         close();
-    }
+    }*/
 
-    private void saveReceitaFixed() throws SQLException {
+    /*private void saveReceitaFixed() throws SQLException {
         lancamento.setTitle(editTextDescriptionIncome.getText());
         lancamento.setPaid(paid);
         lancamento.setType(LaunchType.RECEITA);
@@ -181,9 +181,9 @@ public class ControllerReceitaScreen implements Initializable {
             }
         }
         close();
-    }
+    }*/
 
-    private void saveReceitaParcelada() throws SQLException {
+    /*private void saveReceitaParcelada() throws SQLException {
         lancamento.setValue(editTextValueIncome.getAmount() / lancamento.getTotalParcelas());
         lancamento.setTitle(editTextDescriptionIncome.getText());
         lancamento.setPaid(paid);
@@ -216,7 +216,7 @@ public class ControllerReceitaScreen implements Initializable {
             }
         }
         close();
-    }
+    }*/
 
     private void initializeComboBoxCategory() {
         Map<String, String> categorias = new HashMap<>();

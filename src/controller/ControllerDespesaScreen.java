@@ -22,6 +22,7 @@ import model.enums.LaunchType;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +68,6 @@ public class ControllerDespesaScreen implements Initializable {
 
         btnSaveExpense.setGraphic(new ImageView(new Image("/icons/icon_save_launch_32px.png")));
         btnSaveExpense.setGraphicTextGap(-5);
-
 
         lbDateThisMonth.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -116,12 +116,12 @@ public class ControllerDespesaScreen implements Initializable {
         btnSaveExpense.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                saveLaunch();
+                //saveLaunch();
             }
         });
     }
 
-    private void saveLaunch() {
+   /* private void saveLaunch() {
         try {
             if (lancamento.isFixed()) {
                 saveExpenseFixed();
@@ -133,7 +133,7 @@ public class ControllerDespesaScreen implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
+    }*/
 
     private void saveExpense() throws SQLException {
         lancamento.setTitle(editTextDescriptionExpense.getText());
@@ -143,14 +143,13 @@ public class ControllerDespesaScreen implements Initializable {
         lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         lancamento.setParcelas(0);
         lancamento.setTotalParcelas(0);
-        lancamento.setMonth(monthLaunch);
-        lancamento.setYear(yearLaunch);
+        lancamento.setDate(LocalDate.now());
         lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
         SQL.saveLauch(lancamento);
         close();
     }
 
-    private void saveExpenseFixed() throws SQLException {
+    /*private void saveExpenseFixed() throws SQLException {
         lancamento.setTitle(editTextDescriptionExpense.getText());
         lancamento.setPaid(paid);
         lancamento.setType(LaunchType.DESPESA);
@@ -182,9 +181,9 @@ public class ControllerDespesaScreen implements Initializable {
             }
         }
         close();
-    }
+    }*/
 
-    private void saveExpenseParcelada() throws SQLException {
+    /*private void saveExpenseParcelada() throws SQLException {
         lancamento.setValue(editTextValueExpense.getAmount() / lancamento.getTotalParcelas());
         lancamento.setTitle(editTextDescriptionExpense.getText());
         lancamento.setPaid(paid);
@@ -217,7 +216,7 @@ public class ControllerDespesaScreen implements Initializable {
             }
         }
         close();
-    }
+    }*/
 
     @FXML
     public void statusPay() {
