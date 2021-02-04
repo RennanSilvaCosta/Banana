@@ -23,8 +23,6 @@ public class SQL {
         java.sql.Date date32 = java.sql.Date.valueOf(lancamento.getDate());
         Statement statement = connection.createStatement();
 
-        System.out.println(date32);
-
         statement.execute("INSERT INTO tb_lancamento (type, title, category, date, value, recurrence, parcelas, totalParcelas, fixed, paid) " +
                 "VALUES ('"+lancamento.getType()+"','"+ lancamento.getTitle()+"', " + "'" + lancamento.getCategory() + "', " + " '"+ date32 +"', " + "'" + lancamento.getValue()+"', '"+ lancamento.getRecurrence()+"', '" +lancamento.getParcelas() + "', '"+ lancamento.getTotalParcelas()+"', "+ lancamento.isFixed() + " , " + lancamento.isPaid() + ");");
         statement.close();

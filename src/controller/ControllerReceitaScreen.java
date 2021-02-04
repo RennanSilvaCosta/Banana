@@ -152,7 +152,7 @@ public class ControllerReceitaScreen implements Initializable {
         lancamento.setTotalParcelas(0);
         lancamento.setValue(editTextValueIncome.getAmount());
 
-        for (int x = 0; x < 12; x++){
+        for (int x = 0; x < 12; x++) {
             lancamento.setDate(dateRefe.plusMonths(x));
             SQL.saveLauch(lancamento);
             lancamento.setPaid(false);

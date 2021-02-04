@@ -59,7 +59,7 @@ public class ControllerMainScreen implements Initializable {
 
         btnAddReceita.setGraphic(new ImageView(new Image("/icons/icon_seta_cima.png")));
         btnAddReceita.setGraphicTextGap(-5);
-        btnAddDespesa.setGraphic(new ImageView(new Image("/icons/icon_seta_cima.png")));
+        btnAddDespesa.setGraphic(new ImageView(new Image("/icons/icon_seta_baixo.png")));
         btnAddDespesa.setGraphicTextGap(-5);
 
         btnAddReceita.setOnAction(new EventHandler<ActionEvent>() {

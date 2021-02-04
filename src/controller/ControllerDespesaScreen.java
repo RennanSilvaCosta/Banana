@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -55,10 +54,8 @@ public class ControllerDespesaScreen implements Initializable {
 
     Lancamento lancamento = new Lancamento();
 
-    Calendar calendar = Calendar.getInstance();
+    LocalDate dateRefe = LocalDate.now();
 
-    int monthLaunch = 0;
-    int yearLaunch = 0;
     boolean paid;
 
     @Override
@@ -78,8 +75,7 @@ public class ControllerDespesaScreen implements Initializable {
                     lbDateNextMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
                     dateExpense.setValue(null);
                     lbDateThisMonth.requestFocus();
-                    monthLaunch = calendar.get(Calendar.MONTH) + 1;
-                    yearLaunch = Calendar.getInstance().get(Calendar.YEAR);
+                    dateRefe = LocalDate.now();
                 } else {
                     lbDateThisMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
                 }
@@ -95,8 +91,7 @@ public class ControllerDespesaScreen implements Initializable {
                     lbDateThisMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
                     dateExpense.setValue(null);
                     lbDateNextMonth.requestFocus();
-                    monthLaunch = calendar.get(Calendar.MONTH) + 2;
-                    yearLaunch = Calendar.getInstance().get(Calendar.YEAR);
+                    dateRefe = dateRefe.plusMonths(1);
                 } else {
                     lbDateNextMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
                 }
@@ -108,20 +103,19 @@ public class ControllerDespesaScreen implements Initializable {
             public void handle(ActionEvent actionEvent) {
                 lbDateThisMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
                 lbDateNextMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
-                monthLaunch = calendar.get(Calendar.MONTH) + 1;
-                yearLaunch = Calendar.getInstance().get(Calendar.YEAR);
+                dateRefe = dateExpense.getValue();
             }
         });
 
         btnSaveExpense.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //saveLaunch();
+                saveLaunch();
             }
         });
     }
 
-   /* private void saveLaunch() {
+    private void saveLaunch() {
         try {
             if (lancamento.isFixed()) {
                 saveExpenseFixed();
@@ -133,7 +127,7 @@ public class ControllerDespesaScreen implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }*/
+    }
 
     private void saveExpense() throws SQLException {
         lancamento.setTitle(editTextDescriptionExpense.getText());
@@ -143,13 +137,12 @@ public class ControllerDespesaScreen implements Initializable {
         lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         lancamento.setParcelas(0);
         lancamento.setTotalParcelas(0);
-        lancamento.setDate(LocalDate.now());
         lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
         SQL.saveLauch(lancamento);
         close();
     }
 
-    /*private void saveExpenseFixed() throws SQLException {
+    private void saveExpenseFixed() throws SQLException {
         lancamento.setTitle(editTextDescriptionExpense.getText());
         lancamento.setPaid(paid);
         lancamento.setType(LaunchType.DESPESA);
@@ -157,66 +150,35 @@ public class ControllerDespesaScreen implements Initializable {
         lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
         lancamento.setParcelas(0);
         lancamento.setTotalParcelas(0);
-        lancamento.setMonth(monthLaunch);
-        lancamento.setYear(yearLaunch);
         lancamento.setValue(editTextValueExpense.getAmount());
-        int month = lancamento.getMonth();
-        int year = 1;
 
-        for (int cont = 0; cont < 12; cont++) {
-            if (month > 12) {
-                month = 1;
-                lancamento.setYear(calendar.get(Calendar.YEAR) + year);
-                lancamento.setMonth(month);
-                SQL.saveLauch(lancamento);
-                lancamento.setPaid(false);
-                month++;
-                year++;
-            } else {
-                lancamento.setMonth(month);
-                lancamento.setYear(calendar.get(Calendar.YEAR) + (year - 1));
-                SQL.saveLauch(lancamento);
-                lancamento.setPaid(false);
-                month++;
-            }
+        for (int x = 0; x < 12; x++) {
+            lancamento.setDate(dateRefe.plusMonths(x));
+            SQL.saveLauch(lancamento);
+            lancamento.setPaid(false);
         }
-        close();
-    }*/
 
-    /*private void saveExpenseParcelada() throws SQLException {
+        close();
+    }
+
+    private void saveExpenseParcelada() throws SQLException {
         lancamento.setValue(editTextValueExpense.getAmount() / lancamento.getTotalParcelas());
         lancamento.setTitle(editTextDescriptionExpense.getText());
         lancamento.setPaid(paid);
         lancamento.setType(LaunchType.DESPESA);
         lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
-        lancamento.setMonth(monthLaunch);
-        lancamento.setYear(yearLaunch);
-        int month = lancamento.getMonth();
-        int year = 1;
-        int parcelas = 1;
-        for (int cont = 0; cont < lancamento.getTotalParcelas(); cont++) {
-            if (month > 12) {
-                month = 1;
-                lancamento.setYear(calendar.get(Calendar.YEAR) + year);
-                lancamento.setMonth(month);
-                lancamento.setParcelas(parcelas);
-                SQL.saveLauch(lancamento);
-                lancamento.setPaid(false);
-                month++;
-                year++;
-                parcelas++;
-            } else {
-                lancamento.setMonth(month);
-                lancamento.setYear(calendar.get(Calendar.YEAR) + (year - 1));
-                lancamento.setParcelas(parcelas);
-                SQL.saveLauch(lancamento);
-                lancamento.setPaid(false);
-                month++;
-                parcelas++;
-            }
+
+        int auxParcel = 1;
+
+        for (int x = 0; x < lancamento.getTotalParcelas(); x++) {
+            lancamento.setDate(dateRefe.plusMonths(x));
+            lancamento.setParcelas(auxParcel);
+            SQL.saveLauch(lancamento);
+            lancamento.setPaid(false);
+            auxParcel++;
         }
         close();
-    }*/
+    }
 
     @FXML
     public void statusPay() {
@@ -274,7 +236,6 @@ public class ControllerDespesaScreen implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     private void initializeComboboxCategorias() {
         Map<String, String> categorias = new HashMap<>();
