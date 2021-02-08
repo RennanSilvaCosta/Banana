@@ -1,9 +1,11 @@
 package controller;
 
+import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import dao.SQL;
+import exception.StandardError;
 import helper.CurrencyField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,12 +20,14 @@ import javafx.stage.Stage;
 import model.Lancamento;
 import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
+import validator.LaunchValidator;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -35,13 +39,16 @@ public class ControllerDespesaScreen implements Initializable {
     JFXButton btnSaveExpense;
 
     @FXML
+    ImageView imgCategory, imgDescription;
+
+    @FXML
     CurrencyField editTextValueExpense;
 
     @FXML
     JFXTextField editTextDescriptionExpense;
 
     @FXML
-    Label lbStatusPay, lbDateThisMonth, lbDateNextMonth, lbStatusFixedExpense, lbRepeatStatusExpense, labelCategorias;
+    Label lbStatusPay, lbDateThisMonth, lbDateNextMonth, lbStatusFixedExpense, lbRepeatStatusExpense, labelCategorias, txtTitleValue;
 
     @FXML
     JFXCheckBox checkBoxExpensePaid, checkBoxExpenseFixed, checkBoxExpenseRepeat;
@@ -53,6 +60,7 @@ public class ControllerDespesaScreen implements Initializable {
     ComboBox<Label> cbCategoryExpense = new ComboBox<>();
 
     Lancamento lancamento = new Lancamento();
+    LaunchValidator validator = new LaunchValidator();
 
     LocalDate dateRefe = LocalDate.now();
 
@@ -69,7 +77,6 @@ public class ControllerDespesaScreen implements Initializable {
         lbDateThisMonth.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
                 if (lbDateThisMonth.getStyle().equals("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;")) {
                     lbDateThisMonth.setStyle("-fx-background-color: #D25046; -fx-text-fill: white; -fx-background-radius: 20 20 20 20;");
                     lbDateNextMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
@@ -79,7 +86,6 @@ public class ControllerDespesaScreen implements Initializable {
                 } else {
                     lbDateThisMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
                 }
-
             }
         });
 
@@ -116,23 +122,14 @@ public class ControllerDespesaScreen implements Initializable {
     }
 
     private void saveLaunch() {
-        try {
-            if (lancamento.isFixed()) {
-                saveExpenseFixed();
-            } else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0) {
-                saveExpenseParcelada();
-            } else {
-                saveExpense();
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        validateAndSaveLaunch();
     }
 
     private void saveExpense() throws SQLException {
         lancamento.setTitle(editTextDescriptionExpense.getText());
         lancamento.setValue(editTextValueExpense.getAmount());
         lancamento.setPaid(paid);
+        lancamento.setDate(dateRefe);
         lancamento.setType(LaunchType.DESPESA);
         lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         lancamento.setParcelas(0);
@@ -157,7 +154,6 @@ public class ControllerDespesaScreen implements Initializable {
             SQL.saveLauch(lancamento);
             lancamento.setPaid(false);
         }
-
         close();
     }
 
@@ -267,6 +263,49 @@ public class ControllerDespesaScreen implements Initializable {
             labelCategorias.setGraphic(new ImageView(new Image(categorias.get(labelsItemList))));
             labelCategorias.setGraphicTextGap(20);
             cbCategoryExpense.getItems().add(labelCategorias);
+        }
+    }
+
+    private void validateAndSaveLaunch() {
+        Double value = editTextValueExpense.getAmount();
+        String description = editTextDescriptionExpense.getText();
+        Label category = cbCategoryExpense.getSelectionModel().getSelectedItem();
+
+        List<StandardError> errors = validator.launchIsValid(value, description, category);
+
+        if (!errors.isEmpty()) {
+            setErrorMessage(errors);
+        } else {
+            try {
+                if (lancamento.isFixed()) {
+                    saveExpenseFixed();
+                } else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0) {
+                    saveExpenseParcelada();
+                } else {
+                    saveExpense();
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+    private void setErrorMessage(List<StandardError> errors) {
+        for (StandardError error : errors) {
+            if (error.getField().equals("value")) {
+                new Shake(txtTitleValue).play();
+                new Shake(editTextValueExpense).play();
+            }
+
+            if (error.getField().equals("description")) {
+                new Shake(imgDescription).play();
+                new Shake(editTextDescriptionExpense).play();
+            }
+
+            if (error.getField().equals("category")) {
+                new Shake(imgCategory).play();
+                new Shake(cbCategoryExpense).play();
+            }
         }
     }
 

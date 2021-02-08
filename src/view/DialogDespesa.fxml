@@ -45,7 +45,7 @@
                 </Label>
                 <DatePicker fx:id="dateExpense" layoutX="310.0" layoutY="96.0" prefHeight="30.0" prefWidth="90.0" />
                 <Separator layoutX="25.0" layoutY="140.0" prefWidth="400.0" />
-                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="imgDescription" fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../icons/receita/icon_description_32px.png" />
                 </ImageView>
                 <JFXTextField fx:id="editTextDescriptionExpense" focusColor="#d0372b" layoutX="92.0" layoutY="166.0" prefHeight="25.0" prefWidth="307.0" promptText="Descrição" unFocusColor="WHITE">
@@ -54,7 +54,7 @@
                     </font>
                 </JFXTextField>
                 <Separator layoutX="25.0" layoutY="210.0" prefWidth="400.0" />
-                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="imgCategory" fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../icons/receita/icon_categorias_32px.png" />
                 </ImageView>
                 <JFXComboBox fx:id="cbCategoryExpense" focusColor="#d0372b" layoutX="92.0" layoutY="235.0" prefHeight="25.0" prefWidth="307.0" promptText="Categoria" />
@@ -89,7 +89,7 @@
                     <Font name="Calibri Bold" size="18.0" />
                 </font>
             </Label>
-            <Label layoutX="27.0" layoutY="47.0" prefHeight="22.0" prefWidth="231.0" text="Valor da despesa" textFill="WHITE">
+            <Label fx:id="txtTitleValue" layoutX="27.0" layoutY="47.0" prefHeight="22.0" prefWidth="231.0" text="Valor da despesa" textFill="WHITE">
                 <font>
                     <Font name="Calibri Bold" size="14.0" />
                 </font>
