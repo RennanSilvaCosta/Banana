@@ -1,9 +1,11 @@
 package controller;
 
+import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import dao.SQL;
+import exception.StandardError;
 import helper.CurrencyField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,12 +20,14 @@ import javafx.stage.Stage;
 import model.Lancamento;
 import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
+import validator.LaunchValidator;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -41,7 +45,10 @@ public class ControllerReceitaScreen implements Initializable {
     JFXTextField editTextDescriptionIncome;
 
     @FXML
-    Label lbStatusPay, lbDateThisMonth, lbDateNextMonth, lbStatusFixedIncome, lbRepeatStatusIncome, labelCategorias;
+    Label lbStatusPay, lbDateThisMonth, lbDateNextMonth, lbStatusFixedIncome, lbRepeatStatusIncome, labelCategorias, txtTitleValue;
+
+    @FXML
+    ImageView imgDescription, imgCategory;
 
     @FXML
     JFXCheckBox checkBoxIncomePaid, checkBoxIncomeFixed, checkBoxIncomeRepeat;
@@ -53,6 +60,8 @@ public class ControllerReceitaScreen implements Initializable {
     ComboBox<Label> cbCategoryIncome = new ComboBox<>();
 
     Lancamento lancamento = new Lancamento();
+    LaunchValidator validator = new LaunchValidator();
+
     LocalDate dateRefe = LocalDate.now();
 
     boolean paid;
@@ -68,7 +77,6 @@ public class ControllerReceitaScreen implements Initializable {
         lbDateThisMonth.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
                 if (lbDateThisMonth.getStyle().equals("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;")) {
                     lbDateThisMonth.setStyle("-fx-background-color: #64B86C; -fx-text-fill: white; -fx-background-radius: 20 20 20 20;");
                     lbDateNextMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
@@ -78,7 +86,6 @@ public class ControllerReceitaScreen implements Initializable {
                 } else {
                     lbDateThisMonth.setStyle("-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;");
                 }
-
             }
         });
 
@@ -115,16 +122,29 @@ public class ControllerReceitaScreen implements Initializable {
     }
 
     private void saveLaunch() {
-        try {
-            if (lancamento.isFixed()) {
-                saveReceitaFixed();
-            } else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0) {
-                saveReceitaParcelada();
-            } else {
-                saveReceita();
+        validateAndSaveLaunch();
+    }
+
+    private void validateAndSaveLaunch() {
+        Double value = editTextValueIncome.getAmount();
+        String description = editTextDescriptionIncome.getText();
+        Label category = cbCategoryIncome.getSelectionModel().getSelectedItem();
+        List<StandardError> errors = validator.launchIsValid(value, description, category);
+
+        if (!errors.isEmpty()) {
+            setErrorMessage(errors);
+        } else {
+            try {
+                if (lancamento.isFixed()) {
+                    saveReceitaFixed();
+                } else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0) {
+                    saveReceitaParcelada();
+                } else {
+                    saveReceita();
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
     }
 
@@ -252,6 +272,26 @@ public class ControllerReceitaScreen implements Initializable {
             e.printStackTrace();
         }
     }
+
+    private void setErrorMessage(List<StandardError> errors) {
+        for (StandardError error : errors) {
+            if (error.getField().equals("value")) {
+                new Shake(txtTitleValue).play();
+                new Shake(editTextValueIncome).play();
+            }
+
+            if (error.getField().equals("description")) {
+                new Shake(imgDescription).play();
+                new Shake(editTextDescriptionIncome).play();
+            }
+
+            if (error.getField().equals("category")) {
+                new Shake(imgCategory).play();
+                new Shake(cbCategoryIncome).play();
+            }
+        }
+    }
+
 
     public void close() {
         Stage stage = (Stage) btnSaveReceita.getScene().getWindow();

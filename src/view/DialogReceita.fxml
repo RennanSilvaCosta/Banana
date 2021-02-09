@@ -8,124 +8,93 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<DialogPane expanded="true" prefHeight="640.0" prefWidth="450.0" styleClass="main_container"
-            stylesheets="@../stylesheets/styleAddReceita.css" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerReceitaScreen">
+<DialogPane expanded="true" prefHeight="640.0" prefWidth="450.0" styleClass="main_container" stylesheets="@../stylesheets/styleAddReceita.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerReceitaScreen">
     <content>
-        <Pane prefHeight="640.0" prefWidth="450.0" style="-fx-background-radius: 20 20 20 20;"
-              styleClass="pane_background" stylesheets="@../stylesheets/styleAddReceita.css">
-            <CurrencyField fx:id="editTextValueIncome" layoutX="27.0" layoutY="69.0" maxHeight="-Infinity"
-                           maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                           nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="397.0"
-                           style="-fx-background-color: transparent;" styleClass="text_field"
-                           stylesheets="@../stylesheets/styleAddReceita.css">
+        <Pane prefHeight="640.0" prefWidth="450.0" style="-fx-background-radius: 20 20 20 20;" styleClass="pane_background" stylesheets="@../stylesheets/styleAddReceita.css">
+            <CurrencyField fx:id="editTextValueIncome" layoutX="27.0" layoutY="69.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="397.0" style="-fx-background-color: transparent;" styleClass="text_field" stylesheets="@../stylesheets/styleAddReceita.css">
                 <font>
-                    <Font name="Calibri Bold" size="36.0"/>
+                    <Font name="Calibri Bold" size="36.0" />
                 </font>
                 <padding>
-                    <Insets right="10.0"/>
+                    <Insets right="10.0" />
                 </padding>
             </CurrencyField>
-            <Pane layoutY="120.0" prefHeight="520.0" prefWidth="450.0"
-                  style="-fx-background-color: white; -fx-background-radius: 30 30 20 20;">
-                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="25.0" pickOnBounds="true"
-                           preserveRatio="true">
-                    <Image url="@../icons/receita/icon_check.png"/>
+            <Pane layoutY="120.0" prefHeight="520.0" prefWidth="450.0" style="-fx-background-color: white; -fx-background-radius: 30 30 20 20;">
+                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/receita/icon_check.png" />
                 </ImageView>
-                <Label fx:id="lbStatusPay" layoutX="92.0" layoutY="30.0" prefHeight="22.0" prefWidth="250.0"
-                       text="Não recebido">
+                <Label fx:id="lbStatusPay" layoutX="92.0" layoutY="30.0" prefHeight="22.0" prefWidth="250.0" text="Não recebido">
                     <font>
-                        <Font name="Calibri Bold" size="16.0"/>
+                        <Font name="Calibri Bold" size="16.0" />
                     </font>
                 </Label>
-                <JFXCheckBox fx:id="checkBoxIncomePaid" layoutX="370.0" layoutY="32.0" mnemonicParsing="false"
-                             onAction="#statusPay" prefHeight="18.0" prefWidth="17.0" text=" "/>
-                <Separator layoutX="25.0" layoutY="70.0" prefWidth="400.0"/>
-                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="95.0" pickOnBounds="true"
-                           preserveRatio="true">
-                    <Image url="@../icons/receita/icon_calendar_32px.png"/>
+                <JFXCheckBox fx:id="checkBoxIncomePaid" layoutX="370.0" layoutY="32.0" mnemonicParsing="false" onAction="#statusPay" prefHeight="18.0" prefWidth="17.0" text=" " />
+                <Separator layoutX="25.0" layoutY="70.0" prefWidth="400.0" />
+                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/receita/icon_calendar_32px.png" />
                 </ImageView>
-                <Label fx:id="lbDateThisMonth" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" layoutY="96.0"
-                       prefHeight="30.0" prefWidth="103.0"
-                       style="-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;" text="Este mês">
+                <Label fx:id="lbDateThisMonth" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" layoutY="96.0" prefHeight="30.0" prefWidth="103.0" style="-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;" text="Este mês">
                     <font>
-                        <Font name="Calibri" size="16.0"/>
+                        <Font name="Calibri" size="16.0" />
                     </font>
                 </Label>
-                <Label fx:id="lbDateNextMonth" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="96.0"
-                       prefHeight="30.0" prefWidth="103.0"
-                       style="-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;" text="Proximo mês">
+                <Label fx:id="lbDateNextMonth" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="96.0" prefHeight="30.0" prefWidth="103.0" style="-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;" text="Proximo mês">
                     <font>
-                        <Font name="Calibri" size="16.0"/>
+                        <Font name="Calibri" size="16.0" />
                     </font>
                 </Label>
-                <DatePicker fx:id="dateIncome" layoutX="310.0" layoutY="96.0" prefHeight="30.0" prefWidth="90.0"/>
-                <Separator layoutX="25.0" layoutY="140.0" prefWidth="400.0"/>
-                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="165.0" pickOnBounds="true"
-                           preserveRatio="true">
-                    <Image url="@../icons/receita/icon_description_32px.png"/>
+                <DatePicker fx:id="dateIncome" layoutX="310.0" layoutY="96.0" prefHeight="30.0" prefWidth="90.0" />
+                <Separator layoutX="25.0" layoutY="140.0" prefWidth="400.0" />
+                <ImageView fx:id="imgDescription" fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/receita/icon_description_32px.png" />
                 </ImageView>
-                <JFXTextField fx:id="editTextDescriptionIncome" focusColor="#0f9d58" layoutX="92.0" layoutY="166.0"
-                              prefHeight="25.0" prefWidth="307.0" promptText="Descrição" unFocusColor="WHITE">
+                <JFXTextField fx:id="editTextDescriptionIncome" focusColor="#0f9d58" layoutX="92.0" layoutY="166.0" prefHeight="25.0" prefWidth="307.0" promptText="Descrição" unFocusColor="WHITE">
                     <font>
-                        <Font name="Calibri Bold" size="16.0"/>
+                        <Font name="Calibri Bold" size="16.0" />
                     </font>
                 </JFXTextField>
-                <Separator layoutX="25.0" layoutY="210.0" prefWidth="400.0"/>
-                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="235.0" pickOnBounds="true"
-                           preserveRatio="true">
-                    <Image url="@../icons/receita/icon_categorias_32px.png"/>
+                <Separator layoutX="25.0" layoutY="210.0" prefWidth="400.0" />
+                <ImageView fx:id="imgCategory" fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/receita/icon_categorias_32px.png" />
                 </ImageView>
-                <JFXComboBox fx:id="cbCategoryIncome" focusColor="#0f9d58" layoutX="92.0" layoutY="235.0"
-                             prefHeight="25.0" prefWidth="307.0" promptText="Categoria"/>
-                <Separator layoutX="25.0" layoutY="280.0" prefWidth="400.0"/>
-                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="305.0" pickOnBounds="true"
-                           preserveRatio="true">
-                    <Image url="@../icons/receita/icon_fixa_32px.png"/>
+                <JFXComboBox fx:id="cbCategoryIncome" focusColor="#0f9d58" layoutX="92.0" layoutY="235.0" prefHeight="25.0" prefWidth="307.0" promptText="Categoria" />
+                <Separator layoutX="25.0" layoutY="280.0" prefWidth="400.0" />
+                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/receita/icon_fixa_32px.png" />
                 </ImageView>
-                <Label fx:id="lbStatusFixedIncome" layoutX="92.0" layoutY="310.0" prefHeight="22.0" prefWidth="222.0"
-                       text="Receita fixa">
+                <Label fx:id="lbStatusFixedIncome" layoutX="92.0" layoutY="310.0" prefHeight="22.0" prefWidth="222.0" text="Receita fixa">
                     <font>
-                        <Font name="Calibri Bold" size="16.0"/>
+                        <Font name="Calibri Bold" size="16.0" />
                     </font>
                 </Label>
-                <JFXCheckBox fx:id="checkBoxIncomeFixed" layoutX="370.0" layoutY="312.0" mnemonicParsing="false"
-                             onAction="#statusFixed" prefHeight="18.0" prefWidth="17.0" text=" "/>
-                <Separator layoutX="25.0" layoutY="350.0" prefWidth="400.0"/>
-                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="375.0" pickOnBounds="true"
-                           preserveRatio="true">
-                    <Image url="@../icons/receita/icon_repeat_32px.png"/>
+                <JFXCheckBox fx:id="checkBoxIncomeFixed" layoutX="370.0" layoutY="312.0" mnemonicParsing="false" onAction="#statusFixed" prefHeight="18.0" prefWidth="17.0" text=" " />
+                <Separator layoutX="25.0" layoutY="350.0" prefWidth="400.0" />
+                <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/receita/icon_repeat_32px.png" />
                 </ImageView>
-                <Label fx:id="lbRepeatStatusIncome" layoutX="92.0" layoutY="380.0" prefHeight="22.0" prefWidth="222.0"
-                       text="Repetir">
+                <Label fx:id="lbRepeatStatusIncome" layoutX="92.0" layoutY="380.0" prefHeight="22.0" prefWidth="222.0" text="Repetir">
                     <font>
-                        <Font name="Calibri Bold" size="16.0"/>
+                        <Font name="Calibri Bold" size="16.0" />
                     </font>
                 </Label>
-                <JFXCheckBox fx:id="checkBoxIncomeRepeat" layoutX="370.0" layoutY="382.0" mnemonicParsing="false"
-                             onAction="#isRepeat" prefHeight="18.0" prefWidth="17.0" text=" "/>
-                <Separator layoutX="25.0" layoutY="420.0" prefWidth="400.0"/>
-                <JFXButton fx:id="btnSaveReceita" buttonType="RAISED" layoutX="195.0" layoutY="441.0"
-                           mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0"
-                           style="-fx-background-color: #64B86C; -fx-background-radius: 50 50 50 50;" text=" "/>
+                <JFXCheckBox fx:id="checkBoxIncomeRepeat" layoutX="370.0" layoutY="382.0" mnemonicParsing="false" onAction="#isRepeat" prefHeight="18.0" prefWidth="17.0" text=" " />
+                <Separator layoutX="25.0" layoutY="420.0" prefWidth="400.0" />
+                <JFXButton fx:id="btnSaveReceita" buttonType="RAISED" layoutX="195.0" layoutY="441.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: #64B86C; -fx-background-radius: 50 50 50 50;" text=" " />
             </Pane>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="7.0" pickOnBounds="true"
-                       preserveRatio="true">
-                <Image url="@../icons/receita/icon_seta_esquerda_add_receita.png"/>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../icons/receita/icon_seta_esquerda_add_receita.png" />
             </ImageView>
-            <Label layoutX="92.0" layoutY="12.0" prefHeight="22.0" prefWidth="231.0" text="Nova receita"
-                   textFill="WHITE">
+            <Label layoutX="92.0" layoutY="12.0" prefHeight="22.0" prefWidth="231.0" text="Nova receita" textFill="WHITE">
                 <font>
-                    <Font name="Calibri Bold" size="18.0"/>
+                    <Font name="Calibri Bold" size="18.0" />
                 </font>
             </Label>
-            <Label layoutX="30.0" layoutY="47.0" prefHeight="22.0" prefWidth="231.0" text="Valor da receita"
-                   textFill="WHITE">
+            <Label fx:id="txtTitleValue" layoutX="30.0" layoutY="47.0" prefHeight="22.0" prefWidth="231.0" text="Valor da receita" textFill="WHITE">
                 <font>
-                    <Font name="Calibri Bold" size="14.0"/>
+                    <Font name="Calibri Bold" size="14.0" />
                 </font>
             </Label>
         </Pane>
     </content>
-    <ButtonType fx:constant="OK"/>
+    <ButtonType fx:constant="OK" />
 </DialogPane>
