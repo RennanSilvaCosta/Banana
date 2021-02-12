@@ -8,14 +8,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
-import model.Lancamento;
+import model.Launch;
 import model.enums.LaunchType;
 
 import java.io.IOException;
 
 import static util.Helper.formatDecimal;
 
-public class AdapterListLancamentos extends ListCell<Lancamento> {
+public class AdapterListLancamentos extends ListCell<Launch> {
 
     private FXMLLoader mLLoader;
 
@@ -29,7 +29,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
     ImageView imgCategory, img1, img2;
 
     @Override
-    protected void updateItem(Lancamento lancamento, boolean empty) {
+    protected void updateItem(Launch lancamento, boolean empty) {
         super.updateItem(lancamento, empty);
 
         if (empty || lancamento == null) {
@@ -51,7 +51,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
             setIconCategory(lancamento);
             setBackgroundColor(lancamento);
             isFixed(lancamento);
-            isParcel(lancamento);
+            //isParcel(lancamento);
             isPaid(lancamento);
 
             txtTitle.setText(lancamento.getTitle());
@@ -63,7 +63,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
         }
     }
 
-    private void setIconCategory(Lancamento lancamento) {
+    private void setIconCategory(Launch lancamento) {
 
         switch (lancamento.getCategory()) {
             case "Salario":
@@ -142,7 +142,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
 
     }
 
-    private void setBackgroundColor(Lancamento lancamento) {
+    private void setBackgroundColor(Launch lancamento) {
         switch (lancamento.getType()) {
             case RECEITA:
                 gridPane.setStyle("-fx-background-color: #EDFDF4;");
@@ -154,7 +154,7 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
         }
     }
 
-    private void isFixed(Lancamento lancamento) {
+    private void isFixed(Launch lancamento) {
         if (lancamento.isFixed() && lancamento.getType().equals(LaunchType.RECEITA)) {
             img1.setVisible(true);
             img1.setImage(new Image("/icons/receita/icon_fixed_receita.png"));
@@ -166,15 +166,15 @@ public class AdapterListLancamentos extends ListCell<Lancamento> {
         }
     }
 
-    private void isParcel(Lancamento lancamento) {
+    /*private void isParcel(Launch lancamento) {
         if (lancamento.getTotalParcelas() > 0) {
             txtParcel.setText(lancamento.getParcelas() + "/" + lancamento.getTotalParcelas());
         } else {
             txtParcel.setText("");
         }
-    }
+    }*/
 
-    private void isPaid(Lancamento lancamento) {
+    private void isPaid(Launch lancamento) {
         if (lancamento.isPaid() && lancamento.isFixed()) {
             img2.setVisible(true);
             img2.setImage(new Image("/icons/icon_paid_status.png"));

@@ -11,6 +11,19 @@
 <DialogPane expanded="true" prefHeight="640.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerDespesaScreen">
     <content>
         <Pane prefHeight="640.0" prefWidth="450.0" style="-fx-background-radius: 20 20 20 20;" styleClass="pane_background" stylesheets="@../stylesheets/styleAddDespesa.css">
+            <Label layoutX="27.0" layoutY="14.0" prefHeight="22.0" prefWidth="231.0" text="Nova despesa" textFill="WHITE">
+                <font>
+                    <Font name="Calibri Bold" size="18.0" />
+                </font>
+            </Label>
+            <Label fx:id="txtTitleValue" layoutX="27.0" layoutY="47.0" prefHeight="22.0" prefWidth="231.0" text="Valor da despesa" textFill="WHITE">
+                <font>
+                    <Font name="Calibri Bold" size="14.0" />
+                </font>
+            </Label>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="392.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../icons/icon_more_options_32px.png" />
+            </ImageView>
             <CurrencyField fx:id="editTextValueExpense" layoutX="27.0" layoutY="69.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="397.0" style="-fx-background-color: transparent;" styleClass="text_field" stylesheets="@../stylesheets/styleAddReceita.css">
                 <font>
                     <Font name="Calibri Bold" size="36.0" />
@@ -81,19 +94,6 @@
                 <Separator layoutX="25.0" layoutY="420.0" prefWidth="400.0" />
                 <JFXButton fx:id="btnSaveExpense" buttonType="RAISED" layoutX="187.0" layoutY="441.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: #C80000; -fx-background-radius: 50 50 50 50;" text=" " />
             </Pane>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../icons/receita/icon_seta_esquerda_add_receita.png" />
-            </ImageView>
-            <Label layoutX="92.0" layoutY="12.0" prefHeight="22.0" prefWidth="231.0" text="Nova despesa" textFill="WHITE">
-                <font>
-                    <Font name="Calibri Bold" size="18.0" />
-                </font>
-            </Label>
-            <Label fx:id="txtTitleValue" layoutX="27.0" layoutY="47.0" prefHeight="22.0" prefWidth="231.0" text="Valor da despesa" textFill="WHITE">
-                <font>
-                    <Font name="Calibri Bold" size="14.0" />
-                </font>
-            </Label>
         </Pane>
     </content>
     <ButtonType fx:constant="OK" />

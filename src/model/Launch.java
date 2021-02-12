@@ -4,32 +4,28 @@ import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDate;
 
-public class Lancamento implements Serializable {
+public class Launch implements Serializable {
 
     private Integer id;
     private String title;
     private String category;
     private Double value;
-    private Integer totalParcelas;
-    private Integer parcelas;
     private LaunchType type;
     private LauchRecurrence recurrence;
     private boolean fixed;
     private LocalDate date;
     private boolean paid;
 
-    public Lancamento() {
+    public Launch() {
     }
 
-    public Lancamento(Integer id, String title, String category, Double value, Integer totalParcelas, LaunchType type, LauchRecurrence recurrence, boolean fixed, LocalDate date, boolean paid) {
+    public Launch(Integer id, String title, String category, Double value, LaunchType type, LauchRecurrence recurrence, boolean fixed, LocalDate date, boolean paid) {
         this.id = id;
         this.title = title;
         this.category = category;
         this.value = value;
-        this.totalParcelas = totalParcelas;
         this.type = type;
         this.recurrence = recurrence;
         this.fixed = fixed;
@@ -69,14 +65,6 @@ public class Lancamento implements Serializable {
         this.value = value;
     }
 
-    public Integer getTotalParcelas() {
-        return totalParcelas;
-    }
-
-    public void setTotalParcelas(Integer totalParcelas) {
-        this.totalParcelas = totalParcelas;
-    }
-
     public LaunchType getType() {
         return type;
     }
@@ -107,14 +95,6 @@ public class Lancamento implements Serializable {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public Integer getParcelas() {
-        return parcelas;
-    }
-
-    public void setParcelas(Integer parcelas) {
-        this.parcelas = parcelas;
     }
 
     public boolean isPaid() {

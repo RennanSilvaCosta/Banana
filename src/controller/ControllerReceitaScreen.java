@@ -17,7 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.Lancamento;
+import model.Launch;
 import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
 import validator.LaunchValidator;
@@ -45,7 +45,7 @@ public class ControllerReceitaScreen implements Initializable {
     JFXTextField editTextDescriptionIncome;
 
     @FXML
-    Label lbStatusPay, lbDateThisMonth, lbDateNextMonth, lbStatusFixedIncome, lbRepeatStatusIncome, labelCategorias, txtTitleValue;
+    Label lbStatusPay, lbDateThisMonth, lbDateNextMonth, lbStatusFixedIncome, lbRepeatStatusIncome, labelCategorias, txtTitleValue, txtTitleScreen;
 
     @FXML
     ImageView imgDescription, imgCategory;
@@ -59,7 +59,7 @@ public class ControllerReceitaScreen implements Initializable {
     @FXML
     ComboBox<Label> cbCategoryIncome = new ComboBox<>();
 
-    Lancamento lancamento = new Lancamento();
+    Launch lancamento = new Launch();
     LaunchValidator validator = new LaunchValidator();
 
     LocalDate dateRefe = LocalDate.now();
@@ -121,6 +121,22 @@ public class ControllerReceitaScreen implements Initializable {
         });
     }
 
+    /*public void teste(Launch l) {
+        txtTitleScreen.setText("Editar receita");
+        lancamento = l;
+        editTextValueIncome.setAmount(l.getValue());
+        checkBoxIncomePaid.setSelected(l.isFixed());
+        editTextDescriptionIncome.setText(l.getTitle());
+        checkBoxIncomeFixed.setSelected(l.isFixed());
+        dateRefe = l.getDate();
+        if (l.getTotalParcelas() > 0) {
+            checkBoxIncomeRepeat.setSelected(true);
+        }
+        statusPay();
+        statusFixed();
+        isRepeat();
+    }*/
+
     private void saveLaunch() {
         validateAndSaveLaunch();
     }
@@ -134,18 +150,43 @@ public class ControllerReceitaScreen implements Initializable {
         if (!errors.isEmpty()) {
             setErrorMessage(errors);
         } else {
+
             try {
-                if (lancamento.isFixed()) {
-                    saveReceitaFixed();
-                } else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0) {
-                    saveReceitaParcelada();
+                if (lancamento.getId() != null) {
+                    updateReceita();
                 } else {
-                    saveReceita();
+                    if (lancamento.isFixed()) {
+                        saveReceitaFixed();
+                    } /*else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0) {
+                        saveReceitaParcelada();
+                    }*/ else {
+                        saveReceita();
+                    }
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+
         }
+    }
+
+    private void updateReceita() throws SQLException {
+        lancamento.setTitle(editTextDescriptionIncome.getText());
+        lancamento.setValue(editTextValueIncome.getAmount());
+        lancamento.setPaid(paid);
+        lancamento.setDate(dateRefe);
+        lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
+
+        if (lancamento.isFixed()) {
+            for (int x = 0; x < 12; x++) {
+                lancamento.setDate(dateRefe.plusMonths(x));
+                SQL.saveLauch(lancamento);
+                lancamento.setPaid(false);
+            }
+        }
+
+        SQL.updateLaunch(lancamento);
+        close();
     }
 
     private void saveReceita() throws SQLException {
@@ -155,8 +196,6 @@ public class ControllerReceitaScreen implements Initializable {
         lancamento.setType(LaunchType.RECEITA);
         lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         lancamento.setDate(dateRefe);
-        lancamento.setParcelas(0);
-        lancamento.setTotalParcelas(0);
         lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
         SQL.saveLauch(lancamento);
         close();
@@ -168,8 +207,6 @@ public class ControllerReceitaScreen implements Initializable {
         lancamento.setType(LaunchType.RECEITA);
         lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
-        lancamento.setParcelas(0);
-        lancamento.setTotalParcelas(0);
         lancamento.setValue(editTextValueIncome.getAmount());
 
         for (int x = 0; x < 12; x++) {
@@ -181,7 +218,7 @@ public class ControllerReceitaScreen implements Initializable {
         close();
     }
 
-    private void saveReceitaParcelada() throws SQLException {
+    /*private void saveReceitaParcelada() throws SQLException {
         lancamento.setValue(editTextValueIncome.getAmount() / lancamento.getTotalParcelas());
         lancamento.setTitle(editTextDescriptionIncome.getText());
         lancamento.setPaid(paid);
@@ -198,7 +235,7 @@ public class ControllerReceitaScreen implements Initializable {
         }
 
         close();
-    }
+    }*/
 
     private void initializeComboBoxCategory() {
         Map<String, String> categorias = new HashMap<>();
@@ -238,13 +275,13 @@ public class ControllerReceitaScreen implements Initializable {
         if (checkBoxIncomeRepeat.isSelected()) {
             checkBoxIncomeFixed.setSelected(false);
             lancamento.setFixed(false);
-            repeatLaunch();
+            //repeatLaunch();
         } else {
             lbRepeatStatusIncome.setText("Repetir");
         }
     }
 
-    private void repeatLaunch() {
+   /* private void repeatLaunch() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/view/DialogRepeatLaunch.fxml"));
@@ -260,7 +297,7 @@ public class ControllerReceitaScreen implements Initializable {
 
             lancamento = controller.setLaunch();
 
-            Lancamento lanc = controller.setLaunch();
+            Launch lanc = controller.setLaunch();
             if (lanc != null) {
                 lancamento.setTotalParcelas(lanc.getTotalParcelas());
                 lancamento.setRecurrence(lanc.getRecurrence());
@@ -271,7 +308,7 @@ public class ControllerReceitaScreen implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     private void setErrorMessage(List<StandardError> errors) {
         for (StandardError error : errors) {
@@ -291,7 +328,6 @@ public class ControllerReceitaScreen implements Initializable {
             }
         }
     }
-
 
     public void close() {
         Stage stage = (Stage) btnSaveReceita.getScene().getWindow();

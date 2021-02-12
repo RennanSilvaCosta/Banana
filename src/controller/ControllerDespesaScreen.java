@@ -17,7 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.Lancamento;
+import model.Launch;
 import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
 import validator.LaunchValidator;
@@ -59,7 +59,7 @@ public class ControllerDespesaScreen implements Initializable {
     @FXML
     ComboBox<Label> cbCategoryExpense = new ComboBox<>();
 
-    Lancamento lancamento = new Lancamento();
+    Launch lancamento = new Launch();
     LaunchValidator validator = new LaunchValidator();
 
     LocalDate dateRefe = LocalDate.now();
@@ -132,8 +132,6 @@ public class ControllerDespesaScreen implements Initializable {
         lancamento.setDate(dateRefe);
         lancamento.setType(LaunchType.DESPESA);
         lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
-        lancamento.setParcelas(0);
-        lancamento.setTotalParcelas(0);
         lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
         SQL.saveLauch(lancamento);
         close();
@@ -145,8 +143,6 @@ public class ControllerDespesaScreen implements Initializable {
         lancamento.setType(LaunchType.DESPESA);
         lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
-        lancamento.setParcelas(0);
-        lancamento.setTotalParcelas(0);
         lancamento.setValue(editTextValueExpense.getAmount());
 
         for (int x = 0; x < 12; x++) {
@@ -157,7 +153,7 @@ public class ControllerDespesaScreen implements Initializable {
         close();
     }
 
-    private void saveExpenseParcelada() throws SQLException {
+    /*private void saveExpenseParcelada() throws SQLException {
         lancamento.setValue(editTextValueExpense.getAmount() / lancamento.getTotalParcelas());
         lancamento.setTitle(editTextDescriptionExpense.getText());
         lancamento.setPaid(paid);
@@ -174,7 +170,7 @@ public class ControllerDespesaScreen implements Initializable {
             auxParcel++;
         }
         close();
-    }
+    }*/
 
     @FXML
     public void statusPay() {
@@ -198,13 +194,13 @@ public class ControllerDespesaScreen implements Initializable {
         if (checkBoxExpenseRepeat.isSelected()) {
             checkBoxExpenseFixed.setSelected(false);
             lancamento.setFixed(false);
-            repeatLaunch();
+            //repeatLaunch();
         } else {
             lbRepeatStatusExpense.setText("Repetir");
         }
     }
 
-    private void repeatLaunch() {
+    /*private void repeatLaunch() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/view/DialogRepeatLaunch.fxml"));
@@ -220,7 +216,7 @@ public class ControllerDespesaScreen implements Initializable {
 
             lancamento = controller.setLaunch();
 
-            Lancamento lanc = controller.setLaunch();
+            Launch lanc = controller.setLaunch();
             if (lanc != null) {
                 lancamento.setTotalParcelas(lanc.getTotalParcelas());
                 lancamento.setRecurrence(lanc.getRecurrence());
@@ -231,7 +227,7 @@ public class ControllerDespesaScreen implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     private void initializeComboboxCategorias() {
         Map<String, String> categorias = new HashMap<>();
@@ -279,9 +275,9 @@ public class ControllerDespesaScreen implements Initializable {
             try {
                 if (lancamento.isFixed()) {
                     saveExpenseFixed();
-                } else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0) {
+                } /*else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0) {
                     saveExpenseParcelada();
-                } else {
+                } */else {
                     saveExpense();
                 }
             } catch (SQLException throwables) {

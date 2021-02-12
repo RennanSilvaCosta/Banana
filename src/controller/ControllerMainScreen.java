@@ -19,7 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import model.Lancamento;
+import model.Launch;
 import model.enums.LaunchType;
 
 import java.io.IOException;
@@ -41,9 +41,9 @@ public class ControllerMainScreen implements Initializable {
     Label txtTotalReceita, txtTotalDespesa, txtTotalSaldo, txtDate;
 
     @FXML
-    JFXListView<Lancamento> listViewLancamentos = new JFXListView<>();
+    JFXListView<Launch> listViewLancamentos = new JFXListView<>();
 
-    List<Lancamento> lancamentos = new ArrayList<>();
+    List<Launch> lancamentos = new ArrayList<>();
 
     @FXML
     ImageView imgAvancaMes, imgRetrocedeMes;
@@ -52,7 +52,6 @@ public class ControllerMainScreen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         setDate();
         initializeListLancamentos();
         setInfoValues();
@@ -99,6 +98,48 @@ public class ControllerMainScreen implements Initializable {
 
     }
 
+    public void clickItemList() {
+        Launch lancamento = listViewLancamentos.getSelectionModel().getSelectedItem();
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+
+            if (lancamento.getType().toString().equals("RECEITA")) {
+
+                fxmlLoader.setLocation(getClass().getResource("/view/DialogReceita.fxml"));
+                DialogPane dialogPane = fxmlLoader.load();
+                ControllerReceitaScreen controller = fxmlLoader.getController();
+
+                //controller.teste(lancamento);
+
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(dialogPane);
+                dialog.setTitle("Editar receita");
+                dialog.showAndWait();
+
+            } else {
+
+                fxmlLoader.setLocation(getClass().getResource("/view/DialogDespesa.fxml"));
+                DialogPane dialogPane = fxmlLoader.load();
+                ControllerDespesaScreen controller = fxmlLoader.getController();
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(dialogPane);
+                dialog.setTitle("Editar despesa");
+                dialog.showAndWait();
+
+            }
+
+
+            initializeListLancamentos();
+            setInfoValues();
+            new FadeIn(listViewLancamentos).play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void setInfoValues() {
         new FadeIn(txtTotalReceita).play();
         new FadeIn(txtTotalDespesa).play();
@@ -108,7 +149,7 @@ public class ControllerMainScreen implements Initializable {
         new SlideInDown(txtTotalSaldo).setSpeed(1).play();
         double totalReceita = 0;
         double totalDespesa = 0;
-        for (Lancamento lanc : lancamentos) {
+        for (Launch lanc : lancamentos) {
             if (lanc.getType().equals(LaunchType.RECEITA)) {
                 totalReceita += lanc.getValue();
             }
@@ -127,7 +168,7 @@ public class ControllerMainScreen implements Initializable {
             lancamentos.clear();
             listViewLancamentos.getItems().clear();
             lancamentos = SQL.getLaunchByMonth(dateSelected);
-            for (Lancamento lanc : lancamentos) {
+            for (Launch lanc : lancamentos) {
                 listViewLancamentos.getItems().add(lanc);
                 listViewLancamentos.setCellFactory(lancamento -> new AdapterListLancamentos());
             }

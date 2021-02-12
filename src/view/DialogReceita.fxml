@@ -81,10 +81,7 @@
                 <Separator layoutX="25.0" layoutY="420.0" prefWidth="400.0" />
                 <JFXButton fx:id="btnSaveReceita" buttonType="RAISED" layoutX="195.0" layoutY="441.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: #64B86C; -fx-background-radius: 50 50 50 50;" text=" " />
             </Pane>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../icons/receita/icon_seta_esquerda_add_receita.png" />
-            </ImageView>
-            <Label layoutX="92.0" layoutY="12.0" prefHeight="22.0" prefWidth="231.0" text="Nova receita" textFill="WHITE">
+            <Label fx:id="txtTitleScreen" layoutX="30.0" layoutY="14.0" prefHeight="22.0" prefWidth="231.0" text="Nova receita" textFill="WHITE">
                 <font>
                     <Font name="Calibri Bold" size="18.0" />
                 </font>
@@ -94,6 +91,12 @@
                     <Font name="Calibri Bold" size="14.0" />
                 </font>
             </Label>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="392.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../icons/icon_more_options_32px.png" />
+            <viewport>
+               <Rectangle2D />
+            </viewport>
+            </ImageView>
         </Pane>
     </content>
     <ButtonType fx:constant="OK" />

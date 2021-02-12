@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import model.Lancamento;
+import model.Launch;
 import model.enums.LauchRecurrence;
 
 import java.net.URL;
@@ -34,7 +34,7 @@ public class ControllerDialogRepeatLaunch implements Initializable {
 
     int numberParcel;
 
-    Lancamento lancamento;
+    Launch lancamento;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,9 +49,9 @@ public class ControllerDialogRepeatLaunch implements Initializable {
         });
     }
 
-    public Lancamento setLaunch() {
-        lancamento = new Lancamento();
-        lancamento.setTotalParcelas(comboBoxNumberParcel.getSelectionModel().getSelectedItem());
+    public Launch setLaunch() {
+        lancamento = new Launch();
+       // lancamento.setTotalParcelas(comboBoxNumberParcel.getSelectionModel().getSelectedItem());
         lancamento.setRecurrence(LauchRecurrence.valueOf(comboBoxRecorrenciasParcel.getSelectionModel().getSelectedItem()));
         lancamento.setValue(valueParcel);
         close();
