@@ -48,7 +48,7 @@
                 <ImageView fx:id="imgDescription" fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../icons/receita/icon_description_32px.png" />
                 </ImageView>
-                <JFXTextField fx:id="editTextDescriptionIncome" focusColor="#0f9d58" layoutX="92.0" layoutY="166.0" prefHeight="25.0" prefWidth="307.0" promptText="Descrição" unFocusColor="WHITE">
+                <JFXTextField fx:id="editTextTitleIncome" focusColor="#0f9d58" layoutX="92.0" layoutY="166.0" prefHeight="25.0" prefWidth="307.0" promptText="Descrição" unFocusColor="WHITE">
                     <font>
                         <Font name="Calibri Bold" size="16.0" />
                     </font>

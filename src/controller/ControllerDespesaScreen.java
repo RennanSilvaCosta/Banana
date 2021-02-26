@@ -154,14 +154,12 @@ public class ControllerDespesaScreen implements Initializable {
     }
 
     private void saveExpenseParcelada() throws SQLException {
-
         lancamento.setValue(editTextValueExpense.getAmount());
         lancamento.setTitle(editTextTitleExpense.getText());
         lancamento.setType(LaunchType.DESPESA);
         lancamento.setRecurrence(LauchRecurrence.MENSAL);
         lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
         lancamento.setDate(dateRefe);
-        lancamento.setParcel(true);
 
         double valuePrestacao = editTextValueExpense.getAmount() / parcelNumber;
 
@@ -177,7 +175,7 @@ public class ControllerDespesaScreen implements Initializable {
             prestacao.setValuePrestacao(valuePrestacao);
             prestacao.setIdLancamento(idLastLaunch);
             SQL.saveParcel(prestacao);
-
+            prestacao.setPaidPrestacao(false);
         }
         close();
     }
