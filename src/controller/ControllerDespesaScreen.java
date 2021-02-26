@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Launch;
+import model.Prestacao;
 import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
 import validator.LaunchValidator;
@@ -31,8 +32,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import static util.Helper.formatDecimal;
-
 public class ControllerDespesaScreen implements Initializable {
 
     @FXML
@@ -45,7 +44,7 @@ public class ControllerDespesaScreen implements Initializable {
     CurrencyField editTextValueExpense;
 
     @FXML
-    JFXTextField editTextDescriptionExpense;
+    JFXTextField editTextTitleExpense;
 
     @FXML
     Label lbStatusPay, lbDateThisMonth, lbDateNextMonth, lbStatusFixedExpense, lbRepeatStatusExpense, labelCategorias, txtTitleValue;
@@ -64,6 +63,7 @@ public class ControllerDespesaScreen implements Initializable {
 
     LocalDate dateRefe = LocalDate.now();
 
+    int parcelNumber = 0;
     boolean paid;
 
     @Override
@@ -126,51 +126,61 @@ public class ControllerDespesaScreen implements Initializable {
     }
 
     private void saveExpense() throws SQLException {
-        lancamento.setTitle(editTextDescriptionExpense.getText());
+        lancamento.setTitle(editTextTitleExpense.getText());
         lancamento.setValue(editTextValueExpense.getAmount());
         lancamento.setPaid(paid);
         lancamento.setDate(dateRefe);
         lancamento.setType(LaunchType.DESPESA);
         lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
-        SQL.saveLauch(lancamento);
+        SQL.saveLaunch(lancamento);
         close();
     }
 
     private void saveExpenseFixed() throws SQLException {
-        lancamento.setTitle(editTextDescriptionExpense.getText());
+        lancamento.setTitle(editTextTitleExpense.getText());
         lancamento.setPaid(paid);
         lancamento.setType(LaunchType.DESPESA);
-        lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
+        lancamento.setRecurrence(LauchRecurrence.MENSAL);
         lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
         lancamento.setValue(editTextValueExpense.getAmount());
 
         for (int x = 0; x < 12; x++) {
             lancamento.setDate(dateRefe.plusMonths(x));
-            SQL.saveLauch(lancamento);
+            SQL.saveLaunch(lancamento);
             lancamento.setPaid(false);
         }
         close();
     }
 
-    /*private void saveExpenseParcelada() throws SQLException {
-        lancamento.setValue(editTextValueExpense.getAmount() / lancamento.getTotalParcelas());
-        lancamento.setTitle(editTextDescriptionExpense.getText());
-        lancamento.setPaid(paid);
+    private void saveExpenseParcelada() throws SQLException {
+
+        lancamento.setValue(editTextValueExpense.getAmount());
+        lancamento.setTitle(editTextTitleExpense.getText());
         lancamento.setType(LaunchType.DESPESA);
+        lancamento.setRecurrence(LauchRecurrence.MENSAL);
         lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
+        lancamento.setDate(dateRefe);
+        lancamento.setParcel(true);
 
-        int auxParcel = 1;
+        double valuePrestacao = editTextValueExpense.getAmount() / parcelNumber;
 
-        for (int x = 0; x < lancamento.getTotalParcelas(); x++) {
-            lancamento.setDate(dateRefe.plusMonths(x));
-            lancamento.setParcelas(auxParcel);
-            SQL.saveLauch(lancamento);
-            lancamento.setPaid(false);
-            auxParcel++;
+        SQL.saveLaunch(lancamento);
+
+        int idLastLaunch = SQL.getIdLastLaunch();
+
+        Prestacao prestacao = new Prestacao();
+        prestacao.setPaidPrestacao(paid);
+
+        for (int x = 0; x < parcelNumber; x++) {
+            prestacao.setDatePrestacao(dateRefe.plusMonths(x));
+            prestacao.setValuePrestacao(valuePrestacao);
+            prestacao.setIdLancamento(idLastLaunch);
+            SQL.saveParcel(prestacao);
+
         }
         close();
-    }*/
+    }
 
     @FXML
     public void statusPay() {
@@ -194,13 +204,14 @@ public class ControllerDespesaScreen implements Initializable {
         if (checkBoxExpenseRepeat.isSelected()) {
             checkBoxExpenseFixed.setSelected(false);
             lancamento.setFixed(false);
-            //repeatLaunch();
+            lancamento.setParcel(true);
+            repeatLaunch();
         } else {
             lbRepeatStatusExpense.setText("Repetir");
         }
     }
 
-    /*private void repeatLaunch() {
+    private void repeatLaunch() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/view/DialogRepeatLaunch.fxml"));
@@ -214,20 +225,12 @@ public class ControllerDespesaScreen implements Initializable {
             dialog.setTitle("Repetir lançamento");
             dialog.showAndWait();
 
-            lancamento = controller.setLaunch();
-
-            Launch lanc = controller.setLaunch();
-            if (lanc != null) {
-                lancamento.setTotalParcelas(lanc.getTotalParcelas());
-                lancamento.setRecurrence(lanc.getRecurrence());
-                lancamento.setValue(lanc.getValue());
-                lbRepeatStatusExpense.setText(lancamento.getTotalParcelas() + " parcelas de " + formatDecimal(lancamento.getValue()).trim());
-            }
+            parcelNumber = controller.setLaunch();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     private void initializeComboboxCategorias() {
         Map<String, String> categorias = new HashMap<>();
@@ -264,7 +267,7 @@ public class ControllerDespesaScreen implements Initializable {
 
     private void validateAndSaveLaunch() {
         Double value = editTextValueExpense.getAmount();
-        String description = editTextDescriptionExpense.getText();
+        String description = editTextTitleExpense.getText();
         Label category = cbCategoryExpense.getSelectionModel().getSelectedItem();
 
         List<StandardError> errors = validator.launchIsValid(value, description, category);
@@ -275,9 +278,9 @@ public class ControllerDespesaScreen implements Initializable {
             try {
                 if (lancamento.isFixed()) {
                     saveExpenseFixed();
-                } /*else if (lancamento.getTotalParcelas() != null && lancamento.getTotalParcelas() > 0) {
+                } else if (lancamento.isParcel()) {
                     saveExpenseParcelada();
-                } */else {
+                } else {
                     saveExpense();
                 }
             } catch (SQLException throwables) {
@@ -295,7 +298,7 @@ public class ControllerDespesaScreen implements Initializable {
 
             if (error.getField().equals("description")) {
                 new Shake(imgDescription).play();
-                new Shake(editTextDescriptionExpense).play();
+                new Shake(editTextTitleExpense).play();
             }
 
             if (error.getField().equals("category")) {

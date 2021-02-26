@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import model.Launch;
 import model.enums.LauchRecurrence;
 
 import java.net.URL;
@@ -28,13 +27,11 @@ public class ControllerDialogRepeatLaunch implements Initializable {
     JFXButton btnFinalizarRepeat;
 
     @FXML
-    Label txtInfo, txtInfo2, txtNumberParcel, txtValueParcel, txtValue;
+    Label txtInfo, txtInfo2, txtValueParcel, txtValue;
 
     double launchValue, valueParcel;
 
     int numberParcel;
-
-    Launch lancamento;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,13 +46,12 @@ public class ControllerDialogRepeatLaunch implements Initializable {
         });
     }
 
-    public Launch setLaunch() {
-        lancamento = new Launch();
-       // lancamento.setTotalParcelas(comboBoxNumberParcel.getSelectionModel().getSelectedItem());
-        lancamento.setRecurrence(LauchRecurrence.valueOf(comboBoxRecorrenciasParcel.getSelectionModel().getSelectedItem()));
-        lancamento.setValue(valueParcel);
+    public int setLaunch() {
         close();
-        return lancamento;
+        if (comboBoxNumberParcel.getSelectionModel().getSelectedItem() != null) {
+            return comboBoxNumberParcel.getSelectionModel().getSelectedItem();
+        }
+        return 0;
     }
 
     public void getInfoValue(double value) {
@@ -68,7 +64,6 @@ public class ControllerDialogRepeatLaunch implements Initializable {
         valueParcel = launchValue / numberParcel;
         txtValueParcel.setText("Serão lançadas " + numberParcel + " parcelas de " + formatDecimal(valueParcel).trim());
     }
-
 
     private void initializeComboBoxRecorrenciasParcel() {
         comboBoxRecorrenciasParcel.getItems().add(String.valueOf(LauchRecurrence.ANUAL));

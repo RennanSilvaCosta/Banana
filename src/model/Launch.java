@@ -14,14 +14,15 @@ public class Launch implements Serializable {
     private Double value;
     private LaunchType type;
     private LauchRecurrence recurrence;
-    private boolean fixed;
     private LocalDate date;
+    private boolean fixed;
     private boolean paid;
+    private boolean parcel;
 
     public Launch() {
     }
 
-    public Launch(Integer id, String title, String category, Double value, LaunchType type, LauchRecurrence recurrence, boolean fixed, LocalDate date, boolean paid) {
+    public Launch(Integer id, String title, String category, Double value, LaunchType type, LauchRecurrence recurrence, boolean fixed, LocalDate date, boolean paid, boolean parcel) {
         this.id = id;
         this.title = title;
         this.category = category;
@@ -31,6 +32,7 @@ public class Launch implements Serializable {
         this.fixed = fixed;
         this.date = date;
         this.paid = paid;
+        this.parcel = parcel;
     }
 
     public Integer getId() {
@@ -103,5 +105,13 @@ public class Launch implements Serializable {
 
     public void setPaid(boolean paid) {
         this.paid = paid;
+    }
+
+    public boolean isParcel() {
+        return parcel;
+    }
+
+    public void setParcel(boolean parcel) {
+        this.parcel = parcel;
     }
 }

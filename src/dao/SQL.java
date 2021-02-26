@@ -1,6 +1,7 @@
 package dao;
 
 import model.Launch;
+import model.Prestacao;
 import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
 
@@ -16,19 +17,19 @@ public class SQL {
     public static void createTables() throws SQLException {
         Statement statement = DAOFactory.getConnection().createStatement();
         statement.execute("CREATE TABLE IF NOT EXISTS tb_lancamento( id_lancamento INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR, title VARCHAR," +
-                " category VARCHAR, date DATE, value DOUBLE, recurrence VARCHAR, fixed BOOLEAN, paid BOOLEAN)");
+                " category VARCHAR, date DATE, value DOUBLE, recurrence VARCHAR, fixed BOOLEAN, paid BOOLEAN, parcel BOOLEAN)");
 
-        statement.execute("CREATE TABLE IF NOT EXISTS tb_pretacao( id_prestacao INTEGER PRIMARY KEY AUTOINCREMENT, date DATE, value DOUBLE, paid BOOLEAN, id_launch INTEGER, FOREIGN KEY (id_launch) REFERENCES tb_lancamento(id_lancamento))");
+        statement.execute("CREATE TABLE IF NOT EXISTS tb_prestacao( id_prestacao INTEGER PRIMARY KEY AUTOINCREMENT, date DATE, value DOUBLE, paid BOOLEAN, id_launch INTEGER, FOREIGN KEY (id_launch) REFERENCES tb_lancamento(id_lancamento))");
         statement.close();
     }
 
-    public static void saveLauch(Launch lancamento) throws SQLException {
+    public static void saveLaunch(Launch lancamento) throws SQLException {
         Connection connection = DAOFactory.getConnection();
         java.sql.Date date32 = java.sql.Date.valueOf(lancamento.getDate());
         Statement statement = connection.createStatement();
 
-        statement.execute("INSERT INTO tb_lancamento (type, title, category, date, value, recurrence, parcelas, totalParcelas, fixed, paid) " +
-                "VALUES ('" + lancamento.getType() + "','" + lancamento.getTitle() + "', " + "'" + lancamento.getCategory() + "', " + " '" + date32 + "', " + "'" + lancamento.getValue() + "', '" + lancamento.getRecurrence() + "', " + lancamento.isFixed() + " , " + lancamento.isPaid() + ");");
+        statement.execute("INSERT INTO tb_lancamento (type, title, category, date, value, recurrence, fixed, paid, parcel) " +
+                "VALUES ('" + lancamento.getType() + "','" + lancamento.getTitle() + "', " + "'" + lancamento.getCategory() + "', " + " '" + date32 + "', " + "'" + lancamento.getValue() + "', '" + lancamento.getRecurrence() + "', " + lancamento.isFixed() + " , " + lancamento.isPaid() + ", " + lancamento.isParcel() + ");");
         statement.close();
         connection.close();
     }
@@ -36,9 +37,9 @@ public class SQL {
     public static void updateLaunch(Launch lancamento) throws SQLException {
         Connection connection = DAOFactory.getConnection();
         Statement statement = connection.createStatement();
-        statement.execute("UPDATE tb_lancamento SET title = '" + lancamento.getTitle() + "', category = '" + lancamento.getCategory() + "', date = '" +lancamento.getDate() + "', value = '" + lancamento.getValue()
+        statement.execute("UPDATE tb_lancamento SET title = '" + lancamento.getTitle() + "', category = '" + lancamento.getCategory() + "', date = '" + lancamento.getDate() + "', value = '" + lancamento.getValue()
                 + "', recurrence = '" + lancamento.getRecurrence() + "', fixed = " + lancamento.isFixed()
-                + ", paid = " + lancamento.isPaid() + " WHERE id_lancamento = " + lancamento.getId());
+                + ", paid = " + lancamento.isPaid() + ", " + lancamento.isParcel() + " WHERE id_lancamento = " + lancamento.getId());
 
         statement.close();
         connection.close();
@@ -71,6 +72,7 @@ public class SQL {
             lancamento.setValue(resultSet.getDouble("value"));
             lancamento.setFixed(resultSet.getBoolean("fixed"));
             lancamento.setPaid(resultSet.getBoolean("paid"));
+            lancamento.setParcel(resultSet.getBoolean("parcel"));
             lancamentos.add(lancamento);
         }
         resultSet.close();
@@ -78,4 +80,31 @@ public class SQL {
         return lancamentos;
     }
 
+    public static int getIdLastLaunch() throws SQLException {
+
+        Connection connection = DAOFactory.getConnection();
+        PreparedStatement statement;
+        ResultSet resultSet;
+
+        statement = connection.prepareStatement("SELECT * FROM tb_lancamento ORDER BY id_lancamento DESC LIMIT 1");
+        resultSet = statement.executeQuery();
+
+        int id = 0;
+
+        while (resultSet.next()) {
+            id = resultSet.getInt("id_lancamento");
+        }
+
+        return id;
+    }
+
+    public static void saveParcel(Prestacao prestacao) throws SQLException {
+        Connection connection = DAOFactory.getConnection();
+        Statement statement = connection.createStatement();
+
+        statement.execute("INSERT INTO tb_prestacao (date, value, paid, id_launch) " +
+                "VALUES ('" + prestacao.getDatePrestacao() + "','" + prestacao.getValuePrestacao() + "', " + prestacao.isPaidPrestacao() + ", " + prestacao.getIdLancamento() + " )");
+        statement.close();
+        connection.close();
+    }
 }

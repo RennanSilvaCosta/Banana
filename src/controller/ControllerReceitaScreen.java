@@ -10,7 +10,6 @@ import helper.CurrencyField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -22,7 +21,6 @@ import model.enums.LauchRecurrence;
 import model.enums.LaunchType;
 import validator.LaunchValidator;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -30,8 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import static util.Helper.formatDecimal;
 
 public class ControllerReceitaScreen implements Initializable {
 
@@ -180,7 +176,7 @@ public class ControllerReceitaScreen implements Initializable {
         if (lancamento.isFixed()) {
             for (int x = 0; x < 12; x++) {
                 lancamento.setDate(dateRefe.plusMonths(x));
-                SQL.saveLauch(lancamento);
+                SQL.saveLaunch(lancamento);
                 lancamento.setPaid(false);
             }
         }
@@ -197,7 +193,7 @@ public class ControllerReceitaScreen implements Initializable {
         lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         lancamento.setDate(dateRefe);
         lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
-        SQL.saveLauch(lancamento);
+        SQL.saveLaunch(lancamento);
         close();
     }
 
@@ -211,7 +207,7 @@ public class ControllerReceitaScreen implements Initializable {
 
         for (int x = 0; x < 12; x++) {
             lancamento.setDate(dateRefe.plusMonths(x));
-            SQL.saveLauch(lancamento);
+            SQL.saveLaunch(lancamento);
             lancamento.setPaid(false);
         }
 
