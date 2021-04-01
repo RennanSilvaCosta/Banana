@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import model.Launch;
+import model.Prestacao;
 import model.enums.LaunchType;
 
 import java.io.IOException;
@@ -23,10 +24,10 @@ public class AdapterListLancamentos extends ListCell<Launch> {
     private GridPane gridPane;
 
     @FXML
-    Label txtTitle, txtCategory, txtValue, txtParcel;
+    Label txtTitle, txtCategory, txtValue;
 
     @FXML
-    ImageView imgCategory, img1, img2;
+    ImageView imgCategory, img1, img2, imgParcel;
 
     @Override
     protected void updateItem(Launch lancamento, boolean empty) {
@@ -51,12 +52,11 @@ public class AdapterListLancamentos extends ListCell<Launch> {
             setIconCategory(lancamento);
             setBackgroundColor(lancamento);
             isFixed(lancamento);
-            //isParcel(lancamento);
+            isParcel(lancamento);
             isPaid(lancamento);
 
             txtTitle.setText(lancamento.getTitle());
             txtCategory.setText(lancamento.getCategory());
-            txtValue.setText(formatDecimal(lancamento.getValue()).trim());
 
             setText(null);
             setGraphic(gridPane);
@@ -164,15 +164,21 @@ public class AdapterListLancamentos extends ListCell<Launch> {
         } else {
             img1.setVisible(false);
         }
+        txtValue.setText(formatDecimal(lancamento.getValue()).trim());
     }
 
-    /*private void isParcel(Launch lancamento) {
-        if (lancamento.getTotalParcelas() > 0) {
-            txtParcel.setText(lancamento.getParcelas() + "/" + lancamento.getTotalParcelas());
+    private void isParcel(Launch lancamento) {
+        if (lancamento.isParcel()) {
+            imgParcel.setImage(new Image("/icons/icon_credit_card.png"));
+            Prestacao prestacao = lancamento.getPrestacaoes().get(0);
+            txtTitle.setText(lancamento.getTitle());
+            txtCategory.setText(lancamento.getCategory());
+            txtValue.setText(formatDecimal(prestacao.getValuePrestacao()).trim());
         } else {
-            txtParcel.setText("");
+            txtValue.setText(formatDecimal(lancamento.getValue()).trim());
+            imgParcel.setVisible(false);
         }
-    }*/
+    }
 
     private void isPaid(Launch lancamento) {
         if (lancamento.isPaid() && lancamento.isFixed()) {

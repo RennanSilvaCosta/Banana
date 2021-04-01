@@ -5,6 +5,8 @@ import model.enums.LaunchType;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Launch implements Serializable {
 
@@ -18,21 +20,23 @@ public class Launch implements Serializable {
     private boolean fixed;
     private boolean paid;
     private boolean parcel;
+    private List<Prestacao> prestacaoes;
 
     public Launch() {
     }
 
-    public Launch(Integer id, String title, String category, Double value, LaunchType type, LauchRecurrence recurrence, boolean fixed, LocalDate date, boolean paid, boolean parcel) {
+    public Launch(Integer id, String title, String category, Double value, LaunchType type, LauchRecurrence recurrence, LocalDate date, boolean fixed, boolean paid, boolean parcel, List<Prestacao> prestacaoes) {
         this.id = id;
         this.title = title;
         this.category = category;
         this.value = value;
         this.type = type;
         this.recurrence = recurrence;
-        this.fixed = fixed;
         this.date = date;
+        this.fixed = fixed;
         this.paid = paid;
         this.parcel = parcel;
+        this.prestacaoes = prestacaoes;
     }
 
     public Integer getId() {
@@ -113,5 +117,13 @@ public class Launch implements Serializable {
 
     public void setParcel(boolean parcel) {
         this.parcel = parcel;
+    }
+
+    public List<Prestacao> getPrestacaoes() {
+        return prestacaoes;
+    }
+
+    public void setPrestacaoes(List<Prestacao> prestacaoes) {
+        this.prestacaoes = prestacaoes;
     }
 }

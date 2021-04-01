@@ -19,7 +19,7 @@ public class SQL {
         statement.execute("CREATE TABLE IF NOT EXISTS tb_lancamento( id_lancamento INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR, title VARCHAR," +
                 " category VARCHAR, date DATE, value DOUBLE, recurrence VARCHAR, fixed BOOLEAN, paid BOOLEAN, parcel BOOLEAN)");
 
-        statement.execute("CREATE TABLE IF NOT EXISTS tb_prestacao( id_prestacao INTEGER PRIMARY KEY AUTOINCREMENT, date DATE, value DOUBLE, paid BOOLEAN, id_launch INTEGER, FOREIGN KEY (id_launch) REFERENCES tb_lancamento(id_lancamento))");
+        statement.execute("CREATE TABLE IF NOT EXISTS tb_prestacao( id_prestacao INTEGER PRIMARY KEY AUTOINCREMENT, date_prestacao DATE, value_prestacao DOUBLE, paid_prestacao BOOLEAN, id_launch INTEGER, FOREIGN KEY (id_launch) REFERENCES tb_lancamento(id_lancamento))");
         statement.close();
     }
 
@@ -55,12 +55,11 @@ public class SQL {
         ResultSet resultSet;
 
         List<Launch> lancamentos = new ArrayList<>();
-
-        statement = connection.prepareStatement("SELECT * FROM tb_lancamento WHERE date BETWEEN '" + firstDayOfMonth + "' and '" + lastDayOfMonth + "' ORDER BY type DESC");
-
+        statement = connection.prepareStatement("SELECT * FROM tb_lancamento WHERE date BETWEEN '" + firstDayOfMonth + "' AND '" + lastDayOfMonth + "' ORDER BY type DESC");
         resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
+
             Launch lancamento = new Launch();
 
             lancamento.setId(resultSet.getInt("id_lancamento"));
@@ -75,6 +74,7 @@ public class SQL {
             lancamento.setParcel(resultSet.getBoolean("parcel"));
             lancamentos.add(lancamento);
         }
+
         resultSet.close();
         statement.close();
         return lancamentos;
@@ -102,9 +102,40 @@ public class SQL {
         Connection connection = DAOFactory.getConnection();
         Statement statement = connection.createStatement();
 
-        statement.execute("INSERT INTO tb_prestacao (date, value, paid, id_launch) " +
+        statement.execute("INSERT INTO tb_prestacao (date_prestacao, value_prestacao, paid_prestacao, id_launch) " +
                 "VALUES ('" + prestacao.getDatePrestacao() + "','" + prestacao.getValuePrestacao() + "', " + prestacao.isPaidPrestacao() + ", " + prestacao.getIdLancamento() + " )");
         statement.close();
         connection.close();
+    }
+
+    public static Launch getLaunchParcelsByMonth(Launch lancamentos, LocalDate localDateReferencia) throws SQLException {
+
+        LocalDate firstDayOfMonth = localDateReferencia.minusDays(localDateReferencia.getDayOfMonth() - 1);
+        LocalDate lastDayOfMonth = firstDayOfMonth.plusDays(localDateReferencia.getMonth().length(false) - 1);
+
+        Connection connection = DAOFactory.getConnection();
+        PreparedStatement statement;
+        ResultSet resultSet;
+
+        List<Prestacao> prestacaoList = new ArrayList<>();
+
+
+        statement = connection.prepareStatement("SELECT * FROM tb_prestacao WHERE id_launch = " + lancamentos.getId() + " AND date_prestacao BETWEEN '" + firstDayOfMonth + "' AND '" + lastDayOfMonth + "'");
+        resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            Prestacao prestacao = new Prestacao();
+            prestacao.setIdPrestacao(resultSet.getInt("id_prestacao"));
+            prestacao.setValuePrestacao(resultSet.getDouble("value_prestacao"));
+            prestacao.setDatePrestacao(convertStringToLocalDate(resultSet.getString("date_prestacao")));
+            prestacao.setPaidPrestacao(resultSet.getBoolean("paid_prestacao"));
+            prestacao.setIdLancamento(resultSet.getInt("id_launch"));
+            prestacaoList.add(prestacao);
+        }
+
+        lancamentos.setPrestacaoes(prestacaoList);
+        return lancamentos;
+
+
     }
 }

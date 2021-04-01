@@ -13,10 +13,13 @@ public class Helper {
         return n.format(number);
     }
 
-    public static LocalDate convertStringToLocalDate(String date){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        TemporalAccessor temporalAccessor = formatter.parse(date);
-        return LocalDate.from(temporalAccessor);
+    public static LocalDate convertStringToLocalDate(String date) {
+        if (date != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            TemporalAccessor temporalAccessor = formatter.parse(date);
+            return LocalDate.from(temporalAccessor);
+        }
+        return null;
     }
 
 }

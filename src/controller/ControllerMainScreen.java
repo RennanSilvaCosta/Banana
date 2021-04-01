@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static dao.SQL.getLaunchParcelsByMonth;
 import static util.Helper.formatDecimal;
 
 public class ControllerMainScreen implements Initializable {
@@ -129,7 +130,6 @@ public class ControllerMainScreen implements Initializable {
 
             }
 
-
             initializeListLancamentos();
             setInfoValues();
             new FadeIn(listViewLancamentos).play();
@@ -168,10 +168,18 @@ public class ControllerMainScreen implements Initializable {
             lancamentos.clear();
             listViewLancamentos.getItems().clear();
             lancamentos = SQL.getLaunchByMonth(dateSelected);
+
             for (Launch lanc : lancamentos) {
-                listViewLancamentos.getItems().add(lanc);
-                listViewLancamentos.setCellFactory(lancamento -> new AdapterListLancamentos());
+                if (lanc.isParcel()) {
+                    lanc = getLaunchParcelsByMonth(lanc, dateSelected);
+                    listViewLancamentos.getItems().add(lanc);
+                    listViewLancamentos.setCellFactory(lancamento -> new AdapterListLancamentos());
+                } else {
+                    listViewLancamentos.getItems().add(lanc);
+                    listViewLancamentos.setCellFactory(lancamento -> new AdapterListLancamentos());
+                }
             }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

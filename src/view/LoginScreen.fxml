@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="577.0" prefWidth="812.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Pane layoutX="357.0" layoutY="81.0" prefHeight="403.0" prefWidth="366.0" style="-fx-background-color: white;">
+      <children>
+         <Label layoutX="96.0" layoutY="45.0" text="Bem-vindo de volta" textFill="#575757">
+            <font>
+               <Font name="Ebrima Bold" size="24.0" />
+            </font>
+         </Label>
+         <Label layoutX="96.0" layoutY="76.0" text="Faça o login para continuar" textFill="#a3a3a3">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <JFXTextField focusColor="#ffb200" labelFloat="true" layoutX="96.0" layoutY="133.0" prefHeight="25.0" prefWidth="222.0" promptText="Email" unFocusColor="#ffca28">
+            <font>
+               <Font size="14.0" />
+            </font></JFXTextField>
+         <JFXPasswordField focusColor="#ffb200" labelFloat="true" layoutX="96.0" layoutY="188.0" prefHeight="25.0" prefWidth="222.0" promptText="Senha" unFocusColor="#ffca28">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </JFXPasswordField>
+         <JFXButton layoutX="96.0" layoutY="274.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="222.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #FFB300;" text="Entrar" textFill="WHITE">
+            <font>
+               <Font size="14.0" />
+            </font></JFXButton>
+         <Label layoutX="218.0" layoutY="234.0" text="Esqueceu a senha?" textFill="#a3a3a3" />
+         <Label layoutX="136.0" layoutY="341.0" text="Usuario novo? Cadastre-se" textFill="#a3a3a3" />
+      </children></Pane>
+    <Pane layoutX="80.0" layoutY="81.0" prefHeight="403.0" prefWidth="277.0" style="-fx-background-color: #FFCA28;">
+        <children>
+            <Label layoutX="93.0" layoutY="256.0" text="Bem-vindo " textFill="WHITE">
+                <font>
+                    <Font name="Ebrima Bold" size="14.0" />
+                </font>
+            </Label>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="64.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../icons/icon_banana_login_screen.png" />
+                </image>
+            </ImageView>
+            <Label layoutX="170.0" layoutY="255.0" text="ao" textFill="WHITE">
+                <font>
+                    <Font name="Ebrima" size="14.0" />
+                </font>
+            </Label>
+            <Label layoutX="95.0" layoutY="275.0" text="Banana" textFill="WHITE">
+                <font>
+                    <Font name="Ebrima Bold" size="24.0" />
+                </font>
+            </Label>
+        </children>
+    </Pane>
+    <ImageView fitHeight="89.0" fitWidth="412.0" layoutX="200.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+        <image>
+            <Image url="@../stylesheets/background_login_screen.png" />
+        </image>
+    </ImageView>
+
+</Pane>

@@ -9,8 +9,9 @@
 <GridPane fx:id="gridPane" prefHeight="60.0" prefWidth="640.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints maxWidth="160.0" minWidth="10.0" prefWidth="50.0" />
-      <ColumnConstraints maxWidth="421.0" minWidth="347.0" prefWidth="347.0" />
-      <ColumnConstraints halignment="CENTER" maxWidth="252.0" minWidth="180.0" prefWidth="252.0" />
+      <ColumnConstraints maxWidth="421.0" minWidth="320.0" prefWidth="340.0" />
+      <ColumnConstraints maxWidth="421.0" minWidth="59.0" prefWidth="70.0" />
+      <ColumnConstraints halignment="CENTER" maxWidth="439.0" minWidth="180.0" prefWidth="218.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" />
@@ -32,7 +33,7 @@
          <Insets left="10.0" top="20.0" />
       </GridPane.margin>
    </Label>
-   <Label fx:id="txtValue" alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="31.0" prefWidth="217.0" text="R$ 1.000,00" textAlignment="RIGHT" textFill="#06865c" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+   <Label fx:id="txtValue" alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="31.0" prefWidth="217.0" text="R$ 1.000,00" textAlignment="RIGHT" textFill="#06865c" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
       <font>
          <Font name="Ebrima Bold" size="14.0" />
       </font>
@@ -48,14 +49,15 @@
          <Font name="Ebrima" size="14.0" />
       </font>
    </Label>
-   <ImageView fx:id="img1" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+   <ImageView fx:id="img1" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
       <GridPane.margin>
          <Insets bottom="10.0" right="10.0" />
       </GridPane.margin>
    </ImageView>
-   <ImageView fx:id="img2" fitHeight="16.0" fitWidth="16.0" layoutX="624.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+   <ImageView fx:id="img2" fitHeight="16.0" fitWidth="16.0" layoutX="624.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
       <GridPane.margin>
          <Insets bottom="10.0" right="35.0" />
       </GridPane.margin>
    </ImageView>
+   <ImageView fx:id="imgParcel" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
 </GridPane>

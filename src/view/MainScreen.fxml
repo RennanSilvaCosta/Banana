@@ -65,7 +65,7 @@
             </font></JFXButton>
       </Pane>
       <ImageView fitHeight="300.0" fitWidth="698.0" layoutX="1.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../stylesheets/backbround_main_screen.png" />
+         <Image url="@../stylesheets/background_main_screen.png" />
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="275.0" layoutY="314.0" pickOnBounds="true"
                  preserveRatio="true">
