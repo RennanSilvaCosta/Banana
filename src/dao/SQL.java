@@ -15,28 +15,41 @@ public class SQL {
 
     public static void createTables() throws SQLException {
         Statement statement = DAOFactory.getConnection().createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS tb_lancamento( id_lancamento INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR, title VARCHAR," +
+        statement.execute("CREATE TABLE IF NOT EXISTS tb_launch (id_lancamento INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR, title VARCHAR," +
                 " category VARCHAR, date DATE, value DOUBLE, recurrence VARCHAR, fixed BOOLEAN, paid BOOLEAN, parcel BOOLEAN)");
 
-        statement.execute("CREATE TABLE IF NOT EXISTS tb_prestacao( id_prestacao INTEGER PRIMARY KEY AUTOINCREMENT, date_prestacao DATE, value_prestacao DOUBLE, paid_prestacao BOOLEAN, id_launch INTEGER, FOREIGN KEY (id_launch) REFERENCES tb_lancamento(id_lancamento))");
+        statement.execute("CREATE TABLE IF NOT EXISTS tb_installment (id_prestacao INTEGER PRIMARY KEY AUTOINCREMENT, date_prestacao DATE, value_prestacao DOUBLE, paid_prestacao BOOLEAN, id_launch INTEGER, FOREIGN KEY (id_launch) REFERENCES tb_launch(id_lancamento))");
+        statement.execute("CREATE TABLE IF NOT EXISTS tb_user (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, email VARCHAR, password VARCHAR)");
+        statement.execute("CREATE TABLE IF NOT EXISTS tb_category (id_category INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR)");
+        statement.execute("CREATE TABLE IF NOT EXISTS tb_launch_type (id INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR)");
+        statement.execute("CREATE TABLE IF NOT EXISTS tb_payment_status (id INTEGER PRIMARY KEY AUTOINCREMENT, status VARCHAR)");
+        statement.close();
+    }
+
+    public static void popularTables() throws SQLException {
+        Statement statement = DAOFactory.getConnection().createStatement();
+        statement.execute("INSERT INTO tb_category (name) VALUES ('Salario'), ('Investimentos'), ('Emprestimos')," +
+                "('Outras receitas'), ('Alimentação'), ('Bares e restaurantes'), ('Casa'), ('Compras'), ('Cuidados pessoais'), ('Dívidas e empréstimos')," +
+                "('Educação'), ('Família e filhos'), ('Impostos e Taxas'), ('Assinaturas e serviços'), ('Lazer e hobbies'), ('Mercado'), ('Outros'), ('Pets')," +
+                "('Presentes ou doações'), ('Roupas'), ('Saúde'), ('Trabalho'), ('Transporte'), ('Viagem')");
+        statement.execute("INSERT INTO tb_launch_type (type) VALUES ('receita'), ('despesa')");
+        statement.execute("INSERT INTO tb_payment_status (status) VALUES ('pago'), ('não pago')");
         statement.close();
     }
 
     public static void saveLaunch(Launch lancamento) throws SQLException {
-        Connection connection = DAOFactory.getConnection();
+        Statement statement = DAOFactory.getConnection().createStatement();
         java.sql.Date date32 = java.sql.Date.valueOf(lancamento.getDate());
-        Statement statement = connection.createStatement();
 
-       /* statement.execute("INSERT INTO tb_lancamento (type, title, category, date, value, recurrence, fixed, paid, parcel) " +
+       /* statement.execute("INSERT INTO tb_launch (type, title, category, date, value, recurrence, fixed, paid, parcel) " +
                 "VALUES ('" + lancamento.getType() + "','" + lancamento.getTitle() + "', " + "'" + lancamento.getCategory() + "', " + " '" + date32 + "', " + "'" + lancamento.getValue() + "', '" + lancamento.getRecurrence() + "', " + lancamento.isFixed() + " , " + lancamento.isPaid() + ", " + lancamento.isParcel() + ");");*/
         statement.close();
-        connection.close();
     }
 
     public static void updateLaunch(Launch lancamento) throws SQLException {
         Connection connection = DAOFactory.getConnection();
         Statement statement = connection.createStatement();
-        /*statement.execute("UPDATE tb_lancamento SET title = '" + lancamento.getTitle() + "', category = '" + lancamento.getCategory() + "', date = '" + lancamento.getDate() + "', value = '" + lancamento.getValue()
+        /*statement.execute("UPDATE tb_launch SET title = '" + lancamento.getTitle() + "', category = '" + lancamento.getCategory() + "', date = '" + lancamento.getDate() + "', value = '" + lancamento.getValue()
                 + "', recurrence = '" + lancamento.getRecurrence() + "', fixed = " + lancamento.isFixed()
                 + ", paid = " + lancamento.isPaid() + ", " + lancamento.isParcel() + " WHERE id_lancamento = " + lancamento.getId());*/
 
@@ -54,7 +67,7 @@ public class SQL {
         ResultSet resultSet;
 
         List<Launch> lancamentos = new ArrayList<>();
-        statement = connection.prepareStatement("SELECT * FROM tb_lancamento WHERE date BETWEEN '" + firstDayOfMonth + "' AND '" + lastDayOfMonth + "' ORDER BY type DESC");
+        statement = connection.prepareStatement("SELECT * FROM tb_launch WHERE date BETWEEN '" + firstDayOfMonth + "' AND '" + lastDayOfMonth + "' ORDER BY type DESC");
         resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
@@ -85,7 +98,7 @@ public class SQL {
         PreparedStatement statement;
         ResultSet resultSet;
 
-        statement = connection.prepareStatement("SELECT * FROM tb_lancamento ORDER BY id_lancamento DESC LIMIT 1");
+        statement = connection.prepareStatement("SELECT * FROM tb_launch ORDER BY id_lancamento DESC LIMIT 1");
         resultSet = statement.executeQuery();
 
         int id = 0;
@@ -101,7 +114,7 @@ public class SQL {
         Connection connection = DAOFactory.getConnection();
         Statement statement = connection.createStatement();
 
-       /* statement.execute("INSERT INTO tb_prestacao (date_prestacao, value_prestacao, paid_prestacao, id_launch) " +
+       /* statement.execute("INSERT INTO tb_installment (date_prestacao, value_prestacao, paid_prestacao, id_launch) " +
                 "VALUES ('" + prestacao.getDatePrestacao() + "','" + prestacao.getValuePrestacao() + "', " + prestacao.isPaidPrestacao() + ", " + prestacao.getIdLancamento() + " )");*/
         statement.close();
         connection.close();
@@ -119,7 +132,7 @@ public class SQL {
         List<Installment> installmentList = new ArrayList<>();
 
 
-        statement = connection.prepareStatement("SELECT * FROM tb_prestacao WHERE id_launch = " + lancamentos.getId() + " AND date_prestacao BETWEEN '" + firstDayOfMonth + "' AND '" + lastDayOfMonth + "'");
+        statement = connection.prepareStatement("SELECT * FROM tb_installment WHERE id_launch = " + lancamentos.getId() + " AND date_prestacao BETWEEN '" + firstDayOfMonth + "' AND '" + lastDayOfMonth + "'");
         resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
