@@ -7,10 +7,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Paint;
 import model.Launch;
-import model.Prestacao;
-import model.enums.LaunchType;
+import model.Installment;
 
 import java.io.IOException;
 
@@ -49,21 +47,21 @@ public class AdapterListLancamentos extends ListCell<Launch> {
                 }
             }
 
-            setIconCategory(lancamento);
-            setBackgroundColor(lancamento);
+            //setIconCategory(lancamento);
+           // setBackgroundColor(lancamento);
             isFixed(lancamento);
             isParcel(lancamento);
             isPaid(lancamento);
 
             txtTitle.setText(lancamento.getTitle());
-            txtCategory.setText(lancamento.getCategory());
+            //txtCategory.setText(lancamento.getCategory());
 
             setText(null);
             setGraphic(gridPane);
         }
     }
 
-    private void setIconCategory(Launch lancamento) {
+    /*private void setIconCategory(Launch lancamento) {
 
         switch (lancamento.getCategory()) {
             case "Salario":
@@ -140,9 +138,9 @@ public class AdapterListLancamentos extends ListCell<Launch> {
                 break;
         }
 
-    }
+    }*/
 
-    private void setBackgroundColor(Launch lancamento) {
+    /*private void setBackgroundColor(Launch lancamento) {
         switch (lancamento.getType()) {
             case RECEITA:
                 gridPane.setStyle("-fx-background-color: #EDFDF4;");
@@ -152,10 +150,10 @@ public class AdapterListLancamentos extends ListCell<Launch> {
                 gridPane.setStyle("-fx-background-color: #FDEDED;");
                 txtValue.setTextFill(Paint.valueOf("#C80000"));
         }
-    }
+    }*/
 
     private void isFixed(Launch lancamento) {
-        if (lancamento.isFixed() && lancamento.getType().equals(LaunchType.RECEITA)) {
+        /*if (lancamento.isFixed() && lancamento.getType().equals(LaunchType.RECEITA)) {
             img1.setVisible(true);
             img1.setImage(new Image("/icons/receita/icon_fixed_receita.png"));
         } else if (lancamento.isFixed() && lancamento.getType().equals(LaunchType.DESPESA)) {
@@ -164,16 +162,16 @@ public class AdapterListLancamentos extends ListCell<Launch> {
         } else {
             img1.setVisible(false);
         }
-        txtValue.setText(formatDecimal(lancamento.getValue()).trim());
+        txtValue.setText(formatDecimal(lancamento.getValue()).trim());*/
     }
 
     private void isParcel(Launch lancamento) {
         if (lancamento.isParcel()) {
             imgParcel.setImage(new Image("/icons/icon_credit_card.png"));
-            Prestacao prestacao = lancamento.getPrestacaoes().get(0);
+            Installment installment = lancamento.getPrestacaoes().get(0);
             txtTitle.setText(lancamento.getTitle());
-            txtCategory.setText(lancamento.getCategory());
-            txtValue.setText(formatDecimal(prestacao.getValuePrestacao()).trim());
+            //txtCategory.setText(lancamento.getCategory());
+            txtValue.setText(formatDecimal(installment.getValue()).trim());
         } else {
             txtValue.setText(formatDecimal(lancamento.getValue()).trim());
             imgParcel.setVisible(false);
@@ -181,12 +179,12 @@ public class AdapterListLancamentos extends ListCell<Launch> {
     }
 
     private void isPaid(Launch lancamento) {
-        if (lancamento.isPaid() && lancamento.isFixed()) {
+        /*if (lancamento.isPaid() && lancamento.isFixed()) {
             img2.setVisible(true);
             img2.setImage(new Image("/icons/icon_paid_status.png"));
         } else {
             img2.setVisible(false);
-        }
+        }*/
     }
 
 }

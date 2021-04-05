@@ -1,42 +1,27 @@
 package model;
 
 import model.enums.LauchRecurrence;
-import model.enums.LaunchType;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Launch implements Serializable {
 
     private Integer id;
     private String title;
-    private String category;
+    private int category;
     private Double value;
-    private LaunchType type;
+    private int type;
     private LauchRecurrence recurrence;
     private LocalDate date;
     private boolean fixed;
-    private boolean paid;
+    private int paid;
     private boolean parcel;
-    private List<Prestacao> prestacaoes;
+    private List<Installment> prestacaoes;
+    private User user;
 
     public Launch() {
-    }
-
-    public Launch(Integer id, String title, String category, Double value, LaunchType type, LauchRecurrence recurrence, LocalDate date, boolean fixed, boolean paid, boolean parcel, List<Prestacao> prestacaoes) {
-        this.id = id;
-        this.title = title;
-        this.category = category;
-        this.value = value;
-        this.type = type;
-        this.recurrence = recurrence;
-        this.date = date;
-        this.fixed = fixed;
-        this.paid = paid;
-        this.parcel = parcel;
-        this.prestacaoes = prestacaoes;
     }
 
     public Integer getId() {
@@ -55,11 +40,11 @@ public class Launch implements Serializable {
         this.title = title;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
@@ -71,11 +56,11 @@ public class Launch implements Serializable {
         this.value = value;
     }
 
-    public LaunchType getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(LaunchType type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -87,14 +72,6 @@ public class Launch implements Serializable {
         this.recurrence = recurrence;
     }
 
-    public boolean isFixed() {
-        return fixed;
-    }
-
-    public void setFixed(boolean fixed) {
-        this.fixed = fixed;
-    }
-
     public LocalDate getDate() {
         return date;
     }
@@ -103,11 +80,19 @@ public class Launch implements Serializable {
         this.date = date;
     }
 
-    public boolean isPaid() {
+    public boolean isFixed() {
+        return fixed;
+    }
+
+    public void setFixed(boolean fixed) {
+        this.fixed = fixed;
+    }
+
+    public int getPaid() {
         return paid;
     }
 
-    public void setPaid(boolean paid) {
+    public void setPaid(int paid) {
         this.paid = paid;
     }
 
@@ -119,11 +104,19 @@ public class Launch implements Serializable {
         this.parcel = parcel;
     }
 
-    public List<Prestacao> getPrestacaoes() {
+    public List<Installment> getPrestacaoes() {
         return prestacaoes;
     }
 
-    public void setPrestacaoes(List<Prestacao> prestacaoes) {
+    public void setPrestacaoes(List<Installment> prestacaoes) {
         this.prestacaoes = prestacaoes;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -1,9 +1,8 @@
 package dao;
 
 import model.Launch;
-import model.Prestacao;
+import model.Installment;
 import model.enums.LauchRecurrence;
-import model.enums.LaunchType;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -28,8 +27,8 @@ public class SQL {
         java.sql.Date date32 = java.sql.Date.valueOf(lancamento.getDate());
         Statement statement = connection.createStatement();
 
-        statement.execute("INSERT INTO tb_lancamento (type, title, category, date, value, recurrence, fixed, paid, parcel) " +
-                "VALUES ('" + lancamento.getType() + "','" + lancamento.getTitle() + "', " + "'" + lancamento.getCategory() + "', " + " '" + date32 + "', " + "'" + lancamento.getValue() + "', '" + lancamento.getRecurrence() + "', " + lancamento.isFixed() + " , " + lancamento.isPaid() + ", " + lancamento.isParcel() + ");");
+       /* statement.execute("INSERT INTO tb_lancamento (type, title, category, date, value, recurrence, fixed, paid, parcel) " +
+                "VALUES ('" + lancamento.getType() + "','" + lancamento.getTitle() + "', " + "'" + lancamento.getCategory() + "', " + " '" + date32 + "', " + "'" + lancamento.getValue() + "', '" + lancamento.getRecurrence() + "', " + lancamento.isFixed() + " , " + lancamento.isPaid() + ", " + lancamento.isParcel() + ");");*/
         statement.close();
         connection.close();
     }
@@ -37,9 +36,9 @@ public class SQL {
     public static void updateLaunch(Launch lancamento) throws SQLException {
         Connection connection = DAOFactory.getConnection();
         Statement statement = connection.createStatement();
-        statement.execute("UPDATE tb_lancamento SET title = '" + lancamento.getTitle() + "', category = '" + lancamento.getCategory() + "', date = '" + lancamento.getDate() + "', value = '" + lancamento.getValue()
+        /*statement.execute("UPDATE tb_lancamento SET title = '" + lancamento.getTitle() + "', category = '" + lancamento.getCategory() + "', date = '" + lancamento.getDate() + "', value = '" + lancamento.getValue()
                 + "', recurrence = '" + lancamento.getRecurrence() + "', fixed = " + lancamento.isFixed()
-                + ", paid = " + lancamento.isPaid() + ", " + lancamento.isParcel() + " WHERE id_lancamento = " + lancamento.getId());
+                + ", paid = " + lancamento.isPaid() + ", " + lancamento.isParcel() + " WHERE id_lancamento = " + lancamento.getId());*/
 
         statement.close();
         connection.close();
@@ -64,13 +63,13 @@ public class SQL {
 
             lancamento.setId(resultSet.getInt("id_lancamento"));
             lancamento.setTitle(resultSet.getString("title"));
-            lancamento.setType(LaunchType.valueOf(resultSet.getString("type")));
+            //lancamento.setType(LaunchType.valueOf(resultSet.getString("type")));
             lancamento.setRecurrence(LauchRecurrence.valueOf(resultSet.getString("recurrence")));
-            lancamento.setCategory(resultSet.getString("category"));
+           // lancamento.setCategory(resultSet.getString("category"));
             lancamento.setDate(convertStringToLocalDate(resultSet.getString("date")));
             lancamento.setValue(resultSet.getDouble("value"));
             lancamento.setFixed(resultSet.getBoolean("fixed"));
-            lancamento.setPaid(resultSet.getBoolean("paid"));
+            //lancamento.setPaid(resultSet.getBoolean("paid"));
             lancamento.setParcel(resultSet.getBoolean("parcel"));
             lancamentos.add(lancamento);
         }
@@ -98,12 +97,12 @@ public class SQL {
         return id;
     }
 
-    public static void saveParcel(Prestacao prestacao) throws SQLException {
+    public static void saveParcel(Installment installment) throws SQLException {
         Connection connection = DAOFactory.getConnection();
         Statement statement = connection.createStatement();
 
-        statement.execute("INSERT INTO tb_prestacao (date_prestacao, value_prestacao, paid_prestacao, id_launch) " +
-                "VALUES ('" + prestacao.getDatePrestacao() + "','" + prestacao.getValuePrestacao() + "', " + prestacao.isPaidPrestacao() + ", " + prestacao.getIdLancamento() + " )");
+       /* statement.execute("INSERT INTO tb_prestacao (date_prestacao, value_prestacao, paid_prestacao, id_launch) " +
+                "VALUES ('" + prestacao.getDatePrestacao() + "','" + prestacao.getValuePrestacao() + "', " + prestacao.isPaidPrestacao() + ", " + prestacao.getIdLancamento() + " )");*/
         statement.close();
         connection.close();
     }
@@ -117,23 +116,23 @@ public class SQL {
         PreparedStatement statement;
         ResultSet resultSet;
 
-        List<Prestacao> prestacaoList = new ArrayList<>();
+        List<Installment> installmentList = new ArrayList<>();
 
 
         statement = connection.prepareStatement("SELECT * FROM tb_prestacao WHERE id_launch = " + lancamentos.getId() + " AND date_prestacao BETWEEN '" + firstDayOfMonth + "' AND '" + lastDayOfMonth + "'");
         resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
-            Prestacao prestacao = new Prestacao();
-            prestacao.setIdPrestacao(resultSet.getInt("id_prestacao"));
-            prestacao.setValuePrestacao(resultSet.getDouble("value_prestacao"));
-            prestacao.setDatePrestacao(convertStringToLocalDate(resultSet.getString("date_prestacao")));
-            prestacao.setPaidPrestacao(resultSet.getBoolean("paid_prestacao"));
-            prestacao.setIdLancamento(resultSet.getInt("id_launch"));
-            prestacaoList.add(prestacao);
+            Installment installment = new Installment();
+            installment.setId(resultSet.getInt("id_prestacao"));
+            installment.setValue(resultSet.getDouble("value_prestacao"));
+            installment.setDate(convertStringToLocalDate(resultSet.getString("date_prestacao")));
+            //prestacao.setPaidPrestacao(resultSet.getBoolean("paid_prestacao"));
+            installment.setIdLancamento(resultSet.getInt("id_launch"));
+            installmentList.add(installment);
         }
 
-        lancamentos.setPrestacaoes(prestacaoList);
+        lancamentos.setPrestacaoes(installmentList);
         return lancamentos;
 
 

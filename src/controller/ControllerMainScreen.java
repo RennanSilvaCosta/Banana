@@ -20,7 +20,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import model.Launch;
-import model.enums.LaunchType;
 
 import java.io.IOException;
 import java.net.URL;
@@ -102,7 +101,7 @@ public class ControllerMainScreen implements Initializable {
     public void clickItemList() {
         Launch lancamento = listViewLancamentos.getSelectionModel().getSelectedItem();
 
-        try {
+        /*try {
             FXMLLoader fxmlLoader = new FXMLLoader();
 
             if (lancamento.getType().toString().equals("RECEITA")) {
@@ -136,7 +135,7 @@ public class ControllerMainScreen implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 
@@ -150,12 +149,12 @@ public class ControllerMainScreen implements Initializable {
         double totalReceita = 0;
         double totalDespesa = 0;
         for (Launch lanc : lancamentos) {
-            if (lanc.getType().equals(LaunchType.RECEITA)) {
+            /*if (lanc.getType().equals(LaunchType.RECEITA)) {
                 totalReceita += lanc.getValue();
             }
             if (lanc.getType().equals(LaunchType.DESPESA)) {
                 totalDespesa += lanc.getValue();
-            }
+            }*/
         }
         double totalSaldo = totalReceita - totalDespesa;
         txtTotalReceita.setText(formatDecimal(totalReceita).trim());

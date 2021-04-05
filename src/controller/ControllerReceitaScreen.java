@@ -18,9 +18,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Launch;
-import model.Prestacao;
+import model.Installment;
 import model.enums.LauchRecurrence;
-import model.enums.LaunchType;
 import validator.LaunchValidator;
 
 import java.io.IOException;
@@ -173,15 +172,15 @@ public class ControllerReceitaScreen implements Initializable {
     private void updateReceita() throws SQLException {
         lancamento.setTitle(editTextTitleIncome.getText());
         lancamento.setValue(editTextValueIncome.getAmount());
-        lancamento.setPaid(paid);
+       // lancamento.setPaid(paid);
         lancamento.setDate(dateRefe);
-        lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
+       // lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
 
         if (lancamento.isFixed()) {
             for (int x = 0; x < 12; x++) {
                 lancamento.setDate(dateRefe.plusMonths(x));
                 SQL.saveLaunch(lancamento);
-                lancamento.setPaid(false);
+                //lancamento.setPaid(false);
             }
         }
 
@@ -192,27 +191,27 @@ public class ControllerReceitaScreen implements Initializable {
     private void saveReceita() throws SQLException {
         lancamento.setTitle(editTextTitleIncome.getText());
         lancamento.setValue(editTextValueIncome.getAmount());
-        lancamento.setPaid(paid);
-        lancamento.setType(LaunchType.RECEITA);
+       // lancamento.setPaid(paid);
+       // lancamento.setType(LaunchType.RECEITA);
         lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         lancamento.setDate(dateRefe);
-        lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
+       // lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
         SQL.saveLaunch(lancamento);
         close();
     }
 
     private void saveReceitaFixed() throws SQLException {
         lancamento.setTitle(editTextTitleIncome.getText());
-        lancamento.setPaid(paid);
-        lancamento.setType(LaunchType.RECEITA);
+        //lancamento.setPaid(paid);
+       // lancamento.setType(LaunchType.RECEITA);
         lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
-        lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
+        //lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
         lancamento.setValue(editTextValueIncome.getAmount());
 
         for (int x = 0; x < 12; x++) {
             lancamento.setDate(dateRefe.plusMonths(x));
             SQL.saveLaunch(lancamento);
-            lancamento.setPaid(false);
+            //lancamento.setPaid(false);
         }
 
         close();
@@ -221,9 +220,9 @@ public class ControllerReceitaScreen implements Initializable {
     private void saveReceitaParcelada() throws SQLException {
         lancamento.setValue(editTextValueIncome.getAmount());
         lancamento.setTitle(editTextTitleIncome.getText());
-        lancamento.setType(LaunchType.RECEITA);
+        //lancamento.setType(LaunchType.RECEITA);
         lancamento.setRecurrence(LauchRecurrence.MENSAL);
-        lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
+       // lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
         lancamento.setDate(dateRefe);
 
         double valuePrestacao = editTextValueIncome.getAmount() / parcelNumber;
@@ -232,15 +231,15 @@ public class ControllerReceitaScreen implements Initializable {
 
         int idLastLaunch = SQL.getIdLastLaunch();
 
-        Prestacao prestacao = new Prestacao();
-        prestacao.setPaidPrestacao(paid);
+        Installment installment = new Installment();
+        //prestacao.setPaidPrestacao(paid);
 
         for (int x = 0; x < parcelNumber; x++) {
-            prestacao.setDatePrestacao(dateRefe.plusMonths(x));
-            prestacao.setValuePrestacao(valuePrestacao);
-            prestacao.setIdLancamento(idLastLaunch);
-            SQL.saveParcel(prestacao);
-            prestacao.setPaidPrestacao(false);
+            installment.setDate(dateRefe.plusMonths(x));
+            installment.setValue(valuePrestacao);
+            installment.setIdLancamento(idLastLaunch);
+            SQL.saveParcel(installment);
+            //prestacao.setPaidPrestacao(false);
 
         }
         close();

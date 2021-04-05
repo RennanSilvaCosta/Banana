@@ -18,9 +18,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Launch;
-import model.Prestacao;
+import model.Installment;
 import model.enums.LauchRecurrence;
-import model.enums.LaunchType;
 import validator.LaunchValidator;
 
 import java.io.IOException;
@@ -128,27 +127,27 @@ public class ControllerDespesaScreen implements Initializable {
     private void saveExpense() throws SQLException {
         lancamento.setTitle(editTextTitleExpense.getText());
         lancamento.setValue(editTextValueExpense.getAmount());
-        lancamento.setPaid(paid);
+       // lancamento.setPaid(paid);
         lancamento.setDate(dateRefe);
-        lancamento.setType(LaunchType.DESPESA);
+       // lancamento.setType(LaunchType.DESPESA);
         lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
-        lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
+        //lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
         SQL.saveLaunch(lancamento);
         close();
     }
 
     private void saveExpenseFixed() throws SQLException {
         lancamento.setTitle(editTextTitleExpense.getText());
-        lancamento.setPaid(paid);
-        lancamento.setType(LaunchType.DESPESA);
+        //lancamento.setPaid(paid);
+        //lancamento.setType(LaunchType.DESPESA);
         lancamento.setRecurrence(LauchRecurrence.MENSAL);
-        lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
+       // lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
         lancamento.setValue(editTextValueExpense.getAmount());
 
         for (int x = 0; x < 12; x++) {
             lancamento.setDate(dateRefe.plusMonths(x));
             SQL.saveLaunch(lancamento);
-            lancamento.setPaid(false);
+            //lancamento.setPaid(false);
         }
         close();
     }
@@ -156,9 +155,9 @@ public class ControllerDespesaScreen implements Initializable {
     private void saveExpenseParcelada() throws SQLException {
         lancamento.setValue(editTextValueExpense.getAmount());
         lancamento.setTitle(editTextTitleExpense.getText());
-        lancamento.setType(LaunchType.DESPESA);
+       // lancamento.setType(LaunchType.DESPESA);
         lancamento.setRecurrence(LauchRecurrence.MENSAL);
-        lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
+        //lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
         lancamento.setDate(dateRefe);
 
         double valuePrestacao = editTextValueExpense.getAmount() / parcelNumber;
@@ -167,15 +166,15 @@ public class ControllerDespesaScreen implements Initializable {
 
         int idLastLaunch = SQL.getIdLastLaunch();
 
-        Prestacao prestacao = new Prestacao();
-        prestacao.setPaidPrestacao(paid);
+        Installment installment = new Installment();
+       // prestacao.setPaidPrestacao(paid);
 
         for (int x = 0; x < parcelNumber; x++) {
-            prestacao.setDatePrestacao(dateRefe.plusMonths(x));
-            prestacao.setValuePrestacao(valuePrestacao);
-            prestacao.setIdLancamento(idLastLaunch);
-            SQL.saveParcel(prestacao);
-            prestacao.setPaidPrestacao(false);
+            installment.setDate(dateRefe.plusMonths(x));
+            installment.setValue(valuePrestacao);
+            installment.setIdLancamento(idLastLaunch);
+            SQL.saveParcel(installment);
+           // prestacao.setPaidPrestacao(false);
         }
         close();
     }
