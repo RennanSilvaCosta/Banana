@@ -19,7 +19,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Launch;
 import model.Installment;
-import model.enums.LauchRecurrence;
 import validator.LaunchValidator;
 
 import java.io.IOException;
@@ -193,7 +192,7 @@ public class ControllerReceitaScreen implements Initializable {
         lancamento.setValue(editTextValueIncome.getAmount());
        // lancamento.setPaid(paid);
        // lancamento.setType(LaunchType.RECEITA);
-        lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
+        //lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         lancamento.setDate(dateRefe);
        // lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
         SQL.saveLaunch(lancamento);
@@ -204,7 +203,7 @@ public class ControllerReceitaScreen implements Initializable {
         lancamento.setTitle(editTextTitleIncome.getText());
         //lancamento.setPaid(paid);
        // lancamento.setType(LaunchType.RECEITA);
-        lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
+        //lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         //lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
         lancamento.setValue(editTextValueIncome.getAmount());
 
@@ -221,7 +220,7 @@ public class ControllerReceitaScreen implements Initializable {
         lancamento.setValue(editTextValueIncome.getAmount());
         lancamento.setTitle(editTextTitleIncome.getText());
         //lancamento.setType(LaunchType.RECEITA);
-        lancamento.setRecurrence(LauchRecurrence.MENSAL);
+       // lancamento.setRecurrence(LauchRecurrence.MENSAL);
        // lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
         lancamento.setDate(dateRefe);
 

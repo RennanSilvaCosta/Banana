@@ -1,7 +1,5 @@
 package model;
 
-import model.enums.LauchRecurrence;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,7 +11,7 @@ public class Launch implements Serializable {
     private int category;
     private Double value;
     private int type;
-    private LauchRecurrence recurrence;
+    private int recurrence;
     private LocalDate date;
     private boolean fixed;
     private int paid;
@@ -22,6 +20,21 @@ public class Launch implements Serializable {
     private User user;
 
     public Launch() {
+    }
+
+    public Launch(Integer id, String title, int category, Double value, int type, int recurrence, LocalDate date, boolean fixed, int paid, boolean parcel, List<Installment> prestacaoes, User user) {
+        this.id = id;
+        this.title = title;
+        this.category = category;
+        this.value = value;
+        this.type = type;
+        this.recurrence = recurrence;
+        this.date = date;
+        this.fixed = fixed;
+        this.paid = paid;
+        this.parcel = parcel;
+        this.prestacaoes = prestacaoes;
+        this.user = user;
     }
 
     public Integer getId() {
@@ -64,11 +77,11 @@ public class Launch implements Serializable {
         this.type = type;
     }
 
-    public LauchRecurrence getRecurrence() {
+    public int getRecurrence() {
         return recurrence;
     }
 
-    public void setRecurrence(LauchRecurrence recurrence) {
+    public void setRecurrence(int recurrence) {
         this.recurrence = recurrence;
     }
 

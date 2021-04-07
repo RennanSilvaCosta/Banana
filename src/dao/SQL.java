@@ -2,7 +2,6 @@ package dao;
 
 import model.Launch;
 import model.Installment;
-import model.enums.LauchRecurrence;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -15,14 +14,20 @@ public class SQL {
 
     public static void createTables() throws SQLException {
         Statement statement = DAOFactory.getConnection().createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS tb_launch (id_lancamento INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR, title VARCHAR," +
-                " category VARCHAR, date DATE, value DOUBLE, recurrence VARCHAR, fixed BOOLEAN, paid BOOLEAN, parcel BOOLEAN)");
-
-        statement.execute("CREATE TABLE IF NOT EXISTS tb_installment (id_prestacao INTEGER PRIMARY KEY AUTOINCREMENT, date_prestacao DATE, value_prestacao DOUBLE, paid_prestacao BOOLEAN, id_launch INTEGER, FOREIGN KEY (id_launch) REFERENCES tb_launch(id_lancamento))");
+        statement.execute("CREATE TABLE IF NOT EXISTS tb_recurrence (id_recorrencia INTEGER PRIMARY KEY AUTOINCREMENT, recorrencia VARCHAR)");
         statement.execute("CREATE TABLE IF NOT EXISTS tb_user (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, email VARCHAR, password VARCHAR)");
         statement.execute("CREATE TABLE IF NOT EXISTS tb_category (id_category INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR)");
         statement.execute("CREATE TABLE IF NOT EXISTS tb_launch_type (id INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR)");
         statement.execute("CREATE TABLE IF NOT EXISTS tb_payment_status (id INTEGER PRIMARY KEY AUTOINCREMENT, status VARCHAR)");
+
+        statement.execute("CREATE TABLE IF NOT EXISTS tb_installment (id_prestacao    INTEGER PRIMARY KEY AUTOINCREMENT, date_prestacao  DATE, " +
+                "value_prestacao DOUBLE, paid_prestacao  INTEGER REFERENCES tb_payment_status (id) NOT NULL," +
+                " id_launch INTEGER, FOREIGN KEY (id_launch) REFERENCES tb_launch (id_lancamento));");
+
+        statement.execute("CREATE TABLE IF NOT EXISTS tb_launch (id_lancamento INTEGER PRIMARY KEY AUTOINCREMENT, type INTEGER REFERENCES tb_launch_type (id) NOT NULL," +
+                " title VARCHAR, category INTEGER REFERENCES tb_category (id_category) NOT NULL, date DATE, value DOUBLE, " +
+                "recurrence INTEGER REFERENCES tb_recurrence (id_recorrencia) NOT NULL, fixed BOOLEAN, " +
+                "paid INTEGER REFERENCES tb_payment_status (id) NOT NULL, parcel BOOLEAN, id_user INTEGER REFERENCES tb_user (id) NOT NULL);");
         statement.close();
     }
 
@@ -33,7 +38,8 @@ public class SQL {
                 "('Educação'), ('Família e filhos'), ('Impostos e Taxas'), ('Assinaturas e serviços'), ('Lazer e hobbies'), ('Mercado'), ('Outros'), ('Pets')," +
                 "('Presentes ou doações'), ('Roupas'), ('Saúde'), ('Trabalho'), ('Transporte'), ('Viagem')");
         statement.execute("INSERT INTO tb_launch_type (type) VALUES ('receita'), ('despesa')");
-        statement.execute("INSERT INTO tb_payment_status (status) VALUES ('pago'), ('não pago')");
+        statement.execute("INSERT INTO tb_payment_status (status) VALUES ('pago'), ('não pago'), ('recebido'), ('não recebido')");
+        statement.execute("INSERT INTO tb_recurrence (recorrencia) VALUES ('SEM_RECORRENCIA'), ('MENSAL'), ('ANUAL')");
         statement.close();
     }
 
@@ -77,7 +83,7 @@ public class SQL {
             lancamento.setId(resultSet.getInt("id_lancamento"));
             lancamento.setTitle(resultSet.getString("title"));
             //lancamento.setType(LaunchType.valueOf(resultSet.getString("type")));
-            lancamento.setRecurrence(LauchRecurrence.valueOf(resultSet.getString("recurrence")));
+            //lancamento.setRecurrence(LauchRecurrence.valueOf(resultSet.getString("recurrence")));
            // lancamento.setCategory(resultSet.getString("category"));
             lancamento.setDate(convertStringToLocalDate(resultSet.getString("date")));
             lancamento.setValue(resultSet.getDouble("value"));

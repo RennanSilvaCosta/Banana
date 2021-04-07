@@ -18,7 +18,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         SQL.createTables();
-        SQL.popularTables();
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);

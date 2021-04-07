@@ -19,7 +19,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Launch;
 import model.Installment;
-import model.enums.LauchRecurrence;
 import validator.LaunchValidator;
 
 import java.io.IOException;
@@ -130,7 +129,7 @@ public class ControllerDespesaScreen implements Initializable {
        // lancamento.setPaid(paid);
         lancamento.setDate(dateRefe);
        // lancamento.setType(LaunchType.DESPESA);
-        lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
+        //lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         //lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
         SQL.saveLaunch(lancamento);
         close();
@@ -140,7 +139,7 @@ public class ControllerDespesaScreen implements Initializable {
         lancamento.setTitle(editTextTitleExpense.getText());
         //lancamento.setPaid(paid);
         //lancamento.setType(LaunchType.DESPESA);
-        lancamento.setRecurrence(LauchRecurrence.MENSAL);
+        //lancamento.setRecurrence(LauchRecurrence.MENSAL);
        // lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
         lancamento.setValue(editTextValueExpense.getAmount());
 
@@ -156,7 +155,7 @@ public class ControllerDespesaScreen implements Initializable {
         lancamento.setValue(editTextValueExpense.getAmount());
         lancamento.setTitle(editTextTitleExpense.getText());
        // lancamento.setType(LaunchType.DESPESA);
-        lancamento.setRecurrence(LauchRecurrence.MENSAL);
+        //lancamento.setRecurrence(LauchRecurrence.MENSAL);
         //lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
         lancamento.setDate(dateRefe);
 

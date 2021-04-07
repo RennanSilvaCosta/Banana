@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import model.enums.LauchRecurrence;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -66,11 +65,11 @@ public class ControllerDialogRepeatLaunch implements Initializable {
     }
 
     private void initializeComboBoxRecorrenciasParcel() {
-        comboBoxRecorrenciasParcel.getItems().add(String.valueOf(LauchRecurrence.ANUAL));
+        /*comboBoxRecorrenciasParcel.getItems().add(String.valueOf(LauchRecurrence.ANUAL));
         comboBoxRecorrenciasParcel.getItems().add(String.valueOf(LauchRecurrence.SEMESTRAL));
         comboBoxRecorrenciasParcel.getItems().add(String.valueOf(LauchRecurrence.TRIMESTRAL));
         comboBoxRecorrenciasParcel.getItems().add(String.valueOf(LauchRecurrence.BIMESTRAL));
-        comboBoxRecorrenciasParcel.getItems().add(String.valueOf(LauchRecurrence.MENSAL));
+        comboBoxRecorrenciasParcel.getItems().add(String.valueOf(LauchRecurrence.MENSAL));*/
     }
 
     private void initializeComboBoxNumberParcel() {
