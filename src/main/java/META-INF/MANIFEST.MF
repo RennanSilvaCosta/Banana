@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+application.Main-Class: application.FakeMain
+

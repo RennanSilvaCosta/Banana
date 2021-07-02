@@ -19,7 +19,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Launch;
 import model.Installment;
-import model.LaunchType;
 import util.Constantes;
 import validator.LaunchValidator;
 

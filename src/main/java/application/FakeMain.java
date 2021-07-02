@@ -1,7 +1,7 @@
-package main;
+package application;
 
 public class FakeMain {
     public static void main(String[] args) {
-        main.Main.main(args);
+        Main.main(args);
     }
 }

@@ -1,4 +1,4 @@
-package main;
+package application;
 
 import dao.SQL;
 import javafx.application.Application;
@@ -16,13 +16,13 @@ public class Main extends Application {
     private double yOffset = 0;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         SQL.createTables();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        primaryStage.getIcons().add(new Image("icons/icon_banana.png"));
+        primaryStage.getIcons().add(new Image("/icons/icon_banana.png"));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -40,7 +40,6 @@ public class Main extends Application {
         });
         scene.setOnMouseReleased(mouseEvent -> primaryStage.setOpacity(1));
     }
-
 
     public static void main(String[] args) {
         launch(args);
