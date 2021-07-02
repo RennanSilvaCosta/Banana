@@ -15,7 +15,7 @@ public class SQL {
     public static void createTables() throws SQLException {
         Statement statement = DAOFactory.getConnection().createStatement();
         statement.execute("CREATE TABLE IF NOT EXISTS tb_recurrence (id_recorrencia INTEGER PRIMARY KEY AUTOINCREMENT, recorrencia VARCHAR)");
-        statement.execute("CREATE TABLE IF NOT EXISTS tb_user (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, email VARCHAR, password VARCHAR)");
+        statement.execute("CREATE TABLE IF NOT EXISTS tb_user (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, email VARCHAR)");
         statement.execute("CREATE TABLE IF NOT EXISTS tb_category (id_category INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR)");
         statement.execute("CREATE TABLE IF NOT EXISTS tb_launch_type (id INTEGER PRIMARY KEY AUTOINCREMENT, type VARCHAR)");
         statement.execute("CREATE TABLE IF NOT EXISTS tb_payment_status (id INTEGER PRIMARY KEY AUTOINCREMENT, status VARCHAR)");
@@ -47,8 +47,8 @@ public class SQL {
         Statement statement = DAOFactory.getConnection().createStatement();
         java.sql.Date date32 = java.sql.Date.valueOf(lancamento.getDate());
 
-       /* statement.execute("INSERT INTO tb_launch (type, title, category, date, value, recurrence, fixed, paid, parcel) " +
-                "VALUES ('" + lancamento.getType() + "','" + lancamento.getTitle() + "', " + "'" + lancamento.getCategory() + "', " + " '" + date32 + "', " + "'" + lancamento.getValue() + "', '" + lancamento.getRecurrence() + "', " + lancamento.isFixed() + " , " + lancamento.isPaid() + ", " + lancamento.isParcel() + ");");*/
+        statement.execute("INSERT INTO tb_launch (type, title, category, date, value, recurrence, fixed, paid, parcel) " +
+                "VALUES ('" + lancamento.getType() + "','" + lancamento.getTitle() + "', " + "'" + lancamento.getCategory() + "', " + " '" + date32 + "', " + "'" + lancamento.getValue() + "', '" + lancamento.getRecurrence() + "', " + lancamento.isFixed() + " , " + lancamento.getPaid() + ", " + lancamento.isParcel() + ");");
         statement.close();
     }
 
@@ -99,7 +99,6 @@ public class SQL {
     }
 
     public static int getIdLastLaunch() throws SQLException {
-
         Connection connection = DAOFactory.getConnection();
         PreparedStatement statement;
         ResultSet resultSet;

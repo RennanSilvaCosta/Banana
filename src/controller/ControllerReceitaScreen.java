@@ -19,6 +19,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Launch;
 import model.Installment;
+import model.LaunchType;
+import util.Constantes;
 import validator.LaunchValidator;
 
 import java.io.IOException;
@@ -67,7 +69,6 @@ public class ControllerReceitaScreen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         initializeComboBoxCategory();
 
         btnSaveReceita.setGraphic(new ImageView(new Image("/icons/icon_save_launch_32px.png")));
@@ -171,9 +172,9 @@ public class ControllerReceitaScreen implements Initializable {
     private void updateReceita() throws SQLException {
         lancamento.setTitle(editTextTitleIncome.getText());
         lancamento.setValue(editTextValueIncome.getAmount());
-       // lancamento.setPaid(paid);
+        // lancamento.setPaid(paid);
         lancamento.setDate(dateRefe);
-       // lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
+        // lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
 
         if (lancamento.isFixed()) {
             for (int x = 0; x < 12; x++) {
@@ -190,11 +191,11 @@ public class ControllerReceitaScreen implements Initializable {
     private void saveReceita() throws SQLException {
         lancamento.setTitle(editTextTitleIncome.getText());
         lancamento.setValue(editTextValueIncome.getAmount());
-       // lancamento.setPaid(paid);
-       // lancamento.setType(LaunchType.RECEITA);
-        //lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
+        lancamento.setType(Constantes.TIPO_LANCAMENTO_RECEITA);
+        lancamento.setRecurrence(Constantes.RECORRENCIA_LANCAMENTO_SEM_RECORRENCIA);
         lancamento.setDate(dateRefe);
-       // lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
+        setCategory();
+        setPaid();
         SQL.saveLaunch(lancamento);
         close();
     }
@@ -202,7 +203,7 @@ public class ControllerReceitaScreen implements Initializable {
     private void saveReceitaFixed() throws SQLException {
         lancamento.setTitle(editTextTitleIncome.getText());
         //lancamento.setPaid(paid);
-       // lancamento.setType(LaunchType.RECEITA);
+        // lancamento.setType(LaunchType.RECEITA);
         //lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
         //lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
         lancamento.setValue(editTextValueIncome.getAmount());
@@ -212,16 +213,15 @@ public class ControllerReceitaScreen implements Initializable {
             SQL.saveLaunch(lancamento);
             //lancamento.setPaid(false);
         }
-
         close();
     }
 
     private void saveReceitaParcelada() throws SQLException {
         lancamento.setValue(editTextValueIncome.getAmount());
         lancamento.setTitle(editTextTitleIncome.getText());
-        //lancamento.setType(LaunchType.RECEITA);
-       // lancamento.setRecurrence(LauchRecurrence.MENSAL);
-       // lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
+        lancamento.setType(Constantes.TIPO_LANCAMENTO_RECEITA);
+        lancamento.setRecurrence(Constantes.RECORRENCIA_LANCAMENTO_SEM_RECORRENCIA);
+        setCategory();
         lancamento.setDate(dateRefe);
 
         double valuePrestacao = editTextValueIncome.getAmount() / parcelNumber;
@@ -326,6 +326,27 @@ public class ControllerReceitaScreen implements Initializable {
                 new Shake(imgCategory).play();
                 new Shake(cbCategoryIncome).play();
             }
+        }
+    }
+
+    private void setCategory() {
+        String category = cbCategoryIncome.getSelectionModel().getSelectedItem().getText();
+        if (category.equals("Salario")) {
+            lancamento.setCategory(1);
+        } else if (category.equals("Investimentos")) {
+            lancamento.setCategory(2);
+        } else if (category.equals("Emprestimos")) {
+            lancamento.setCategory(3);
+        } else if (category.equals("Outras receitas")) {
+            lancamento.setCategory(4);
+        }
+    }
+
+    private void setPaid() {
+        if (paid) {
+            lancamento.setPaid(Constantes.STATUS_PAGAMENTO_RECEBIDO);
+        } else {
+            lancamento.setPaid(Constantes.STATUS_PAGAMENTO_NAO_RECEBIDO);
         }
     }
 

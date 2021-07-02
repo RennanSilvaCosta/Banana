@@ -7,16 +7,14 @@ public class User implements Serializable {
     private Integer idUsuario;
     private String name;
     private String email;
-    private String password;
 
     public User() {
     }
 
-    public User(Integer idUsuario, String name, String email, String password) {
+    public User(Integer idUsuario, String name, String email) {
         this.idUsuario = idUsuario;
         this.name = name;
         this.email = email;
-        this.password = password;
     }
 
     public Integer getIdUsuario() {
@@ -43,11 +41,4 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
