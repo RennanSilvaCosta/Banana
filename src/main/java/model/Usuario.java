@@ -1,9 +1,6 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Usuario {
@@ -12,12 +9,16 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(length = 100, nullable = false)
     private String nome;
 
+    @Column(length = 100, nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String senha;
 
+    @Column(nullable = false)
     private Double saldo;
 
 }
