@@ -10,6 +10,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class Main extends Application {
 
     private double xOffset = 0;
@@ -17,8 +21,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        SQL.createTables();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+        //SQL.createTables();
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("banana");
+        EntityManager em = emf.createEntityManager();
+
+        em.close();
+        emf.close();
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
