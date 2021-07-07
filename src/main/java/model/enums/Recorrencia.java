@@ -4,7 +4,8 @@ public enum Recorrencia {
 
     MENSAL("Mensal"),
     ANUAL("Anual"),
-    FIXA("Fixa");
+    FIXA("Fixa"),
+    SEM_RECORRENCIA("Sem recorrencia");
 
     private String descricao;
 
