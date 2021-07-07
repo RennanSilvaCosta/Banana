@@ -21,7 +21,7 @@
             </CurrencyField>
             <Pane layoutY="120.0" prefHeight="520.0" prefWidth="450.0" style="-fx-background-color: white; -fx-background-radius: 30 30 20 20;">
                 <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../icons/receita/icon_check.png" />
+                    <Image url="" />
                 </ImageView>
                 <Label fx:id="lbStatusPay" layoutX="92.0" layoutY="30.0" prefHeight="22.0" prefWidth="250.0" text="Não recebido">
                     <font>
@@ -31,7 +31,7 @@
                 <JFXCheckBox fx:id="checkBoxIncomePaid" layoutX="370.0" layoutY="32.0" mnemonicParsing="false" onAction="#statusPay" prefHeight="18.0" prefWidth="17.0" text=" " />
                 <Separator layoutX="25.0" layoutY="70.0" prefWidth="400.0" />
                 <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../icons/receita/icon_calendar_32px.png" />
+                    <Image url="" />
                 </ImageView>
                 <Label fx:id="lbDateThisMonth" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" layoutY="96.0" prefHeight="30.0" prefWidth="103.0" style="-fx-background-radius: 20 20 20 20; -fx-background-color: #D9D9D9;" text="Este mês">
                     <font>
@@ -46,7 +46,7 @@
                 <DatePicker fx:id="dateIncome" layoutX="310.0" layoutY="96.0" prefHeight="30.0" prefWidth="90.0" />
                 <Separator layoutX="25.0" layoutY="140.0" prefWidth="400.0" />
                 <ImageView fx:id="imgDescription" fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../icons/receita/icon_description_32px.png" />
+                    <Image url="" />
                 </ImageView>
                 <JFXTextField fx:id="editTextTitleIncome" focusColor="#0f9d58" layoutX="92.0" layoutY="166.0" prefHeight="25.0" prefWidth="307.0" promptText="Descrição" unFocusColor="WHITE">
                     <font>
@@ -55,12 +55,12 @@
                 </JFXTextField>
                 <Separator layoutX="25.0" layoutY="210.0" prefWidth="400.0" />
                 <ImageView fx:id="imgCategory" fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../icons/receita/icon_categorias_32px.png" />
+                    <Image url="" />
                 </ImageView>
                 <JFXComboBox fx:id="cbCategoryIncome" focusColor="#0f9d58" layoutX="92.0" layoutY="235.0" prefHeight="25.0" prefWidth="307.0" promptText="Categoria" />
                 <Separator layoutX="25.0" layoutY="280.0" prefWidth="400.0" />
                 <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../icons/receita/icon_fixa_32px.png" />
+                    <Image url="" />
                 </ImageView>
                 <Label fx:id="lbStatusFixedIncome" layoutX="92.0" layoutY="310.0" prefHeight="22.0" prefWidth="222.0" text="Receita fixa">
                     <font>
@@ -70,7 +70,7 @@
                 <JFXCheckBox fx:id="checkBoxIncomeFixed" layoutX="370.0" layoutY="312.0" mnemonicParsing="false" onAction="#statusFixed" prefHeight="18.0" prefWidth="17.0" text=" " />
                 <Separator layoutX="25.0" layoutY="350.0" prefWidth="400.0" />
                 <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../icons/receita/icon_repeat_32px.png" />
+                    <Image url="" />
                 </ImageView>
                 <Label fx:id="lbRepeatStatusIncome" layoutX="92.0" layoutY="380.0" prefHeight="22.0" prefWidth="222.0" text="Repetir">
                     <font>
@@ -92,7 +92,7 @@
                 </font>
             </Label>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="392.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../icons/icon_more_options_32px.png" />
+                <Image url="" />
             <viewport>
                <Rectangle2D />
             </viewport>

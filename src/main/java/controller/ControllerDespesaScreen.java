@@ -4,26 +4,20 @@ import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
-import dao.SQL;
 import exception.StandardError;
 import helper.CurrencyField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.Launch;
-import model.Installment;
 import validator.LaunchValidator;
 
-import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -56,9 +50,7 @@ public class ControllerDespesaScreen implements Initializable {
     @FXML
     ComboBox<Label> cbCategoryExpense = new ComboBox<>();
 
-    Launch lancamento = new Launch();
     LaunchValidator validator = new LaunchValidator();
-
     LocalDate dateRefe = LocalDate.now();
 
     int parcelNumber = 0;
@@ -67,7 +59,7 @@ public class ControllerDespesaScreen implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        initializeComboboxCategorias();
+        //initializeComboboxCategorias();
 
         btnSaveExpense.setGraphic(new ImageView(new Image("/icons/icon_save_launch_32px.png")));
         btnSaveExpense.setGraphicTextGap(-5);
@@ -123,109 +115,22 @@ public class ControllerDespesaScreen implements Initializable {
         validateAndSaveLaunch();
     }
 
-    private void saveExpense() throws SQLException {
-        lancamento.setTitle(editTextTitleExpense.getText());
-        lancamento.setValue(editTextValueExpense.getAmount());
-       // lancamento.setPaid(paid);
-        lancamento.setDate(dateRefe);
-       // lancamento.setType(LaunchType.DESPESA);
-        //lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
-        //lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
-        SQL.saveLaunch(lancamento);
-        close();
-    }
-
-    private void saveExpenseFixed() throws SQLException {
-        lancamento.setTitle(editTextTitleExpense.getText());
-        //lancamento.setPaid(paid);
-        //lancamento.setType(LaunchType.DESPESA);
-        //lancamento.setRecurrence(LauchRecurrence.MENSAL);
-       // lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
-        lancamento.setValue(editTextValueExpense.getAmount());
-
-        for (int x = 0; x < 12; x++) {
-            lancamento.setDate(dateRefe.plusMonths(x));
-            SQL.saveLaunch(lancamento);
-            //lancamento.setPaid(false);
-        }
-        close();
-    }
-
-    private void saveExpenseParcelada() throws SQLException {
-        lancamento.setValue(editTextValueExpense.getAmount());
-        lancamento.setTitle(editTextTitleExpense.getText());
-       // lancamento.setType(LaunchType.DESPESA);
-        //lancamento.setRecurrence(LauchRecurrence.MENSAL);
-        //lancamento.setCategory(cbCategoryExpense.getSelectionModel().getSelectedItem().getText());
-        lancamento.setDate(dateRefe);
-
-        double valuePrestacao = editTextValueExpense.getAmount() / parcelNumber;
-
-        SQL.saveLaunch(lancamento);
-
-        int idLastLaunch = SQL.getIdLastLaunch();
-
-        Installment installment = new Installment();
-       // prestacao.setPaidPrestacao(paid);
-
-        for (int x = 0; x < parcelNumber; x++) {
-            installment.setDate(dateRefe.plusMonths(x));
-            installment.setValue(valuePrestacao);
-            installment.setIdLancamento(idLastLaunch);
-            SQL.saveParcel(installment);
-           // prestacao.setPaidPrestacao(false);
-        }
-        close();
-    }
-
     @FXML
     public void statusPay() {
-        if (checkBoxExpensePaid.isSelected()) {
-            lbStatusPay.setText("Pago");
-            paid = true;
-        } else {
-            lbStatusPay.setText("Não pago");
-            paid = false;
-        }
+
     }
 
     @FXML
     public void statusFixed() {
-        lancamento.setFixed(checkBoxExpenseFixed.isSelected());
-        checkBoxExpenseRepeat.setSelected(false);
+
     }
 
     @FXML
     public void isRepeat() {
-        if (checkBoxExpenseRepeat.isSelected()) {
-            checkBoxExpenseFixed.setSelected(false);
-            lancamento.setFixed(false);
-            lancamento.setParcel(true);
-            repeatLaunch();
-        } else {
-            lbRepeatStatusExpense.setText("Repetir");
-        }
+
     }
 
     private void repeatLaunch() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/view/DialogRepeatLaunch.fxml"));
-            DialogPane dialogPane = fxmlLoader.load();
-
-            ControllerDialogRepeatLaunch controller = fxmlLoader.getController();
-            controller.getInfoValue(editTextValueExpense.getAmount());
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Repetir lançamento");
-            dialog.showAndWait();
-
-            parcelNumber = controller.setLaunch();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void initializeComboboxCategorias() {
@@ -262,27 +167,6 @@ public class ControllerDespesaScreen implements Initializable {
     }
 
     private void validateAndSaveLaunch() {
-        Double value = editTextValueExpense.getAmount();
-        String description = editTextTitleExpense.getText();
-        Label category = cbCategoryExpense.getSelectionModel().getSelectedItem();
-
-        List<StandardError> errors = validator.launchIsValid(value, description, category);
-
-        if (!errors.isEmpty()) {
-            setErrorMessage(errors);
-        } else {
-            try {
-                if (lancamento.isFixed()) {
-                    saveExpenseFixed();
-                } else if (lancamento.isParcel()) {
-                    saveExpenseParcelada();
-                } else {
-                    saveExpense();
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
     }
 
     private void setErrorMessage(List<StandardError> errors) {

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="577.0" prefWidth="812.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controller.ControllerLoginScreen" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="577.0" prefWidth="812.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerLoginScreen">
    <Pane layoutX="357.0" layoutY="81.0" prefHeight="403.0" prefWidth="366.0" style="-fx-background-color: white;">
       <children>
          <Label layoutX="96.0" layoutY="45.0" text="Bem-vindo de volta" textFill="#575757">
@@ -28,7 +28,7 @@
                <Font size="14.0" />
             </font></JFXButton>
          <Label layoutX="136.0" layoutY="315.0" text="Usuario novo? Cadastre-se" textFill="#a3a3a3" />
-         <JFXButton fx:id="btnClose" onAction="#exitSystem" layoutX="307.0" layoutY="2.0" mnemonicParsing="false" text="Button" />
+         <JFXButton fx:id="btnClose" layoutX="340.0" layoutY="2.0" mnemonicParsing="false" onAction="#exitSystem" text="X" />
       </children></Pane>
     <Pane layoutX="80.0" layoutY="81.0" prefHeight="403.0" prefWidth="277.0" style="-fx-background-color: #FFCA28;">
         <children>

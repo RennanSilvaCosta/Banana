@@ -21,7 +21,7 @@
             </font>
          </Label>
          <ImageView fx:id="imgRetrocedeMes" fitHeight="32.0" fitWidth="32.0" layoutX="103.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" x="64.0">
-            <Image url="@../icons/icon_seta_esquerda.png" />
+            <Image url="" />
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>
@@ -32,7 +32,7 @@
             </font>
          </Label>
          <ImageView fx:id="imgAvancaMes" fitHeight="32.0" fitWidth="32.0" layoutX="431.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" x="64.0">
-            <Image url="@../icons/icon_seta_direita.png" />
+            <Image url="" />
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>

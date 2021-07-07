@@ -1,12 +1,10 @@
 package controller;
 
-import adapter.AdapterListLancamentos;
 import animatefx.animation.FadeIn;
 import animatefx.animation.SlideInDown;
 import animatefx.animation.SlideInLeft;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-import dao.SQL;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,20 +14,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import model.Launch;
+import model.Lancamento;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import static dao.SQL.getLaunchParcelsByMonth;
 import static util.Helper.formatDecimal;
 
 public class ControllerMainScreen implements Initializable {
@@ -41,9 +34,7 @@ public class ControllerMainScreen implements Initializable {
     Label txtTotalReceita, txtTotalDespesa, txtTotalSaldo, txtDate;
 
     @FXML
-    JFXListView<Launch> listViewLancamentos = new JFXListView<>();
-
-    List<Launch> lancamentos = new ArrayList<>();
+    JFXListView<Lancamento> listViewLancamentos = new JFXListView<>();
 
     @FXML
     ImageView imgAvancaMes, imgRetrocedeMes;
@@ -56,9 +47,9 @@ public class ControllerMainScreen implements Initializable {
         initializeListLancamentos();
         setInfoValues();
 
-        btnAddReceita.setGraphic(new ImageView(new Image("/icons/icon_seta_cima.png")));
+        //btnAddReceita.setGraphic(new ImageView(new Image("/icons/icon_seta_cima.png")));
         btnAddReceita.setGraphicTextGap(-5);
-        btnAddDespesa.setGraphic(new ImageView(new Image("/icons/icon_seta_baixo.png")));
+       // btnAddDespesa.setGraphic(new ImageView(new Image("/icons/icon_seta_baixo.png")));
         btnAddDespesa.setGraphicTextGap(-5);
 
         btnAddReceita.setOnAction(new EventHandler<ActionEvent>() {
@@ -99,8 +90,6 @@ public class ControllerMainScreen implements Initializable {
     }
 
     public void clickItemList() {
-        Launch lancamento = listViewLancamentos.getSelectionModel().getSelectedItem();
-
         /*try {
             FXMLLoader fxmlLoader = new FXMLLoader();
 
@@ -148,14 +137,7 @@ public class ControllerMainScreen implements Initializable {
         new SlideInDown(txtTotalSaldo).setSpeed(1).play();
         double totalReceita = 0;
         double totalDespesa = 0;
-        for (Launch lanc : lancamentos) {
-            /*if (lanc.getType().equals(LaunchType.RECEITA)) {
-                totalReceita += lanc.getValue();
-            }
-            if (lanc.getType().equals(LaunchType.DESPESA)) {
-                totalDespesa += lanc.getValue();
-            }*/
-        }
+
         double totalSaldo = totalReceita - totalDespesa;
         txtTotalReceita.setText(formatDecimal(totalReceita).trim());
         txtTotalDespesa.setText(formatDecimal(totalDespesa).trim());
@@ -163,26 +145,6 @@ public class ControllerMainScreen implements Initializable {
     }
 
     public void initializeListLancamentos() {
-        try {
-            lancamentos.clear();
-            listViewLancamentos.getItems().clear();
-            lancamentos = SQL.getLaunchByMonth(dateSelected);
-
-            for (Launch lanc : lancamentos) {
-                if (lanc.isParcel()) {
-                    lanc = getLaunchParcelsByMonth(lanc, dateSelected);
-                    listViewLancamentos.getItems().add(lanc);
-                    listViewLancamentos.setCellFactory(lancamento -> new AdapterListLancamentos());
-                } else {
-                    listViewLancamentos.getItems().add(lanc);
-                    listViewLancamentos.setCellFactory(lancamento -> new AdapterListLancamentos());
-                }
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        new FadeIn(listViewLancamentos).setSpeed(2).play();
     }
 
     private void goBackDate() {

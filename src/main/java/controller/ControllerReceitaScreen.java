@@ -4,7 +4,6 @@ import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
-import dao.SQL;
 import exception.StandardError;
 import helper.CurrencyField;
 import javafx.event.ActionEvent;
@@ -17,8 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.Launch;
-import model.Installment;
 import util.Constantes;
 import validator.LaunchValidator;
 
@@ -57,7 +54,6 @@ public class ControllerReceitaScreen implements Initializable {
     @FXML
     ComboBox<Label> cbCategoryIncome = new ComboBox<>();
 
-    Launch lancamento = new Launch();
     LaunchValidator validator = new LaunchValidator();
 
     LocalDate dateRefe = LocalDate.now();
@@ -68,7 +64,7 @@ public class ControllerReceitaScreen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeComboBoxCategory();
+        //initializeComboBoxCategory();
 
         btnSaveReceita.setGraphic(new ImageView(new Image("/icons/icon_save_launch_32px.png")));
         btnSaveReceita.setGraphicTextGap(-5);
@@ -141,106 +137,22 @@ public class ControllerReceitaScreen implements Initializable {
     }
 
     private void validateAndSaveLaunch() {
-        Double value = editTextValueIncome.getAmount();
-        String description = editTextTitleIncome.getText();
-        Label category = cbCategoryIncome.getSelectionModel().getSelectedItem();
-        List<StandardError> errors = validator.launchIsValid(value, description, category);
-
-        if (!errors.isEmpty()) {
-            setErrorMessage(errors);
-        } else {
-
-            try {
-                if (lancamento.getId() != null) {
-                    updateReceita();
-                } else {
-                    if (lancamento.isFixed()) {
-                        saveReceitaFixed();
-                    } else if (lancamento.isParcel()) {
-                        saveReceitaParcelada();
-                    } else {
-                        saveReceita();
-                    }
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
     }
 
     private void updateReceita() throws SQLException {
-        lancamento.setTitle(editTextTitleIncome.getText());
-        lancamento.setValue(editTextValueIncome.getAmount());
-        // lancamento.setPaid(paid);
-        lancamento.setDate(dateRefe);
-        // lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
-
-        if (lancamento.isFixed()) {
-            for (int x = 0; x < 12; x++) {
-                lancamento.setDate(dateRefe.plusMonths(x));
-                SQL.saveLaunch(lancamento);
-                //lancamento.setPaid(false);
-            }
-        }
-
-        SQL.updateLaunch(lancamento);
-        close();
     }
 
     private void saveReceita() throws SQLException {
-        lancamento.setTitle(editTextTitleIncome.getText());
-        lancamento.setValue(editTextValueIncome.getAmount());
-        lancamento.setType(Constantes.TIPO_LANCAMENTO_RECEITA);
-        lancamento.setRecurrence(Constantes.RECORRENCIA_LANCAMENTO_SEM_RECORRENCIA);
-        lancamento.setDate(dateRefe);
         setCategory();
         setPaid();
-        SQL.saveLaunch(lancamento);
         close();
     }
 
     private void saveReceitaFixed() throws SQLException {
-        lancamento.setTitle(editTextTitleIncome.getText());
-        //lancamento.setPaid(paid);
-        // lancamento.setType(LaunchType.RECEITA);
-        //lancamento.setRecurrence(LauchRecurrence.SEM_RECORRENCIA);
-        //lancamento.setCategory(cbCategoryIncome.getSelectionModel().getSelectedItem().getText());
-        lancamento.setValue(editTextValueIncome.getAmount());
 
-        for (int x = 0; x < 12; x++) {
-            lancamento.setDate(dateRefe.plusMonths(x));
-            SQL.saveLaunch(lancamento);
-            //lancamento.setPaid(false);
-        }
-        close();
     }
 
     private void saveReceitaParcelada() throws SQLException {
-        lancamento.setValue(editTextValueIncome.getAmount());
-        lancamento.setTitle(editTextTitleIncome.getText());
-        lancamento.setType(Constantes.TIPO_LANCAMENTO_RECEITA);
-        lancamento.setRecurrence(Constantes.RECORRENCIA_LANCAMENTO_SEM_RECORRENCIA);
-        setCategory();
-        lancamento.setDate(dateRefe);
-
-        double valuePrestacao = editTextValueIncome.getAmount() / parcelNumber;
-
-        SQL.saveLaunch(lancamento);
-
-        int idLastLaunch = SQL.getIdLastLaunch();
-
-        Installment installment = new Installment();
-        //prestacao.setPaidPrestacao(paid);
-
-        for (int x = 0; x < parcelNumber; x++) {
-            installment.setDate(dateRefe.plusMonths(x));
-            installment.setValue(valuePrestacao);
-            installment.setIdLancamento(idLastLaunch);
-            SQL.saveParcel(installment);
-            //prestacao.setPaidPrestacao(false);
-
-        }
-        close();
     }
 
     private void initializeComboBoxCategory() {
@@ -261,31 +173,15 @@ public class ControllerReceitaScreen implements Initializable {
 
     @FXML
     public void statusPay() {
-        if (checkBoxIncomePaid.isSelected()) {
-            lbStatusPay.setText("Recebido");
-            paid = true;
-        } else {
-            lbStatusPay.setText("Não recebido");
-            paid = false;
-        }
     }
 
     @FXML
     public void statusFixed() {
-        lancamento.setFixed(checkBoxIncomeFixed.isSelected());
-        checkBoxIncomeRepeat.setSelected(false);
     }
 
     @FXML
     public void isRepeat() {
-        if (checkBoxIncomeRepeat.isSelected()) {
-            checkBoxIncomeFixed.setSelected(false);
-            lancamento.setFixed(false);
-            lancamento.setParcel(true);
-            repeatLaunch();
-        } else {
-            lbRepeatStatusIncome.setText("Repetir");
-        }
+
     }
 
     private void repeatLaunch() {
@@ -329,24 +225,9 @@ public class ControllerReceitaScreen implements Initializable {
     }
 
     private void setCategory() {
-        String category = cbCategoryIncome.getSelectionModel().getSelectedItem().getText();
-        if (category.equals("Salario")) {
-            lancamento.setCategory(1);
-        } else if (category.equals("Investimentos")) {
-            lancamento.setCategory(2);
-        } else if (category.equals("Emprestimos")) {
-            lancamento.setCategory(3);
-        } else if (category.equals("Outras receitas")) {
-            lancamento.setCategory(4);
-        }
     }
 
     private void setPaid() {
-        if (paid) {
-            lancamento.setPaid(Constantes.STATUS_PAGAMENTO_RECEBIDO);
-        } else {
-            lancamento.setPaid(Constantes.STATUS_PAGAMENTO_NAO_RECEBIDO);
-        }
     }
 
     public void close() {

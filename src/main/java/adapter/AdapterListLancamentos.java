@@ -4,17 +4,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import model.Launch;
-import model.Installment;
+import model.Lancamento;
 
 import java.io.IOException;
 
-import static util.Helper.formatDecimal;
-
-public class AdapterListLancamentos extends ListCell<Launch> {
+public class AdapterListLancamentos extends ListCell<Lancamento> {
 
     private FXMLLoader mLLoader;
 
@@ -28,7 +24,7 @@ public class AdapterListLancamentos extends ListCell<Launch> {
     ImageView imgCategory, img1, img2, imgParcel;
 
     @Override
-    protected void updateItem(Launch lancamento, boolean empty) {
+    protected void updateItem(Lancamento lancamento, boolean empty) {
         super.updateItem(lancamento, empty);
 
         if (empty || lancamento == null) {
@@ -53,7 +49,7 @@ public class AdapterListLancamentos extends ListCell<Launch> {
             isParcel(lancamento);
             isPaid(lancamento);
 
-            txtTitle.setText(lancamento.getTitle());
+
             //txtCategory.setText(lancamento.getCategory());
 
             setText(null);
@@ -152,39 +148,15 @@ public class AdapterListLancamentos extends ListCell<Launch> {
         }
     }*/
 
-    private void isFixed(Launch lancamento) {
-        /*if (lancamento.isFixed() && lancamento.getType().equals(LaunchType.RECEITA)) {
-            img1.setVisible(true);
-            img1.setImage(new Image("/icons/receita/icon_fixed_receita.png"));
-        } else if (lancamento.isFixed() && lancamento.getType().equals(LaunchType.DESPESA)) {
-            img1.setVisible(true);
-            img1.setImage(new Image("/icons/despesa/icon_fixed_despesa.png"));
-        } else {
-            img1.setVisible(false);
-        }
-        txtValue.setText(formatDecimal(lancamento.getValue()).trim());*/
+    private void isFixed(Lancamento lancamento) {
     }
 
-    private void isParcel(Launch lancamento) {
-        if (lancamento.isParcel()) {
-            imgParcel.setImage(new Image("/icons/icon_credit_card.png"));
-            Installment installment = lancamento.getPrestacaoes().get(0);
-            txtTitle.setText(lancamento.getTitle());
-            //txtCategory.setText(lancamento.getCategory());
-            txtValue.setText(formatDecimal(installment.getValue()).trim());
-        } else {
-            txtValue.setText(formatDecimal(lancamento.getValue()).trim());
-            imgParcel.setVisible(false);
-        }
+    private void isParcel(Lancamento lancamento) {
+
     }
 
-    private void isPaid(Launch lancamento) {
-        /*if (lancamento.isPaid() && lancamento.isFixed()) {
-            img2.setVisible(true);
-            img2.setImage(new Image("/icons/icon_paid_status.png"));
-        } else {
-            img2.setVisible(false);
-        }*/
+    private void isPaid(Lancamento lancamento) {
+
     }
 
 }
