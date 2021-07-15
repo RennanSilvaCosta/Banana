@@ -8,10 +8,10 @@ import java.util.List;
 
 public class LaunchValidator {
 
-    List<StandardError> errorsList = new ArrayList<>();
+    List<StandardError> errorsList;
 
     public List<StandardError> launchIsValid(Double value, String description, Label category) {
-        errorsList.clear();
+        errorsList = new ArrayList<>();
         launchValueIsValid(value);
         launchDescriptionIsValid(description);
         launchCategoryIsValid(category);

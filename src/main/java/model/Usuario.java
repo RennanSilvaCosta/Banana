@@ -17,9 +17,6 @@ public class Usuario {
     private String email;
 
     @Column(nullable = false)
-    private String senha;
-
-    @Column(nullable = false)
     private Double saldo;
 
     @OneToMany(mappedBy = "user")
@@ -28,11 +25,10 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(long id, String nome, String email, String senha, Double saldo, List<Lancamento> lancamentos) {
+    public Usuario(long id, String nome, String email, Double saldo, List<Lancamento> lancamentos) {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.senha = senha;
         this.saldo = saldo;
         this.lancamentos = lancamentos;
     }
@@ -59,14 +55,6 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public Double getSaldo() {
