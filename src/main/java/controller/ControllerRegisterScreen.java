@@ -35,6 +35,7 @@ public class ControllerRegisterScreen implements Initializable {
             @Override
             public void handle(ActionEvent actionEvent) {
                 createNewUser();
+                closeWindow();
             }
         });
     }
